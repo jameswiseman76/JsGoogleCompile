@@ -19,11 +19,17 @@ namespace JsGoogleCompile
 
                 Compiler compiler = new Compiler();
 
-                var fileName = "..\\..\\sample.js";
+                var fileName = string.Empty;
                 if (args.Length > 0)
                 {
                     fileName = args[0];
                 }
+                else
+                {
+                    Console.WriteLine("Usage: JsGoogleCompile.exe [FileName]");
+                    return;
+                }
+
                 var responseFromServer = compiler.CompileJsFile(fileName);
 
                 JavaScriptSerializer jss = new JavaScriptSerializer();
