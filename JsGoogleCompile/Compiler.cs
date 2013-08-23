@@ -24,6 +24,7 @@ namespace JsGoogleCompile
 
         public string CompileJsString(string javaScript)
         {
+            
             var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
             request.Method = "POST";
 
@@ -41,28 +42,28 @@ namespace JsGoogleCompile
 
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = byteArray.Length;
-            // Get the request stream.
-            Stream dataStream = request.GetRequestStream();
-            // Write the data to the request stream.
-            dataStream.Write(byteArray, 0, byteArray.Length);
-            // Close the Stream object.
-            dataStream.Close();
-            // Get the response.
-            WebResponse response = request.GetResponse();
-            // Display the status.
-            //Console.WriteLine(((HttpWebResponse)response).StatusDescription);
-            // Get the stream containing content returned by the server.
-            dataStream = response.GetResponseStream();
-            // Open the stream using a StreamReader for easy access.
-            StreamReader reader = new StreamReader(dataStream);
-            // Read the content.
-            string responseFromServer = reader.ReadToEnd();
-            // Display the content.
-            //Console.WriteLine(responseFromServer);
-            // Clean up the streams.
-            reader.Close();
-            dataStream.Close();
-            response.Close();
+            string responseFromServer = string.Empty;
+
+            using (Stream dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                dataStream.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+                using (Stream dataStream = response.GetResponseStream())
+                {
+                    using (StreamReader reader = new StreamReader(dataStream))
+                    {
+                        responseFromServer = reader.ReadToEnd();
+
+                        reader.Close();
+                        dataStream.Close();
+                        response.Close();
+                    }
+                }
+            }
 
             return responseFromServer;
         }
