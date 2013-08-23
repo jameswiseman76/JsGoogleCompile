@@ -54,6 +54,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="About\CodeOutput.png" />
+    <Content Include="About\ExternalTools.png" />
+    <Content Include="About\ToolsMenu.png" />
     <Content Include="sample.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
