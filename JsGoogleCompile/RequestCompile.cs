@@ -27,11 +27,11 @@ namespace JsGoogleCompile
                 else
                 {
                     //for testing 
-                    fileName = @"..\..\sample.js";
+                    //fileName = @"..\..\sample.js";
                     
                     //for release
-                    // Console.WriteLine("Usage: JsGoogleCompile.exe [FileName]");
-                    // return;
+                    Console.WriteLine("Usage: JsGoogleCompile.exe [FileName]");
+                    return;
                 }
 
 
