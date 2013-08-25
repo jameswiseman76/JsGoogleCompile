@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using JsGoogleCompile.JSON;
 
@@ -26,9 +26,14 @@ namespace JsGoogleCompile
                 }
                 else
                 {
-                    Console.WriteLine("Usage: JsGoogleCompile.exe [FileName]");
-                    return;
+                    //for testing 
+                    fileName = @"..\..\sample.js";
+                    
+                    //for release
+                    // Console.WriteLine("Usage: JsGoogleCompile.exe [FileName]");
+                    // return;
                 }
+
 
                 var responseFromServer = compiler.CompileJsFile(fileName);
 
