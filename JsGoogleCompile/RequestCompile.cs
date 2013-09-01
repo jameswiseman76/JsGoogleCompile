@@ -10,32 +10,26 @@ namespace JsGoogleCompile
 {
     class RequestCompile
     {
+        static string fileName = string.Empty;
+        static string compileLevel = string.Empty;
+
         static void Main(string[] args)
         {
             try
             {
-                Console.WriteLine("Requesting compile from http://closure-compiler.appspot.com/compile...");
-                Console.WriteLine();
-
                 Compiler compiler = new Compiler();
 
-                var fileName = string.Empty;
-                if (args.Length > 0)
+                if (!RequestCompile.CheckUsageInstructions(args))
                 {
-                    fileName = args[0];
-                }
-                else
-                {
-                    //for testing 
-                    //fileName = @"..\..\sample.js";
-                    
-                    //for release
-                    Console.WriteLine("Usage: JsGoogleCompile.exe [FileName]");
                     return;
                 }
 
+                Console.WriteLine("Requesting compile from http://closure-compiler.appspot.com/compile...");
+                Console.WriteLine();
 
-                var responseFromServer = compiler.CompileJsFile(fileName);
+                fileName = args[0];
+
+                var responseFromServer = compiler.CompileJsFile(fileName, compileLevel);
 
                 JavaScriptSerializer jss = new JavaScriptSerializer();
                 CompilerResults cr = jss.Deserialize<CompilerResults>(responseFromServer);
@@ -97,6 +91,39 @@ namespace JsGoogleCompile
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
+        }
+        public static bool CheckUsageInstructions(string[] args)
+        {
+            if ( (args.Length == 2) && (args[1].Substring(1, 1).ToUpper() == "C"))
+            {
+                fileName = args[0];
+                compileLevel = args[1].Substring(2, 1);
+                return true;
+            }
+            if ( (args.Length == 1) && (args[0]!= "/?"))
+            {
+                compileLevel = "a";
+                fileName = args[0];
+                return true;
+            }
+            else
+            {
+                EmitUsageInstructions();
+                return false;
+            } 
+        }
+
+        private static void EmitUsageInstructions()
+        {
+            Console.WriteLine("JsGoogleCompile: Request a compile from the Google Closure Compiler service");
+            Console.WriteLine("(http://closure-compiler.appspot.com/compile)");
+            Console.WriteLine();
+            Console.WriteLine("Usage:\t\tJsGoogleCompile.exe FileName [/c[attribute]]");
+            Console.WriteLine("FileName:\tThe full filename and path of the file on disk to compress");
+            Console.WriteLine("/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
+            Console.WriteLine("attribute: \t w: Whitespace only");
+            Console.WriteLine("\t\t s: Simple optimisations");
+            Console.WriteLine("\t\t a: Advianced optimisations");
         }
     }
 }

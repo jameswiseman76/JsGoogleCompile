@@ -16,14 +16,26 @@ namespace JsGoogleCompile
             return Uri.EscapeDataString(jsFileContents);
         }
 
-        public string CompileJsFile(string fileName)
+        public string CompileJsFile(string fileName, string compileLevel)
         {
-            return CompileJsString(ReadJavaScriptFile(fileName));
+            return CompileJsString(ReadJavaScriptFile(fileName), compileLevel);
         }
 
-        public string CompileJsString(string javaScript)
+        public string CompileJsString(string javaScript, string compileLevel)
         {
-            
+            switch (compileLevel.ToUpper())
+            {
+                case "S":
+                    compileLevel = "SIMPLE_OPTIMIZATIONS";
+                    break;
+                case "W":
+                    compileLevel = "WHITESPACE_ONLY";
+                    break;
+                default:
+                    compileLevel = "ADVANCED_OPTIMIZATIONS";
+                    break;
+            }
+
             var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
             request.Method = "POST";
 
@@ -32,7 +44,7 @@ namespace JsGoogleCompile
                               "&output_info=warnings" +
                               "&output_info=errors" +
                               "&output_info=statistics" +
-                              "&compilation_level=ADVANCED_OPTIMIZATIONS" +
+                              "&compilation_level=" + compileLevel + 
                               "&warning_level=verbose" +
                               "&output_file_name=default.js" +
                               "&js_code=" + javaScript;
