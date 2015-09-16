@@ -29,6 +29,8 @@
 namespace JsGoogleCompile
 {
     using System;
+    using System.IO;
+    using System.Net;
     using System.Web.Script.Serialization;
 
     /// <summary>
@@ -44,7 +46,7 @@ namespace JsGoogleCompile
         /// <summary>
         /// The compile level.
         /// </summary>
-        private static string compileLevel = string.Empty;
+        private static string compilationLevel = string.Empty;
 
         /// <summary>
         /// The main.
@@ -56,8 +58,6 @@ namespace JsGoogleCompile
         {
             try
             {
-                var compiler = new Compiler();
-
                 if (!CheckUsageInstructions(args))
                 {
                     return;
@@ -68,7 +68,9 @@ namespace JsGoogleCompile
 
                 fileName = args[0];
 
-                var responseFromServer = compiler.CompileJavaScriptFile(fileName, compileLevel);
+                var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
+                var compiler = new JavaScriptCompiler(new StreamReader(fileName), request);
+                var responseFromServer = compiler.CompileFromFile(compilationLevel);
 
                 var jss = new JavaScriptSerializer();
                 var cr = jss.Deserialize<CompilerResults>(responseFromServer);
@@ -141,13 +143,13 @@ namespace JsGoogleCompile
             if ((args.Length == 2) && (args[1].Substring(1, 1).ToUpper() == "C"))
             {
                 fileName = args[0];
-                compileLevel = args[1].Substring(2, 1);
+                compilationLevel = args[1].Substring(2, 1);
                 return true;
             }
 
             if ((args.Length == 1) && (args[0] != "/?"))
             {
-                compileLevel = "a";
+                compilationLevel = "a";
                 fileName = args[0];
                 return true;
             }
