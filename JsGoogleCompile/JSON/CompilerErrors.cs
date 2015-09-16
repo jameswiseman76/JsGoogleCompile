@@ -37,37 +37,37 @@ namespace JsGoogleCompile
     public class CompilerErrors
     {
         /// <summary>
-        /// Gets or sets the type.
+        /// Gets or sets the Error type.
         /// </summary>
         public string Type { get; set; }
 
         /// <summary>
-        /// Gets or sets the file.
+        /// Gets or sets the name of the file that was scanned.
         /// </summary>
         public string File { get; set; }
 
         /// <summary>
-        /// Gets or sets the line number.
+        /// Gets or sets the line number in which the error was found.
         /// </summary>
         public int Lineno { get; set; }
 
         /// <summary>
-        /// Gets or sets the character number.
+        /// Gets or sets the character number in the line in which the error was found.
         /// </summary>
         public int Charno { get; set; }
 
         /// <summary>
-        /// Gets or sets the error.
+        /// Gets or sets the error text.
         /// </summary>
         public string Error { get; set; }
 
         /// <summary>
-        /// Gets or sets the warning.
+        /// Gets or sets the warning text.
         /// </summary>
         public string Warning { get; set; }
 
         /// <summary>
-        /// Gets or sets the line.
+        /// Gets or sets the line text in which the error occurred.
         /// </summary>
         public string Line { get; set; }
     }

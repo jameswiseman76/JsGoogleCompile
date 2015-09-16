@@ -114,7 +114,6 @@ namespace JsGoogleCompile
 
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = byteArray.Length;
-            var responseFromServer = string.Empty;
 
             using (var dataStream = request.GetRequestStream())
             {
@@ -122,16 +121,14 @@ namespace JsGoogleCompile
                 dataStream.Close();
             }
 
+            string responseFromServer;
             using (var response = request.GetResponse())
             {
                 using (var dataStream = response.GetResponseStream())
                 {
-                    if (dataStream != null)
+                    using (var reader = dataStream == null ? null : new StreamReader(dataStream))
                     {
-                        using (var reader = new StreamReader(dataStream))
-                        {
-                            responseFromServer = reader.ReadToEnd();
-                        }
+                        responseFromServer = reader == null ? string.Empty : reader.ReadToEnd();
                     }
                 }
             }

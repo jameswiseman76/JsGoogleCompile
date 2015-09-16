@@ -73,7 +73,6 @@ namespace JsGoogleCompile
                 var jss = new JavaScriptSerializer();
                 var cr = jss.Deserialize<CompilerResults>(responseFromServer);
 
-                // cr.errors.c
                 int errorCount = 0, warningCount = 0;
                 if (cr.Errors != null)
                 {

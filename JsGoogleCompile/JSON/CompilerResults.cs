@@ -43,12 +43,12 @@ namespace JsGoogleCompile
         public string CompiledCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the errors.
+        /// Gets or sets the list of errors that occurred.
         /// </summary>
         public List<CompilerErrors> Errors { get; set; }
 
         /// <summary>
-        /// Gets or sets the warnings.
+        /// Gets or sets the list of warnings that occurred.
         /// </summary>
         public List<CompilerErrors> Warnings { get; set; }
 
