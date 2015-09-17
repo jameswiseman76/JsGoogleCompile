@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompilationLevel.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="JavaScriptCompiler.cs" />
     <Compile Include="JSON\CompilerErrors.cs" />
     <Compile Include="JSON\CompilerResults.cs" />

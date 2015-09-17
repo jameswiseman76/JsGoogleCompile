@@ -34,7 +34,7 @@ namespace JsGoogleCompile
     using System.Text;
 
     /// <summary>
-    /// The compiler.
+    /// The JavaScript Compiler.
     /// </summary>
     public class JavaScriptCompiler
     {
@@ -52,19 +52,22 @@ namespace JsGoogleCompile
         /// Initializes a new instance of the <see cref="JavaScriptCompiler"/> class.
         /// </summary>
         /// <param name="sourceFileReader">
-        /// The source file reader.
+        /// The reader that contains the source file to be read.
         /// </param>
         /// <param name="webRequest">
-        /// The web request.
+        /// The web request that will be executed by this class
         /// </param>
         public JavaScriptCompiler(TextReader sourceFileReader, WebRequest webRequest)
         {
+            Guard.NotNull(() => sourceFileReader);
+            Guard.NotNull(() => webRequest);
+
             this.sourceFileReader = sourceFileReader;
             this.webRequest = webRequest;
         }
 
         /// <summary>
-        /// The read java script file.
+        /// The reads the source JavaScript file
         /// </summary>
         /// <returns>
         /// The <see cref="string"/>.
@@ -75,7 +78,7 @@ namespace JsGoogleCompile
         }
 
         /// <summary>
-        /// The compile JavaScript file.
+        /// Run the compilation from the given JavaScript file.
         /// </summary>
         /// <param name="compilationLevel">
         /// The compile level.
@@ -83,7 +86,7 @@ namespace JsGoogleCompile
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CompileFromFile(string compilationLevel)
+        public string Compile(string compilationLevel)
         {
             return this.CompileFromString(this.ReadFile(), compilationLevel);
         }
@@ -100,7 +103,7 @@ namespace JsGoogleCompile
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CompileFromString(string javaScript, string compilationLevel)
+        private string CompileFromString(string javaScript, string compilationLevel)
         {
             compilationLevel = CompilationLevel.From(compilationLevel);
 
