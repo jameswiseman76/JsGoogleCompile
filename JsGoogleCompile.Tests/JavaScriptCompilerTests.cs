@@ -9,8 +9,22 @@ namespace JsGoogleCompile.Tests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class CompilerTests
+    public class JavaScriptCompilerTests
     {
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Constructor_Guards_Null_sourceFileReader()
+        {
+            var compiler = new JavaScriptCompiler(null, Mock.Of<WebRequest>());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Constructor_Guards_Null_webRequest()
+        {
+            var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), null);
+        }
+
         [TestMethod]
         public void Test_That_Compiler_Returns_Response_As_Expected()
         {

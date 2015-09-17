@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Compiler.cs" company="www.jameswiseman.com">
+// <copyright file="JavaScriptCompiler.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -67,17 +67,6 @@ namespace JsGoogleCompile
         }
 
         /// <summary>
-        /// The reads the source JavaScript file
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string ReadFile()
-        {
-            return Uri.EscapeDataString(this.sourceFileReader.ReadToEnd());
-        }
-
-        /// <summary>
         /// Run the compilation from the given JavaScript file.
         /// </summary>
         /// <param name="compilationLevel">
@@ -88,7 +77,23 @@ namespace JsGoogleCompile
         /// </returns>
         public string Compile(string compilationLevel)
         {
+            if (string.IsNullOrEmpty(compilationLevel))
+            {
+                throw new ArgumentNullException("compilationLevel");
+            }
+
             return this.CompileFromString(this.ReadFile(), compilationLevel);
+        }
+
+        /// <summary>
+        /// The reads the source JavaScript file
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string ReadFile()
+        {
+            return Uri.EscapeDataString(this.sourceFileReader.ReadToEnd());
         }
 
         /// <summary>
