@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="JavaScriptCompiler.cs" company="www.jameswiseman.com">
+// <copyright file="CompilerError.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,70 +22,53 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Calls out to the Google Closure Compiler
+//     Class to wrap compiler errors emitted by the Google Closure Compiler
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace JsGoogleCompile
 {
-    using System.Collections.Generic;
+    using System;
 
     /// <summary>
-    /// The compilation level.
+    /// The compiler errors.
     /// </summary>
-    public static class CompilationLevel
+    [Serializable]
+    public class CompilerError
     {
         /// <summary>
-        /// The simple full.
+        /// Gets or sets the Error type.
         /// </summary>
-        public const string SimpleFull = "SIMPLE_OPTIMIZATIONS";
+        public string Type { get; set; }
 
         /// <summary>
-        /// The white space.
+        /// Gets or sets the name of the file that was scanned.
         /// </summary>
-        public const string WhiteSpace = "WHITESPACE_ONLY";
+        public string File { get; set; }
 
         /// <summary>
-        /// The advanced.
+        /// Gets or sets the line number in which the error was found.
         /// </summary>
-        public const string Advanced = "ADVANCED_OPTIMIZATIONS";
+        public int Lineno { get; set; }
 
         /// <summary>
-        /// The compilation level mapping.
+        /// Gets or sets the character number in the line in which the error was found.
         /// </summary>
-        private static readonly Dictionary<string, string> Mapping = new Dictionary<string, string>
-        {
-            { "S", SimpleFull }, 
-            { "W", WhiteSpace }, 
-            { "A", Advanced }, 
-        };
+        public int Charno { get; set; }
 
         /// <summary>
-        /// The from.
+        /// Gets or sets the error text.
         /// </summary>
-        /// <param name="shortCode">
-        /// The short code.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string From(string shortCode)
-        {
-            shortCode = shortCode.ToUpper();
-            return IsValid(shortCode) ? Mapping[shortCode] : Advanced;
-        }
+        public string Error { get; set; }
 
         /// <summary>
-        /// Denotes if the given short code option is valid.
+        /// Gets or sets the warning text.
         /// </summary>
-        /// <param name="shortCode">
-        /// The short code representing the given option
-        /// </param>
-        /// <returns>
-        /// true or false indicating validity
-        /// </returns>
-        public static bool IsValid(string shortCode)
-        {
-            return Mapping.ContainsKey(shortCode.ToUpper());
-        }
+        public string Warning { get; set; }
+
+        /// <summary>
+        /// Gets or sets the line text in which the error occurred.
+        /// </summary>
+        public string Line { get; set; }
     }
 }

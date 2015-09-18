@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace JsGoogleCompile.Tests
+﻿namespace JsGoogleCompile.Tests
 {
+    using System;
     using System.Net;
     using System.IO;
     using Moq;
@@ -23,6 +22,22 @@ namespace JsGoogleCompile.Tests
         public void Constructor_Guards_Null_webRequest()
         {
             var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Compile_Guards_Null_compilationLevel()
+        {
+            var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), Mock.Of<WebRequest>());
+            compiler.Compile(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Compile_Guards_Empty_compilationLevel()
+        {
+            var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), Mock.Of<WebRequest>());
+            compiler.Compile(string.Empty);
         }
 
         [TestMethod]

@@ -70,10 +70,11 @@ namespace JsGoogleCompile
 
                 var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
                 var compiler = new JavaScriptCompiler(new StreamReader(fileName), request);
+
                 var responseFromServer = compiler.Compile(compilationLevel);
 
-                var jss = new JavaScriptSerializer();
-                var cr = jss.Deserialize<CompilerResults>(responseFromServer);
+                var deserializer = new ResultsDeserializer(new JavaScriptSerializer());
+                var cr = deserializer.DeserializeCompilerResults(responseFromServer);
 
                 int errorCount = 0, warningCount = 0;
                 if (cr.Errors != null)

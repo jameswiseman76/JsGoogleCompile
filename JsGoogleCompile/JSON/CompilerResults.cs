@@ -45,12 +45,12 @@ namespace JsGoogleCompile
         /// <summary>
         /// Gets or sets the list of errors that occurred.
         /// </summary>
-        public List<CompilerErrors> Errors { get; set; }
+        public List<CompilerError> Errors { get; set; }
 
         /// <summary>
         /// Gets or sets the list of warnings that occurred.
         /// </summary>
-        public List<CompilerErrors> Warnings { get; set; }
+        public List<CompilerError> Warnings { get; set; }
 
         /// <summary>
         /// Gets or sets the statistics.

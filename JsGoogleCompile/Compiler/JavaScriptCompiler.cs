@@ -57,10 +57,13 @@ namespace JsGoogleCompile
         /// <param name="webRequest">
         /// The web request that will be executed by this class
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when argument is null
+        /// </exception>
         public JavaScriptCompiler(TextReader sourceFileReader, WebRequest webRequest)
         {
-            Guard.NotNull(() => sourceFileReader);
-            Guard.NotNull(() => webRequest);
+            Guard.ArgumentNotNull(() => sourceFileReader);
+            Guard.ArgumentNotNull(() => webRequest);
 
             this.sourceFileReader = sourceFileReader;
             this.webRequest = webRequest;
@@ -75,12 +78,12 @@ namespace JsGoogleCompile
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when argument is null or empty
+        /// </exception>
         public string Compile(string compilationLevel)
         {
-            if (string.IsNullOrEmpty(compilationLevel))
-            {
-                throw new ArgumentNullException("compilationLevel");
-            }
+            Guard.ArgumentNotNullOrEmpty(() => compilationLevel);
 
             return this.CompileFromString(this.ReadFile(), compilationLevel);
         }
