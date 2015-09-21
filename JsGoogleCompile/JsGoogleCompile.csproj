@@ -7,8 +7,8 @@
     <ProjectGuid>{FCB57783-B6A3-4A81-BF05-C10928F7E7EE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JsGoogleCompile.CLI</RootNamespace>
-    <AssemblyName>JsGoogleCompile.CLI</AssemblyName>
+    <RootNamespace>JsGoogleCompile</RootNamespace>
+    <AssemblyName>JsGoogleCompile</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

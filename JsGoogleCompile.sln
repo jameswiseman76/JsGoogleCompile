@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsGoogleCompile.CLI", "JsGoogleCompile\JsGoogleCompile.CLI.csproj", "{FCB57783-B6A3-4A81-BF05-C10928F7E7EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsGoogleCompile", "JsGoogleCompile\JsGoogleCompile.csproj", "{FCB57783-B6A3-4A81-BF05-C10928F7E7EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsGoogleCompile.Tests", "JsGoogleCompile.Tests\JsGoogleCompile.Tests.csproj", "{9CB1A50E-8279-4DDF-8D68-9E393AD853EA}"
 EndProject

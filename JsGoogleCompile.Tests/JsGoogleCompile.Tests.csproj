@@ -59,9 +59,9 @@
     <Compile Include="ResultsSerializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JsGoogleCompile\JsGoogleCompile.CLI.csproj">
+    <ProjectReference Include="..\JsGoogleCompile\JsGoogleCompile.csproj">
       <Project>{fcb57783-b6a3-4a81-bf05-c10928f7e7ee}</Project>
-      <Name>JsGoogleCompile.CLI</Name>
+      <Name>JsGoogleCompile</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
