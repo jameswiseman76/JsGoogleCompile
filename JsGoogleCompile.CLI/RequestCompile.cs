@@ -26,7 +26,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace JsGoogleCompile
+namespace JsGoogleCompile.CLI
 {
     using System;
     using System.IO;
