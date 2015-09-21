@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsGoogleCompile", "JsGoogle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsGoogleCompile.Tests", "JsGoogleCompile.Tests\JsGoogleCompile.Tests.csproj", "{9CB1A50E-8279-4DDF-8D68-9E393AD853EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsGoogleCompile.CLI", "JsGoogleCompile.CLI\JsGoogleCompile.CLI.csproj", "{FD7F479D-5B40-446E-90A8-13F9657F3693}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9CB1A50E-8279-4DDF-8D68-9E393AD853EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CB1A50E-8279-4DDF-8D68-9E393AD853EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CB1A50E-8279-4DDF-8D68-9E393AD853EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD7F479D-5B40-446E-90A8-13F9657F3693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7F479D-5B40-446E-90A8-13F9657F3693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7F479D-5B40-446E-90A8-13F9657F3693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD7F479D-5B40-446E-90A8-13F9657F3693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
