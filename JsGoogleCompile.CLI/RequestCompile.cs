@@ -67,9 +67,12 @@ namespace JsGoogleCompile.CLI
                 Console.WriteLine();
 
                 fileName = args[0];
-
+                var inputStream = new StreamReader(fileName);
                 var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
-                var compiler = new JavaScriptCompiler(new StreamReader(fileName), request);
+
+                var compilerOptions = new CompilerOptions(inputStream, request, compilationLevel);
+
+                var compiler = new JavaScriptCompiler(compilerOptions);
 
                 var responseFromServer = compiler.Compile(compilationLevel);
 

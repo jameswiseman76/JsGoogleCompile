@@ -41,32 +41,22 @@ namespace JsGoogleCompile
         /// <summary>
         /// The source file reader.
         /// </summary>
-        private readonly TextReader sourceFileReader;
-
-        /// <summary>
-        /// The web request.
-        /// </summary>
-        private readonly WebRequest webRequest;
+        private readonly CompilerOptions compilerOptions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JavaScriptCompiler"/> class.
         /// </summary>
-        /// <param name="sourceFileReader">
-        /// The reader that contains the source file to be read.
-        /// </param>
-        /// <param name="webRequest">
-        /// The web request that will be executed by this class
+        /// <param name="compilerOptions">
+        /// The compiler options.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when argument is null
         /// </exception>
-        public JavaScriptCompiler(TextReader sourceFileReader, WebRequest webRequest)
+        public JavaScriptCompiler(CompilerOptions compilerOptions)
         {
-            Guard.ArgumentNotNull(() => sourceFileReader);
-            Guard.ArgumentNotNull(() => webRequest);
+            Guard.ArgumentNotNull(() => compilerOptions);
 
-            this.sourceFileReader = sourceFileReader;
-            this.webRequest = webRequest;
+            this.compilerOptions = compilerOptions;
         }
 
         /// <summary>
@@ -96,7 +86,7 @@ namespace JsGoogleCompile
         /// </returns>
         private string ReadFile()
         {
-            return Uri.EscapeDataString(this.sourceFileReader.ReadToEnd());
+            return Uri.EscapeDataString(this.compilerOptions.SourceReader.ReadToEnd());
         }
 
         /// <summary>
@@ -115,7 +105,7 @@ namespace JsGoogleCompile
         {
             compilationLevel = CompilationLevel.From(compilationLevel);
 
-            this.webRequest.Method = "POST";
+            this.compilerOptions.WebRequest.Method = "POST";
 
             var postData = "output_format=json" +
                               "&output_info=compiled_code" +
@@ -129,17 +119,17 @@ namespace JsGoogleCompile
 
             var byteArray = Encoding.UTF8.GetBytes(postData);
 
-            this.webRequest.ContentType = "application/x-www-form-urlencoded";
-            this.webRequest.ContentLength = byteArray.Length;
+            this.compilerOptions.WebRequest.ContentType = "application/x-www-form-urlencoded";
+            this.compilerOptions.WebRequest.ContentLength = byteArray.Length;
 
-            using (var dataStream = this.webRequest.GetRequestStream())
+            using (var dataStream = this.compilerOptions.WebRequest.GetRequestStream())
             {
                 dataStream.Write(byteArray, 0, byteArray.Length);
                 dataStream.Close();
             }
 
             string responseFromServer;
-            using (var response = this.webRequest.GetResponse())
+            using (var response = this.compilerOptions.WebRequest.GetResponse())
             {
                 using (var dataStream = response.GetResponseStream())
                 {

@@ -12,23 +12,18 @@
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Constructor_Guards_Null_sourceFileReader()
+        public void Constructor_Guards_Null_compilerOptions()
         {
-            var compiler = new JavaScriptCompiler(null, Mock.Of<WebRequest>());
+            var compiler = new JavaScriptCompiler(null);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Constructor_Guards_Null_webRequest()
-        {
-            var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), null);
-        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Compile_Guards_Null_compilationLevel()
         {
-            var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), Mock.Of<WebRequest>());
+            var compilerOptions = new CompilerOptions(Mock.Of<TextReader>(), Mock.Of<WebRequest>(), "A");
+            var compiler = new JavaScriptCompiler(compilerOptions);
             compiler.Compile(null);
         }
 
@@ -36,7 +31,8 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void Compile_Guards_Empty_compilationLevel()
         {
-            var compiler = new JavaScriptCompiler(Mock.Of<TextReader>(), Mock.Of<WebRequest>());
+            var compilerOptions = new CompilerOptions(Mock.Of<TextReader>(), Mock.Of<WebRequest>(), "A");
+            var compiler = new JavaScriptCompiler(compilerOptions);
             compiler.Compile(string.Empty);
         }
 
@@ -61,7 +57,8 @@
             var textReaderMock = new Mock<TextReader>();
             textReaderMock.Setup(m => m.ReadToEnd()).Returns("var x = 0;");
 
-            var compiler = new JavaScriptCompiler(textReaderMock.Object, webRequestMock.Object);
+            var compilerOptions = new CompilerOptions(textReaderMock.Object, webRequestMock.Object, "A");
+            var compiler = new JavaScriptCompiler(compilerOptions);
 
             // Act
             var actualCompiledJavaScript = compiler.Compile("A");

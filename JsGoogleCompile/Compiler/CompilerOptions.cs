@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ResultsDeserializer.cs" company="www.jameswiseman.com">
+// <copyright file="CompilerOptions.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,90 +22,58 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Wraps the deserialization functionality for a simpler API
+//     Encapsulates the compiler options
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace JsGoogleCompile
 {
-    using System;
-    using System.Collections.Generic;
-
-    using System.Web.Script.Serialization;
+    using System.IO;
+    using System.Net;
 
     /// <summary>
-    /// Takes results from the compiler and serializes them into a class
+    /// The compiler options.
     /// </summary>
-    public class ResultsDeserializer
+    public class CompilerOptions
     {
         /// <summary>
-        /// The serializer.
+        /// Initializes a new instance of the <see cref="CompilerOptions"/> class.
         /// </summary>
-        private readonly JavaScriptSerializer serializer;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ResultsDeserializer"/> class.
-        /// </summary>
-        /// <param name="serializer">
-        /// The serializer.
+        /// <param name="sourceReader">
+        /// The source reader.
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when argument is null
-        /// </exception>
-        public ResultsDeserializer(JavaScriptSerializer serializer)
+        /// <param name="webRequest">
+        /// The web request.
+        /// </param>
+        /// <param name="compilationLevel">
+        /// The compilation level.
+        /// </param>
+        public CompilerOptions(
+            TextReader sourceReader, 
+            WebRequest webRequest,
+            string compilationLevel)
         {
-            Guard.ArgumentNotNull(() => serializer);
+            Guard.ArgumentNotNull(() => sourceReader);
+            Guard.ArgumentNotNull(() => webRequest);
+            Guard.ArgumentNotNullOrEmpty(() => compilationLevel);
 
-            this.serializer = serializer;
+            this.SourceReader = sourceReader;
+            this.WebRequest = webRequest;
+            this.CompilationLevel = compilationLevel;
         }
 
         /// <summary>
-        /// Deserialize from input
+        /// Gets the source reader.
         /// </summary>
-        /// <param name="input">
-        /// The input to be deserialized
-        /// </param>
-        /// <returns>
-        /// Deserialized <see cref="CompilerResults"/>.
-        /// </returns>
-        public CompilerResults DeserializeCompilerResults(string input)
-        {
-            CompilerResults results;
-
-            try
-            {
-                results = this.serializer.Deserialize<CompilerResults>(input);
-            }
-            catch (ArgumentException exception)
-            {
-                results = this.CompilerResultsFromException(exception);
-            }
-
-            return results;
-        }
+        public TextReader SourceReader { get; private set; }
 
         /// <summary>
-        /// Return compiler results from an exception.
+        /// Gets the web request.
         /// </summary>
-        /// <param name="exception">
-        /// The exception.
-        /// </param>
-        /// <returns>
-        /// The <see cref="CompilerResults"/>.
-        /// </returns>
-        private CompilerResults CompilerResultsFromException(Exception exception)
-        {
-            return new CompilerResults
-            {
-                Errors = new List<CompilerError>
-                {
-                    new CompilerError
-                    {
-                        Error = string.Format("Error reading compiler results : {0}", exception.Message),
-                        Line = string.Empty,
-                    }
-                }
-            };
-        }
+        public WebRequest WebRequest { get; private set; }
+
+        /// <summary>
+        /// Gets the compilation level.
+        /// </summary>
+        public string CompilationLevel { get; private set; }
     }
 }
