@@ -19,24 +19,6 @@
 
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Compile_Guards_Null_compilationLevel()
-        {
-            var compilerOptions = new CompilerOptions(Mock.Of<TextReader>(), Mock.Of<WebRequest>(), "A");
-            var compiler = new JavaScriptCompiler(compilerOptions);
-            compiler.Compile(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Compile_Guards_Empty_compilationLevel()
-        {
-            var compilerOptions = new CompilerOptions(Mock.Of<TextReader>(), Mock.Of<WebRequest>(), "A");
-            var compiler = new JavaScriptCompiler(compilerOptions);
-            compiler.Compile(string.Empty);
-        }
-
-        [TestMethod]
         public void Test_That_Compiler_Returns_Response_As_Expected()
         {
             // Arrange
@@ -61,7 +43,7 @@
             var compiler = new JavaScriptCompiler(compilerOptions);
 
             // Act
-            var actualCompiledJavaScript = compiler.Compile("A");
+            var actualCompiledJavaScript = compiler.Compile();
 
             Assert.AreEqual(expectedCompiledJavaScript, actualCompiledJavaScript);
         }

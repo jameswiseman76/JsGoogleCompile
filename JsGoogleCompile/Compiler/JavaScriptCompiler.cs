@@ -62,20 +62,15 @@ namespace JsGoogleCompile
         /// <summary>
         /// Run the compilation from the given JavaScript file.
         /// </summary>
-        /// <param name="compilationLevel">
-        /// The compile level.
-        /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        /// The response string from the compiler
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// Thrown when argument is null or empty
         /// </exception>
-        public string Compile(string compilationLevel)
+        public string Compile()
         {
-            Guard.ArgumentNotNullOrEmpty(() => compilationLevel);
-
-            return this.CompileFromString(this.ReadFile(), compilationLevel);
+            return this.CompileFromString(this.ReadFile(), this.compilerOptions.CompilationLevel);
         }
 
         /// <summary>

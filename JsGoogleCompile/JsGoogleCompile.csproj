@@ -56,6 +56,7 @@
     <Compile Include="JSON\CompilerStatistics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compiler\WarningCode.cs" />
+    <Compile Include="RequestCompile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

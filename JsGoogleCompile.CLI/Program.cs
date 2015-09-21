@@ -36,7 +36,7 @@ namespace JsGoogleCompile.CLI
     /// <summary>
     /// The request compile.
     /// </summary>
-    public class RequestCompile
+    public class Program
     {
         /// <summary>
         /// The file name.
@@ -66,18 +66,7 @@ namespace JsGoogleCompile.CLI
                 Console.WriteLine("Requesting compile from http://closure-compiler.appspot.com/compile...");
                 Console.WriteLine();
 
-                fileName = args[0];
-                var inputStream = new StreamReader(fileName);
-                var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
-
-                var compilerOptions = new CompilerOptions(inputStream, request, compilationLevel);
-
-                var compiler = new JavaScriptCompiler(compilerOptions);
-
-                var responseFromServer = compiler.Compile(compilationLevel);
-
-                var deserializer = new ResultsDeserializer(new JavaScriptSerializer());
-                var cr = deserializer.DeserializeCompilerResults(responseFromServer);
+                var cr = RequestCompile.Run(fileName, compilationLevel);
 
                 int errorCount = 0, warningCount = 0;
                 if (cr.Errors != null)
