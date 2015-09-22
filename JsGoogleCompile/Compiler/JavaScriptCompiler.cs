@@ -109,7 +109,7 @@ namespace JsGoogleCompile
                               "&output_info=statistics" +
                               "&compilation_level=" + compilationLevel + 
                               "&warning_level=verbose" +
-                              "&output_file_name=default.js" +
+                              "&language=ECMASCRIPT3" +
                               "&js_code=" + javaScript;
 
             var byteArray = Encoding.UTF8.GetBytes(postData);

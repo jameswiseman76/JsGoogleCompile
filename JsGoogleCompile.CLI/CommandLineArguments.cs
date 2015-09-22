@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Program.cs" company="www.jameswiseman.com">
+// <copyright file="CommandLineArguments.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,86 +22,86 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Program entry point for requesting JS Compilation
+//     Encapsultes command line arguments functionality
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace JsGoogleCompile.CLI
 {
     using System;
 
     /// <summary>
-    /// The request compile.
+    /// The command line arguments.
     /// </summary>
-    public class Program
+    public class CommandLineArguments
     {
         /// <summary>
-        /// The main.
+        /// Initializes a new instance of the <see cref="CommandLineArguments"/> class.
         /// </summary>
         /// <param name="args">
         /// The args.
         /// </param>
-        public static void Main(string[] args)
+        public CommandLineArguments(string[] args)
         {
-            try
+            this.FromArgs(args);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the current args are valid.
+        /// </summary>
+        public bool AreValid { get; set; }
+
+        /// <summary>
+        /// Gets the file name.
+        /// </summary>
+        public string FileName { get; private set; }
+
+        /// <summary>
+        /// Gets the compilation level.
+        /// </summary>
+        public string CompilationLevel { get; private set; }
+
+        /// <summary>
+        /// The check usage instructions.
+        /// </summary>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        private void FromArgs(string[] args)
+        {
+            if ((args.Length == 2) && (args[1].Substring(1, 1).ToUpper() == "C"))
             {
-                var commandLineArguments = new CommandLineArguments(args);
-
-                if (!commandLineArguments.AreValid)
-                {
-                    return;
-                }
-
-                Console.WriteLine("Requesting compile from http://closure-compiler.appspot.com/compile...");
-                Console.WriteLine();
-
-                var compilerResults = RequestCompile.Run(commandLineArguments.FileName, commandLineArguments.CompilationLevel);
-
-                var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
-                if (errorCount > 0)
-                {
-                    foreach (var ce in compilerResults.Errors)
-                    {
-                        Console.WriteLine("{0}({1}): ERROR {2}", commandLineArguments.FileName, ce.Lineno, ce.Error);
-                        Console.WriteLine(ce.Line.TrimStart());
-                    }
-                }
-
-                var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
-                if (warningCount > 0)
-                {
-                    foreach (var cw in compilerResults.Warnings)
-                    {
-                        Console.WriteLine("{0}({1}): WARNING {2}", commandLineArguments.FileName, cw.Lineno, cw.Warning);
-                        Console.WriteLine(cw.Line.TrimStart());
-                    }
-                }
-
-                Console.WriteLine("----------------------------");
-                Console.WriteLine("Completed Scan");
-
-                if (warningCount > 0 || errorCount > 0)
-                {
-                    Console.WriteLine("Found " + errorCount + " Errors, " + warningCount + " Warnings");
-                }
-                else
-                {
-                    Console.WriteLine("No Errors or Warnings Found!");
-                }
-
-                if (errorCount <= 0)
-                {
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine("Code Emitted:");
-                    Console.WriteLine(compilerResults.CompiledCode);
-                }
+                this.FileName = args[0];
+                this.CompilationLevel = args[1].Substring(2, 1);
+                this.AreValid = true;
+                return;
             }
-            catch (Exception e)
+
+            if ((args.Length == 1) && (args[0] != "/?"))
             {
-                Console.WriteLine("An Error Occurred Running GoogleCC:");
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
+                this.FileName = args[0];
+                this.CompilationLevel = "a";
+                this.AreValid = true;
+                return;
             }
+
+            EmitUsageInstructions();
+            this.AreValid = false;
+        }
+
+        /// <summary>
+        /// Emit usage instructions.
+        /// </summary>
+        private static void EmitUsageInstructions()
+        {
+            Console.WriteLine("JsGoogleCompile: Request a compile from the Google Closure Compiler service");
+            Console.WriteLine("(http://closure-compiler.appspot.com/compile)");
+            Console.WriteLine();
+            Console.WriteLine("Usage:\t\tJsGoogleCompile.exe FileName [/c[attribute]]");
+            Console.WriteLine("FileName:\tThe full filename and path of the file on disk to compress");
+            Console.WriteLine("/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
+            Console.WriteLine("attribute: \t w: Whitespace only");
+            Console.WriteLine("\t\t s: Simple optimisations");
+            Console.WriteLine("\t\t a: Advianced optimisations");
         }
     }
 }
