@@ -30,6 +30,7 @@ namespace JsGoogleCompile
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// The compiler results.
@@ -61,5 +62,11 @@ namespace JsGoogleCompile
         /// Gets or sets the output file path.
         /// </summary>
         public string OutputFilePath { get; set; }
+
+        public void SupressWarningsFrom(IList<string> supressWarnings)
+        {
+            Warnings = Warnings.Where(
+                w => supressWarnings.None(s => s != w.Warning)).ToList();
+        }
     }
 }

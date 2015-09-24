@@ -27,6 +27,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace JsGoogleCompile
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Net;
     using System.Web.Script.Serialization;
@@ -34,8 +35,30 @@ namespace JsGoogleCompile
     /// <summary>
     /// The class for requesting compilation.
     /// </summary>
-    public static class RequestCompile
+    public class RequestCompile
     {
+        private string fileName;
+        private string compilationLevel;
+        private string compilerUrl;
+        private IList<string> suppressedWarnings;
+
+        public RequestCompile(
+            string fileName, 
+            string compilationLevel, 
+            string compilerUrl,
+            IList<string> suppressedWarnings)
+        {
+            Guard.ArgumentNotNullOrEmpty(() => fileName, fileName);
+            Guard.ArgumentNotNullOrEmpty(() => compilationLevel, compilationLevel);
+            Guard.ArgumentNotNullOrEmpty(() => compilerUrl, compilerUrl);
+            Guard.ArgumentNotNull(() => suppressedWarnings, suppressedWarnings);
+
+            this.fileName = fileName;
+            this.compilationLevel = compilationLevel;
+            this.compilerUrl = compilerUrl;
+            this.suppressedWarnings = suppressedWarnings;
+        }
+
         /// <summary>
         /// Run the compilation
         /// </summary>
@@ -51,7 +74,7 @@ namespace JsGoogleCompile
         /// <returns>
         /// The <see cref="CompilerResults"/>.
         /// </returns>
-        public static CompilerResults Run(string fileName, string compilationLevel, string compilerUrl)
+        public CompilerResults Run()
         {
             var inputStream = new StreamReader(fileName);
             var request = WebRequest.Create(compilerUrl);
@@ -61,7 +84,9 @@ namespace JsGoogleCompile
             var responseFromServer = compiler.Compile();
 
             var deserializer = new ResultsDeserializer(new JavaScriptSerializer());
-            return deserializer.DeserializeCompilerResults(responseFromServer);
+            var compilerResults = deserializer.DeserializeCompilerResults(responseFromServer);
+
+            return compilerResults;
         }
     }
 }

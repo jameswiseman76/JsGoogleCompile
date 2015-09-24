@@ -29,6 +29,7 @@
 namespace JsGoogleCompile.CLI
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// The command line program entry class
@@ -56,10 +57,15 @@ namespace JsGoogleCompile.CLI
                 Console.WriteLine("Requesting compile from {0}...", CompilerUrl);
                 Console.WriteLine();
 
-                var compilerResults = RequestCompile.Run(
-                    commandLineArguments.FileName, 
+                var suppressedWarniings = new List<string>();
+
+                var requestCompile = new RequestCompile(
+                    commandLineArguments.FileName,
                     commandLineArguments.CompilationLevel,
-                    CompilerUrl);
+                    CompilerUrl,
+                    suppressedWarniings);
+
+                var compilerResults = requestCompile.Run();
 
                 var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
                 if (errorCount > 0)

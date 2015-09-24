@@ -49,6 +49,7 @@
     <Compile Include="Compiler\CompilationLevel.cs" />
     <Compile Include="Compiler\CompilerOptions.cs" />
     <Compile Include="Compiler\ResultsDeserializer.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Compiler\JavaScriptCompiler.cs" />
     <Compile Include="JSON\CompilerError.cs" />
