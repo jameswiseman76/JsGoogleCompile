@@ -45,13 +45,16 @@ namespace JsGoogleCompile
         /// <param name="compilationLevel">
         /// The compilation level.
         /// </param>
+        /// <param name="compilerUrl">
+        /// The closure compiler URL.
+        /// </param>
         /// <returns>
         /// The <see cref="CompilerResults"/>.
         /// </returns>
-        public static CompilerResults Run(string fileName, string compilationLevel)
+        public static CompilerResults Run(string fileName, string compilationLevel, string compilerUrl)
         {
             var inputStream = new StreamReader(fileName);
-            var request = WebRequest.Create(@"http://closure-compiler.appspot.com/compile");
+            var request = WebRequest.Create(compilerUrl);
             var compilerOptions = new CompilerOptions(inputStream, request, compilationLevel);
 
             var compiler = new JavaScriptCompiler(compilerOptions);

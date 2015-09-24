@@ -31,15 +31,15 @@ namespace JsGoogleCompile.CLI
     using System;
 
     /// <summary>
-    /// The commadn line program entry point
+    /// The command line program entry class
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// The main.
+        /// The command line program entry point.
         /// </summary>
         /// <param name="args">
-        /// The args.
+        /// Command line arguments.
         /// </param>
         public static void Main(string[] args)
         {
@@ -52,10 +52,14 @@ namespace JsGoogleCompile.CLI
                     return;
                 }
 
-                Console.WriteLine("Requesting compile from http://closure-compiler.appspot.com/compile...");
+                const string CompilerUrl = @"http://closure-compiler.appspot.com/compile";
+                Console.WriteLine("Requesting compile from {0}...", CompilerUrl);
                 Console.WriteLine();
 
-                var compilerResults = RequestCompile.Run(commandLineArguments.FileName, commandLineArguments.CompilationLevel);
+                var compilerResults = RequestCompile.Run(
+                    commandLineArguments.FileName, 
+                    commandLineArguments.CompilationLevel,
+                    CompilerUrl);
 
                 var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
                 if (errorCount > 0)
