@@ -31,7 +31,7 @@ namespace JsGoogleCompile.CLI
     using System;
 
     /// <summary>
-    /// The request compile.
+    /// The commadn line program entry point
     /// </summary>
     public class Program
     {

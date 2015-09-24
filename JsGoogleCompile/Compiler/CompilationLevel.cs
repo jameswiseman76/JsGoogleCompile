@@ -35,28 +35,28 @@ namespace JsGoogleCompile
     public static class CompilationLevel
     {
         /// <summary>
-        /// The simple full.
+        /// Compiler setting string representing Simple Optimizations
         /// </summary>
-        public const string SimpleFull = "SIMPLE_OPTIMIZATIONS";
+        public const string SimpleOptimizations = "SIMPLE_OPTIMIZATIONS";
 
         /// <summary>
-        /// The white space.
+        /// Compiler setting string representing Whitespace only
         /// </summary>
-        public const string WhiteSpace = "WHITESPACE_ONLY";
+        public const string WhitespaceOnly = "WHITESPACE_ONLY";
 
         /// <summary>
-        /// The advanced.
+        /// Compiler setting string representing Advanced Optimizations
         /// </summary>
-        public const string Advanced = "ADVANCED_OPTIMIZATIONS";
+        public const string AdvancedOptimizations = "ADVANCED_OPTIMIZATIONS";
 
         /// <summary>
         /// The compilation level mapping.
         /// </summary>
         private static readonly Dictionary<string, string> Mapping = new Dictionary<string, string>
         {
-            { "S", SimpleFull }, 
-            { "W", WhiteSpace }, 
-            { "A", Advanced }, 
+            { "S", SimpleOptimizations }, 
+            { "W", WhitespaceOnly }, 
+            { "A", AdvancedOptimizations }, 
         };
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace JsGoogleCompile
         public static string From(string shortCode)
         {
             shortCode = shortCode.ToUpper();
-            return IsValid(shortCode) ? Mapping[shortCode] : Advanced;
+            return IsValid(shortCode) ? Mapping[shortCode] : AdvancedOptimizations;
         }
 
         /// <summary>

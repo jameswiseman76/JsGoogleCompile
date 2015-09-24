@@ -84,16 +84,16 @@ namespace JsGoogleCompile
         }
 
         /// <summary>
-        /// The compile JavaScript string.
+        /// Compiles JavaScript form given string.
         /// </summary>
         /// <param name="javaScript">
-        /// The java script.
+        /// The JavaScript string to compile.
         /// </param>
         /// <param name="compilationLevel">
-        /// The compile level.
+        /// The compilation level.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        /// A <see cref="string"/> string response ready for serialization.
         /// </returns>
         private string CompileFromString(string javaScript, string compilationLevel)
         {

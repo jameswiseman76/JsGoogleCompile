@@ -61,6 +61,22 @@ namespace JsGoogleCompile.CLI
         public string CompilationLevel { get; private set; }
 
         /// <summary>
+        /// Emit usage instructions.
+        /// </summary>
+        private static void EmitUsageInstructions()
+        {
+            Console.WriteLine("JsGoogleCompile: Request a compile from the Google Closure Compiler service");
+            Console.WriteLine("(http://closure-compiler.appspot.com/compile)");
+            Console.WriteLine();
+            Console.WriteLine("Usage:\t\tJsGoogleCompile.exe FileName [/c[attribute]]");
+            Console.WriteLine("FileName:\tThe full filename and path of the file on disk to compress");
+            Console.WriteLine("/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
+            Console.WriteLine("attribute: \t w: Whitespace only");
+            Console.WriteLine("\t\t s: Simple optimisations");
+            Console.WriteLine("\t\t a: Advianced optimisations");
+        }
+
+        /// <summary>
         /// The check usage instructions.
         /// </summary>
         /// <param name="args">
@@ -86,22 +102,6 @@ namespace JsGoogleCompile.CLI
 
             EmitUsageInstructions();
             this.AreValid = false;
-        }
-
-        /// <summary>
-        /// Emit usage instructions.
-        /// </summary>
-        private static void EmitUsageInstructions()
-        {
-            Console.WriteLine("JsGoogleCompile: Request a compile from the Google Closure Compiler service");
-            Console.WriteLine("(http://closure-compiler.appspot.com/compile)");
-            Console.WriteLine();
-            Console.WriteLine("Usage:\t\tJsGoogleCompile.exe FileName [/c[attribute]]");
-            Console.WriteLine("FileName:\tThe full filename and path of the file on disk to compress");
-            Console.WriteLine("/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
-            Console.WriteLine("attribute: \t w: Whitespace only");
-            Console.WriteLine("\t\t s: Simple optimisations");
-            Console.WriteLine("\t\t a: Advianced optimisations");
         }
     }
 }
