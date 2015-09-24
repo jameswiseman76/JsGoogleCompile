@@ -42,7 +42,7 @@ namespace JsGoogleCompile
         /// An lambda expression containing the variable name
         /// </param>
         /// <param name="value">
-        /// The variable to check.
+        /// The variable value to check.
         /// </param>
         /// <typeparam name="T">The type of variable we are checking </typeparam>
         /// <exception cref="ArgumentNullException">Exception thrown in the event of parameter being null</exception>
@@ -62,7 +62,7 @@ namespace JsGoogleCompile
         /// An lambda expression containing the variable name
         /// </param>
         /// <param name="value">
-        /// The variable to check.
+        /// The variable value to check.
         /// </param>
         /// <exception cref="ArgumentNullException">Exception thrown in the event of string parameter being null or empty</exception>
         public static void ArgumentNotNullOrEmpty(Expression<Func<string>> variableNameExpression, string value) 
@@ -81,7 +81,7 @@ namespace JsGoogleCompile
         /// An lambda expression containing the variable name
         /// </param>
         /// <param name="value">
-        /// The variable to check.
+        /// The variable value to check.
         /// </param>
         /// <typeparam name="T">The type of variable we are checking </typeparam>
         /// <exception cref="ArgumentNullException">Exception thrown in the event of parameter being null</exception>
@@ -101,7 +101,7 @@ namespace JsGoogleCompile
         /// An lambda expression containing the variable name
         /// </param>
         /// <param name="value">
-        /// The variable to check.
+        /// The variable value to check.
         /// </param>
         /// <exception cref="ArgumentNullException">Exception thrown in the event of string parameter being null or empty</exception>
         public static void ValueNotNullOrEmpty(Expression<Func<string>> variableNameExpression, string value)
