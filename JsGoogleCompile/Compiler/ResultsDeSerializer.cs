@@ -54,7 +54,7 @@ namespace JsGoogleCompile
         /// </exception>
         public ResultsDeserializer(JavaScriptSerializer serializer)
         {
-            Guard.ArgumentNotNull(() => serializer);
+            Guard.ArgumentNotNull(() => serializer, serializer);
 
             this.serializer = serializer;
         }

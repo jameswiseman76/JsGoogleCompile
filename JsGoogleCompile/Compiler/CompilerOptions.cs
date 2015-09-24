@@ -52,9 +52,9 @@ namespace JsGoogleCompile
             WebRequest webRequest,
             string compilationLevel)
         {
-            Guard.ArgumentNotNull(() => sourceReader);
-            Guard.ArgumentNotNull(() => webRequest);
-            Guard.ArgumentNotNullOrEmpty(() => compilationLevel);
+            Guard.ArgumentNotNull(() => sourceReader, sourceReader);
+            Guard.ArgumentNotNull(() => webRequest, webRequest);
+            Guard.ArgumentNotNullOrEmpty(() => compilationLevel, compilationLevel);
 
             this.SourceReader = sourceReader;
             this.WebRequest = webRequest;

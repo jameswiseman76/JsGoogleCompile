@@ -30,7 +30,6 @@ namespace JsGoogleCompile
 {
     using System;
     using System.IO;
-    using System.Net;
     using System.Text;
 
     /// <summary>
@@ -54,7 +53,7 @@ namespace JsGoogleCompile
         /// </exception>
         public JavaScriptCompiler(CompilerOptions compilerOptions)
         {
-            Guard.ArgumentNotNull(() => compilerOptions);
+            Guard.ArgumentNotNull(() => compilerOptions, compilerOptions);
 
             this.compilerOptions = compilerOptions;
         }
