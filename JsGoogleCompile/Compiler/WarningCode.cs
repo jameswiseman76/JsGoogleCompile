@@ -28,6 +28,8 @@
 
 namespace JsGoogleCompile
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Class representing warning codes
     /// </summary>
@@ -137,5 +139,41 @@ namespace JsGoogleCompile
         /// JSC_WRONG_ARGUMENT_COUNT warning.
         /// </summary>
         public const string JscWrongArgumentCount = "JSC_WRONG_ARGUMENT_COUNT";
+
+        /// <summary>
+        /// Collection of all warnings.
+        /// </summary>
+        private static IList<string> all = new List<string>
+        {
+            JscBadDeleteOperand,
+            JscBadTypeForBitOperation,
+            JscWrongArgumentCount,
+            JscFunctionMasksVariable,
+            JscInvalidFunctionDecl,
+            JscNamespaceRedefined,
+            JscNotAConstructor,
+            JscNotFunctionType,
+            JscRedeclaredVariable,
+            JscReferenceBeforeDeclare,
+            JscSetWithoutRead,
+            JscSuspiciousSemicolon,
+            JscTypeMismatch,
+            JscUndefinedName,
+            JscUndefinedVariable,
+            JscUnsafeNamespace,
+            JscUnsafeThis,
+            JscUsedGlobalThis,
+            JscUselessCode,
+            JscVarArgsMustBeLast,
+            JscWrongArgumentCount,
+        };
+
+        /// <summary>
+        /// Gets a collection of all Warnings.
+        /// </summary>
+        public static IList<string> All
+        {
+            get { return all; }
+        }
     }
 }
