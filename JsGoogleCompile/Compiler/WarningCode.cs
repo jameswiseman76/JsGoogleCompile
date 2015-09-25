@@ -143,7 +143,7 @@ namespace JsGoogleCompile
         /// <summary>
         /// Collection of all warnings.
         /// </summary>
-        private static IList<string> all = new List<string>
+        private static readonly IList<string> All = new List<string>
         {
             JscBadDeleteOperand,
             JscBadTypeForBitOperation,
@@ -171,9 +171,9 @@ namespace JsGoogleCompile
         /// <summary>
         /// Gets a collection of all Warnings.
         /// </summary>
-        public static IList<string> All
+        public static IList<string> AllWarningCodes
         {
-            get { return all; }
+            get { return All; }
         }
     }
 }
