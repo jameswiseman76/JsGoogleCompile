@@ -23,12 +23,6 @@
                 }
             };
 
-            var expectedWarnings = new List<CompilerError>
-            {
-                jscBadTypeForBitOperationWarning,
-                jscConstructorNotCallableWarning,
-            };
-
             var supressWarnings = new List<string>
             {
                 WarningCode.JscBadDeleteOperand,
@@ -58,14 +52,6 @@
                     jscConstructorNotCallableWarning,
                     jscJscFunctionMasksVariableWarning,
                 }
-            };
-
-            var expectedWarnings = new List<CompilerError>
-            {
-                jscBadDeleteOperandWarning,
-                jscBadTypeForBitOperationWarning,
-                jscConstructorNotCallableWarning,
-                jscJscFunctionMasksVariableWarning,
             };
 
             var supressWarnings = new List<string>

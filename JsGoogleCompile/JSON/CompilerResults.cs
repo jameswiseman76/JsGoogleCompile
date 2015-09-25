@@ -63,10 +63,18 @@ namespace JsGoogleCompile
         /// </summary>
         public string OutputFilePath { get; set; }
 
-        public void SupressWarningsFrom(IList<string> supressWarnings)
+        /// <summary>
+        /// Suppress the warnings in the given collection
+        /// </summary>
+        /// <param name="supressedWarnings">
+        /// The warnings to suppress.
+        /// </param>
+        public void SupressWarningsFrom(IList<string> supressedWarnings)
         {
-            Warnings = Warnings.Where(
-                w => supressWarnings.None(s => s != w.Warning)).ToList();
+            var currentWarnings = this.Warnings.Select(w => w.Warning);
+            var filteredWarnings = currentWarnings.Except(supressedWarnings);
+
+            this.Warnings = this.Warnings.Where(w => filteredWarnings.Any(s => s == w.Warning)).ToList();
         }
     }
 }

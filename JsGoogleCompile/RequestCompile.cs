@@ -37,11 +37,41 @@ namespace JsGoogleCompile
     /// </summary>
     public class RequestCompile
     {
-        private string fileName;
-        private string compilationLevel;
-        private string compilerUrl;
+        /// <summary>
+        /// The file name.
+        /// </summary>
+        private readonly string fileName;
+
+        /// <summary>
+        /// The compilation level.
+        /// </summary>
+        private readonly string compilationLevel;
+
+        /// <summary>
+        /// The compiler url.
+        /// </summary>
+        private readonly string compilerUrl;
+
+        /// <summary>
+        /// The suppressed warnings.
+        /// </summary>
         private IList<string> suppressedWarnings;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestCompile"/> class.
+        /// </summary>
+        /// <param name="fileName">
+        /// The file name.
+        /// </param>
+        /// <param name="compilationLevel">
+        /// The compilation level.
+        /// </param>
+        /// <param name="compilerUrl">
+        /// The compiler url.
+        /// </param>
+        /// <param name="suppressedWarnings">
+        /// The suppressed warnings.
+        /// </param>
         public RequestCompile(
             string fileName, 
             string compilationLevel, 
@@ -62,23 +92,14 @@ namespace JsGoogleCompile
         /// <summary>
         /// Run the compilation
         /// </summary>
-        /// <param name="fileName">
-        /// The file name on which to run the compilation
-        /// </param>
-        /// <param name="compilationLevel">
-        /// The compilation level.
-        /// </param>
-        /// <param name="compilerUrl">
-        /// The closure compiler URL.
-        /// </param>
         /// <returns>
         /// The <see cref="CompilerResults"/>.
         /// </returns>
         public CompilerResults Run()
         {
-            var inputStream = new StreamReader(fileName);
-            var request = WebRequest.Create(compilerUrl);
-            var compilerOptions = new CompilerOptions(inputStream, request, compilationLevel);
+            var inputStream = new StreamReader(this.fileName);
+            var request = WebRequest.Create(this.compilerUrl);
+            var compilerOptions = new CompilerOptions(inputStream, request, this.compilationLevel);
 
             var compiler = new JavaScriptCompiler(compilerOptions);
             var responseFromServer = compiler.Compile();
