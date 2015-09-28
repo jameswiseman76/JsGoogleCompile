@@ -3,9 +3,9 @@
     using System;
     using System.IO;
     using System.Net;
-    using Moq;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     [TestClass]
     public class CompilerOptionsTests

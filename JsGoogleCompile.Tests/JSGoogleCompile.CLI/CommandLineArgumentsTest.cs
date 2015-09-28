@@ -1,13 +1,12 @@
-﻿using System.Text;
-using Moq;
-
-namespace JsGoogleCompile.Tests
+﻿namespace JsGoogleCompile.Tests
 {
     using System;
     using System.IO;
+    using System.Text;
 
     using JsGoogleCompile.CLI;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     [TestClass]
     public class CommandLineArgumentsTest

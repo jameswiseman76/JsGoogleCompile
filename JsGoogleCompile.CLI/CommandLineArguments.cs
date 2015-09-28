@@ -131,26 +131,13 @@ namespace JsGoogleCompile.CLI
 
         private bool IsValidCompilationLevelArgument(string argument)
         {
-            return compilationLevelHelper.IsValid(argument.Substring(2, argument.Length - 2));
+            return this.compilationLevelHelper.IsValid(
+                argument.Substring(2, argument.Length - 2));
         }
 
         private bool IsWarningSuppressionArgument(string argument)
         {
             return true;
-        }
-
-        private void NotesRequiredParts()
-        {
-            // 1. FileName: Required
-            // 2. Compilation Level: Optional
-            // 3. Warning Suppressions: Optional
-
-            // Valid combos
-            // 1
-            // 1,2
-            // 1,3
-            // 1,2,3
-
         }
     }
 }

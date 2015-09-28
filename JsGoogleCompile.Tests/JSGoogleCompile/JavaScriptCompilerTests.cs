@@ -1,11 +1,11 @@
 ﻿namespace JsGoogleCompile.Tests
 {
     using System;
-    using System.Net;
     using System.IO;
-    using Moq;
+    using System.Net;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     [TestClass]
     public class JavaScriptCompilerTests

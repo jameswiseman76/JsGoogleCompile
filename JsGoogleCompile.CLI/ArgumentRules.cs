@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="www.jameswiseman.com">
+// <copyright file="ArgumentRules.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,41 +22,24 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Project Assembly Info file
+//     Encapsultes command line argument rules functionality
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-using System.Reflection;
-using System.Runtime.InteropServices;
+namespace JsGoogleCompile.CLI
+{
+    /// <summary>
+    /// The argument rules.
+    /// </summary>
+    public class ArgumentRules
+    {
+        // 1. FileName: Required
+        // 2. Compilation Level: Optional
+        // 3. Warning Suppressions: Optional
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("JsGoogleCompile.CLI")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Royal London Group")]
-[assembly: AssemblyProduct("JsGoogleCompile.CLI")]
-[assembly: AssemblyCopyright("Copyright © Royal London Group 2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b0e08fe6-5248-4f56-b3af-95b8fbc770bd")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+        // Valid combos
+        // 1
+        // 1,2
+        // 1,3
+        // 1,2,3
+    }
+}
