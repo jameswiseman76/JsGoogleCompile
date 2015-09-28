@@ -65,10 +65,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JsGoogleCompile.CLI\JsGoogleCompile.CLI.csproj">
+      <Project>{fd7f479d-5b40-446e-90a8-13f9657f3693}</Project>
+      <Name>JsGoogleCompile.CLI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsGoogleCompile\JsGoogleCompile.csproj">
       <Project>{fcb57783-b6a3-4a81-bf05-c10928f7e7ee}</Project>
       <Name>JsGoogleCompile</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
