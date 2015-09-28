@@ -43,19 +43,29 @@ namespace JsGoogleCompile
         private readonly CompilerOptions compilerOptions;
 
         /// <summary>
+        /// The compilation level helper.
+        /// </summary>
+        private readonly ICompilationLevelHelper compilationLevelHelper;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="JavaScriptCompiler"/> class.
         /// </summary>
         /// <param name="compilerOptions">
         /// The compiler options.
         /// </param>
+        /// <param name="compilationLevelHelper">
+        /// The compilation Level Helper.
+        /// </param>
         /// <exception cref="ArgumentNullException">
         /// Thrown when argument is null
         /// </exception>
-        public JavaScriptCompiler(CompilerOptions compilerOptions)
+        public JavaScriptCompiler(CompilerOptions compilerOptions, ICompilationLevelHelper compilationLevelHelper)
         {
             Guard.ArgumentNotNull(() => compilerOptions, compilerOptions);
+            Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
 
             this.compilerOptions = compilerOptions;
+            this.compilationLevelHelper = compilationLevelHelper;
         }
 
         /// <summary>
@@ -97,7 +107,7 @@ namespace JsGoogleCompile
         /// </returns>
         private string CompileFromString(string javaScript, string compilationLevel)
         {
-            compilationLevel = CompilationLevel.From(compilationLevel);
+            compilationLevel = this.compilationLevelHelper.From(compilationLevel);
 
             this.compilerOptions.WebRequest.Method = "POST";
 

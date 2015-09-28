@@ -100,8 +100,9 @@ namespace JsGoogleCompile
             var inputStream = new StreamReader(this.fileName);
             var request = WebRequest.Create(this.compilerUrl);
             var compilerOptions = new CompilerOptions(inputStream, request, this.compilationLevel);
+            var compilationLevelHelper = new CompilationLevelHelper();
 
-            var compiler = new JavaScriptCompiler(compilerOptions);
+            var compiler = new JavaScriptCompiler(compilerOptions, compilationLevelHelper);
             var responseFromServer = compiler.Compile();
 
             var deserializer = new ResultsDeserializer(new JavaScriptSerializer());

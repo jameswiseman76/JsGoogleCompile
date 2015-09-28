@@ -14,9 +14,17 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_Guards_Null_compilerOptions()
         {
-            var compiler = new JavaScriptCompiler(null);
+            var compiler = new JavaScriptCompiler(null, new CompilationLevelHelper());
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Constructor_Guards_Null_CompilationLevelHelper()
+        {
+            var compiler = new JavaScriptCompiler(
+                new CompilerOptions(Mock.Of<TextReader>(), Mock.Of<WebRequest>(), "A"), 
+                null);
+        }
 
         [TestMethod]
         public void Test_That_Compiler_Returns_Response_As_Expected()
@@ -40,7 +48,7 @@
             textReaderMock.Setup(m => m.ReadToEnd()).Returns("var x = 0;");
 
             var compilerOptions = new CompilerOptions(textReaderMock.Object, webRequestMock.Object, "A");
-            var compiler = new JavaScriptCompiler(compilerOptions);
+            var compiler = new JavaScriptCompiler(compilerOptions, new CompilationLevelHelper());
 
             // Act
             var actualCompiledJavaScript = compiler.Compile();

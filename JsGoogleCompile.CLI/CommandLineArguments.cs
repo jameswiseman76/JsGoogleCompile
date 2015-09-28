@@ -25,9 +25,12 @@
 //     Encapsultes command line arguments functionality
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace JsGoogleCompile.CLI
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     /// The command line arguments.
@@ -35,13 +38,25 @@ namespace JsGoogleCompile.CLI
     public class CommandLineArguments
     {
         /// <summary>
+        /// The compilation level helper.
+        /// </summary>
+        private readonly ICompilationLevelHelper compilationLevelHelper;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CommandLineArguments"/> class.
         /// </summary>
         /// <param name="args">
         /// The args.
         /// </param>
-        public CommandLineArguments(string[] args)
+        /// <param name="compilationLevelHelper">
+        /// The compilation Level Helper.
+        /// </param>
+        public CommandLineArguments(IList<string> args, ICompilationLevelHelper compilationLevelHelper)
         {
+            Guard.ArgumentNotNull(() => args, args);
+            Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
+
+            this.compilationLevelHelper = compilationLevelHelper;
             this.FromArgs(args);
         }
 
@@ -82,17 +97,22 @@ namespace JsGoogleCompile.CLI
         /// <param name="args">
         /// The args.
         /// </param>
-        private void FromArgs(string[] args)
+        private void FromArgs(IList<string> args)
         {
-            if ((args.Length == 2) && (args[1].Substring(1, 1).ToUpper() == "C"))
+            if ((args.Count == 2) && (args[1].Substring(0, 2).ToUpper() == "/C"))
             {
-                this.FileName = args[0];
-                this.CompilationLevel = args[1].Substring(2, 1);
-                this.AreValid = true;
-                return;
+                if (this.IsValidCompilationLevelArgument(args[1]))
+                {
+                    this.FileName = args[0];
+                    this.CompilationLevel = args[1].Substring(2, 1);
+                    this.AreValid = true;
+                    return;
+                }
+
+                this.AreValid = false;
             }
 
-            if ((args.Length == 1) && (args[0] != "/?"))
+            if ((args.Count == 1) && (args[0] != "/?"))
             {
                 this.FileName = args[0];
                 this.CompilationLevel = "a";
@@ -102,6 +122,35 @@ namespace JsGoogleCompile.CLI
 
             EmitUsageInstructions();
             this.AreValid = false;
+        }
+
+        private bool IsJavascriptFileName(string fileName)
+        {
+            return true;
+        }
+
+        private bool IsValidCompilationLevelArgument(string argument)
+        {
+            return compilationLevelHelper.IsValid(argument.Substring(2, argument.Length - 2));
+        }
+
+        private bool IsWarningSuppressionArgument(string argument)
+        {
+            return true;
+        }
+
+        private void NotesRequiredParts()
+        {
+            // 1. FileName: Required
+            // 2. Compilation Level: Optional
+            // 3. Warning Suppressions: Optional
+
+            // Valid combos
+            // 1
+            // 1,2
+            // 1,3
+            // 1,2,3
+
         }
     }
 }

@@ -46,7 +46,7 @@ namespace JsGoogleCompile.CLI
         {
             try
             {
-                var commandLineArguments = new CommandLineArguments(args);
+                var commandLineArguments = new CommandLineArguments(args, new CompilationLevelHelper());
 
                 if (!commandLineArguments.AreValid)
                 {

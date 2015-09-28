@@ -32,7 +32,7 @@ namespace JsGoogleCompile
     /// <summary>
     /// The compilation level.
     /// </summary>
-    public static class CompilationLevel
+    public class CompilationLevelHelper : ICompilationLevelHelper
     {
         /// <summary>
         /// Compiler setting string representing Simple Optimizations
@@ -52,7 +52,7 @@ namespace JsGoogleCompile
         /// <summary>
         /// The compilation level mapping.
         /// </summary>
-        private static readonly Dictionary<string, string> Mapping = new Dictionary<string, string>
+        private readonly Dictionary<string, string> mapping = new Dictionary<string, string>
         {
             { "S", SimpleOptimizations }, 
             { "W", WhitespaceOnly }, 
@@ -68,10 +68,10 @@ namespace JsGoogleCompile
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string From(string shortCode)
+        public string From(string shortCode)
         {
             shortCode = shortCode.ToUpper();
-            return IsValid(shortCode) ? Mapping[shortCode] : AdvancedOptimizations;
+            return this.IsValid(shortCode) ? this.mapping[shortCode] : AdvancedOptimizations;
         }
 
         /// <summary>
@@ -83,9 +83,9 @@ namespace JsGoogleCompile
         /// <returns>
         /// true or false indicating validity
         /// </returns>
-        public static bool IsValid(string shortCode)
+        public bool IsValid(string shortCode)
         {
-            return Mapping.ContainsKey(shortCode.ToUpper());
+            return this.mapping.ContainsKey(shortCode.ToUpper());
         }
     }
 }
