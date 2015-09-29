@@ -25,15 +25,22 @@
 //     Encapsultes command line argument rules functionality
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace JsGoogleCompile.CLI
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// The argument rules.
     /// </summary>
     public class ArgumentRules
     {
+        /// <summary>
+        /// The command line arguments.
+        /// </summary>
+        private readonly ICommandLineArguments commandLineArguments;
+
         /// <summary>
         /// The argument rule combo.
         /// </summary>
@@ -42,27 +49,46 @@ namespace JsGoogleCompile.CLI
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentRules"/> class.
         /// </summary>
-        public ArgumentRules()
+        /// <param name="commandLineArguments">
+        /// The command line arguments.
+        /// </param>
+        public ArgumentRules(ICommandLineArguments commandLineArguments)
         {
-            this.argumentRuleCombos.Add(
-                new ArgumentRuleCombo(
-                    new IsValidJavaScriptFileName()));
+            this.commandLineArguments = commandLineArguments;
 
             this.argumentRuleCombos.Add(
                 new ArgumentRuleCombo(
-                    new IsValidJavaScriptFileName(),
-                    new IsValidWarningSuppressionArgument()));
+                    new IsValidJavaScriptFileName(commandLineArguments),
+                    new IsValidCompilationLevelArgument(commandLineArguments),
+                    new IsValidWarningSuppressionArgument(commandLineArguments)));
 
             this.argumentRuleCombos.Add(
                 new ArgumentRuleCombo(
-                    new IsValidJavaScriptFileName(),
-                    new IsValidCompilationLevelArgument()));
+                    new IsValidJavaScriptFileName(commandLineArguments),
+                    new IsValidWarningSuppressionArgument(commandLineArguments)));
 
             this.argumentRuleCombos.Add(
                 new ArgumentRuleCombo(
-                    new IsValidJavaScriptFileName(),
-                    new IsValidCompilationLevelArgument(),
-                    new IsValidWarningSuppressionArgument()));
+                    new IsValidJavaScriptFileName(commandLineArguments),
+                    new IsValidCompilationLevelArgument(commandLineArguments)));
+
+            this.argumentRuleCombos.Add(
+                new ArgumentRuleCombo(
+                    new IsValidJavaScriptFileName(commandLineArguments)));
+        }
+
+        /// <summary>
+        /// The execute.
+        /// </summary>
+        /// <param name="arguments">
+        /// The arguments.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool AllSatisfiedBy(string[] arguments)
+        {
+            return this.argumentRuleCombos.Any(argumentRuleCombo => argumentRuleCombo.AllSatisfiedBy(arguments));
         }
     }
 }

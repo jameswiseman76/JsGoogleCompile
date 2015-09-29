@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IsValidJavaScriptFileName.cs" company="www.jameswiseman.com">
+// <copyright file="ICommandLineArguments.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,68 +22,36 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Argument Rule to check if this is a valid JavaScript file name
+//     The CommandLineArguments interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace JsGoogleCompile.CLI
 {
-    using System.IO;
-    using System.Linq;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// The is valid compilation level argument.
+    /// The CommandLineArguments interface.
     /// </summary>
-    public class IsValidJavaScriptFileName : IArgumentRule
+    public interface ICommandLineArguments
     {
         /// <summary>
-        /// The command line arguments.
+        /// Gets or sets a value indicating whether the current args are valid.
         /// </summary>
-        private readonly ICommandLineArguments commandLineArguments;
+        bool AreValid { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsValidJavaScriptFileName"/> class.
+        /// Gets or sets the file name.
         /// </summary>
-        /// <param name="commandLineArguments">
-        /// The command line arguments.
-        /// </param>
-        public IsValidJavaScriptFileName(ICommandLineArguments commandLineArguments)
-        {
-            this.commandLineArguments = commandLineArguments;
-        }
+        string FileName { get; set; }
 
         /// <summary>
-        /// Determines if the rule is satisfied by the given arguments
+        /// Gets or sets the compilation level.
         /// </summary>
-        /// <param name="arguments">
-        /// The argument.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        public bool IsSatisfiedBy(string[] arguments)
-        {
-            return arguments.Any(this.IsJsExtension);
-        }
+        string CompilationLevel { get; set; }
 
         /// <summary>
-        /// Determine if the given file has a valid JavaScript file extension.
+        /// Gets or sets the suppressed warnings.
         /// </summary>
-        /// <param name="fileName">
-        /// The file name.
-        /// </param>
-        /// <returns>
-        /// True or false if this has a JavaScript file extension <see cref="bool"/>.
-        /// </returns>
-        private bool IsJsExtension(string fileName)
-        {
-            if (Path.GetExtension(fileName).ToUpper() == "JS")
-            {
-                this.commandLineArguments.FileName = fileName;
-                return true;
-            }
-
-            return false;
-        }
+        List<string> SuppressedWarnings { get; set; }
     }
 }

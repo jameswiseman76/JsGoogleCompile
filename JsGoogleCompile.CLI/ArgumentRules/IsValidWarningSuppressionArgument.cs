@@ -33,6 +33,22 @@ namespace JsGoogleCompile.CLI
     public class IsValidWarningSuppressionArgument : IArgumentRule
     {
         /// <summary>
+        /// The command line arguments.
+        /// </summary>
+        private readonly ICommandLineArguments commandLineArguments;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IsValidWarningSuppressionArgument"/> class.
+        /// </summary>
+        /// <param name="commandLineArguments">
+        /// The command line arguments.
+        /// </param>
+        public IsValidWarningSuppressionArgument(ICommandLineArguments commandLineArguments)
+        {
+            this.commandLineArguments = commandLineArguments;
+        }
+
+        /// <summary>
         /// Determines if the rule is satisfied by the given arguments
         /// </summary>
         /// <param name="arguments">

@@ -30,12 +30,11 @@ namespace JsGoogleCompile.CLI
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
 
     /// <summary>
     /// The command line arguments.
     /// </summary>
-    public class CommandLineArguments
+    public class CommandLineArguments : ICommandLineArguments
     {
         /// <summary>
         /// The compilation level helper.
@@ -66,14 +65,19 @@ namespace JsGoogleCompile.CLI
         public bool AreValid { get; set; }
 
         /// <summary>
-        /// Gets the file name.
+        /// Gets or sets the file name.
         /// </summary>
-        public string FileName { get; private set; }
+        public string FileName { get; set; }
 
         /// <summary>
-        /// Gets the compilation level.
+        /// Gets or sets the compilation level.
         /// </summary>
-        public string CompilationLevel { get; private set; }
+        public string CompilationLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the suppressed warnings.
+        /// </summary>
+        public List<string> SuppressedWarnings { get; set; }
 
         /// <summary>
         /// Emit usage instructions.

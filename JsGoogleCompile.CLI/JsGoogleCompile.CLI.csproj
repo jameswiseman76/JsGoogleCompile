@@ -49,6 +49,7 @@
     <Compile Include="ArgumentRules\IsValidCompilationLevelArgument.cs" />
     <Compile Include="ArgumentRules\IsValidJavaScriptFileName.cs" />
     <Compile Include="ArgumentRules\IsValidWarningSuppressionArgument.cs" />
+    <Compile Include="ICommandLineArguments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>

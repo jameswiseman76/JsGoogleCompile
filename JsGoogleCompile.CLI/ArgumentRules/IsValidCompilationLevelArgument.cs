@@ -33,6 +33,22 @@ namespace JsGoogleCompile.CLI
     public class IsValidCompilationLevelArgument : IArgumentRule
     {
         /// <summary>
+        /// The command line arguments.
+        /// </summary>
+        private readonly ICommandLineArguments commandLineArguments;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IsValidCompilationLevelArgument"/> class.
+        /// </summary>
+        /// <param name="commandLineArguments">
+        /// The command line arguments.
+        /// </param>
+        public IsValidCompilationLevelArgument(ICommandLineArguments commandLineArguments)
+        {
+            this.commandLineArguments = commandLineArguments;
+        }
+
+        /// <summary>
         /// Determines if the rule is satisfied by the given arguments
         /// </summary>
         /// <param name="arguments">
