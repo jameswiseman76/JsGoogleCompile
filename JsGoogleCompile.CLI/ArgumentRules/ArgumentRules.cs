@@ -37,7 +37,7 @@ namespace JsGoogleCompile.CLI
         /// <summary>
         /// The argument rule combo.
         /// </summary>
-        private readonly List<ArgumentRuleCombo> argumentRuleCombos = new List<ArgumentRuleCombo>();
+        private readonly List<IArgumentRuleCombo> argumentRuleCombos = new List<IArgumentRuleCombo>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentRules"/> class.

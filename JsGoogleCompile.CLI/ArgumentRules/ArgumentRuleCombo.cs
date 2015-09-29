@@ -27,14 +27,13 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace JsGoogleCompile.CLI
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
     /// The argument rule combo.
     /// </summary>
-    public class ArgumentRuleCombo : IEnumerable<IArgumentRule>
+    public class ArgumentRuleCombo : IArgumentRuleCombo
     {
         /// <summary>
         /// The argument rules.
@@ -53,25 +52,17 @@ namespace JsGoogleCompile.CLI
         }
 
         /// <summary>
-        /// Get the enumerator for the rule combo.
+        /// Checks that all rules are satisfied by the given arguments
         /// </summary>
+        /// <param name="arguments">
+        /// The args.
+        /// </param>
         /// <returns>
-        /// The <see cref="IEnumerator"/>.
+        /// The <see cref="bool"/>.
         /// </returns>
-        public IEnumerator<IArgumentRule> GetEnumerator()
+        public bool AllSatisfiedBy(string[] arguments)
         {
-            return this.argumentRules.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Get the enumerator for the rule combo.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IEnumerator"/>.
-        /// </returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
+            return this.argumentRules.All(r => r.IsSatisfiedBy(arguments));
         }
     }
 }

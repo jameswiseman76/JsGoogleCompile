@@ -32,5 +32,18 @@ namespace JsGoogleCompile.CLI
     /// </summary>
     public class IsValidCompilationLevelArgument : IArgumentRule
     {
+        /// <summary>
+        /// Determines if the rule is satisfied by the given arguments
+        /// </summary>
+        /// <param name="arguments">
+        /// The argument.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool IsSatisfiedBy(string[] arguments)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

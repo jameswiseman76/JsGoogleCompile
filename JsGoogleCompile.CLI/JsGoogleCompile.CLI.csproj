@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ArgumentRules\ArgumentRuleCombo.cs" />
     <Compile Include="ArgumentRules\ArgumentRules.cs" />
+    <Compile Include="ArgumentRules\IArgumentRuleCombo.cs" />
     <Compile Include="CommandLineArguments.cs" />
     <Compile Include="ArgumentRules\IArgumentRule.cs" />
     <Compile Include="ArgumentRules\IsValidCompilationLevelArgument.cs" />

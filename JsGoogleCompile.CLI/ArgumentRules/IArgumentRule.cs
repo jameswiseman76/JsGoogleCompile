@@ -32,5 +32,15 @@ namespace JsGoogleCompile.CLI
     /// </summary>
     public interface IArgumentRule
     {
+        /// <summary>
+        /// Determines if the rule is satisfied by the given arguments
+        /// </summary>
+        /// <param name="arguments">
+        /// The argument.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool IsSatisfiedBy(string[] arguments);
     }
 }

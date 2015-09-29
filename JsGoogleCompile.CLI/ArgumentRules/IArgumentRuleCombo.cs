@@ -1,5 +1,5 @@
-﻿// IsValidWarningSuppressionArgument
-// <copyright file="IsValidJavaScriptFileName.cs" company="www.jameswiseman.com">
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IArgumentRuleCombo.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,28 +22,25 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Argument Rule to check if this is a valid warning suppression argument
+//     Interface for a valid combo of rules
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace JsGoogleCompile.CLI
 {
     /// <summary>
-    /// The is valid compilation level argument.
+    /// The argument rule combo interface.
     /// </summary>
-    public class IsValidWarningSuppressionArgument : IArgumentRule
+    public interface IArgumentRuleCombo
     {
         /// <summary>
-        /// Determines if the rule is satisfied by the given arguments
+        /// Checks that all rules are satisfied by the given arguments
         /// </summary>
         /// <param name="arguments">
-        /// The argument.
+        /// The args.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsSatisfiedBy(string[] arguments)
-        {
-            throw new System.NotImplementedException();
-        }
+        bool AllSatisfiedBy(string[] arguments);
     }
 }
