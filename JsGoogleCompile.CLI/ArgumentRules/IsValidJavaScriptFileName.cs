@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ArgumentRules.cs" company="www.jameswiseman.com">
+// <copyright file="IsValidJavaScriptFileName.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,24 +22,15 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Encapsultes command line argument rules functionality
+//     Argument Rule to check if this is a valid JavaScript file name
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace JsGoogleCompile.CLI
 {
     /// <summary>
-    /// The argument rules.
+    /// The is valid compilation level argument.
     /// </summary>
-    public class ArgumentRules
+    public class IsValidJavaScriptFileName : IArgumentRule
     {
-        // 1. FileName: Required
-        // 2. Compilation Level: Optional
-        // 3. Warning Suppressions: Optional
-
-        // Valid combos
-        // 1
-        // 1,2
-        // 1,3
-        // 1,2,3
     }
 }

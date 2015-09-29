@@ -25,29 +25,53 @@
 //     Encapsultes a valid combo of rules
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using System.Collections.Generic;
-using System.Linq;
-
 namespace JsGoogleCompile.CLI
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    /// <summary>
+    /// The argument rule combo.
+    /// </summary>
     public class ArgumentRuleCombo : IEnumerable<IArgumentRule>
     {
-        private List<IArgumentRule> argumentRules;
+        /// <summary>
+        /// The argument rules.
+        /// </summary>
+        private readonly List<IArgumentRule> argumentRules;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArgumentRuleCombo"/> class.
+        /// </summary>
+        /// <param name="argumentRules">
+        /// The argument rules.
+        /// </param>
         public ArgumentRuleCombo(params IArgumentRule[] argumentRules)
         {
             this.argumentRules = argumentRules.ToList();
         }
 
+        /// <summary>
+        /// Get the enumerator for the rule combo.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerator"/>.
+        /// </returns>
         public IEnumerator<IArgumentRule> GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return this.argumentRules.GetEnumerator();
         }
 
+        /// <summary>
+        /// Get the enumerator for the rule combo.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerator"/>.
+        /// </returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return this.GetEnumerator();
         }
     }
 }
