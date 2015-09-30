@@ -49,24 +49,19 @@ namespace JsGoogleCompile.CLI
         /// <summary>
         /// Initializes a new instance of the <see cref="ArgumentRules"/> class.
         /// </summary>
-        /// <param name="compilationLevelHelper">
-        /// The compilation level helper.
-        /// </param>
-        public ArgumentRules(ICompilationLevelHelper compilationLevelHelper)
-        {
-            Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
-
-            this.compilationLevelHelper = compilationLevelHelper;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ArgumentRules"/> class.
-        /// </summary>
         /// <param name="commandLineArguments">
         /// The command line arguments.
         /// </param>
-        public ArgumentRules(ICommandLineArguments commandLineArguments)
+        /// <param name="compilationLevelHelper">
+        /// The compilation level helper.
+        /// </param>
+        public ArgumentRules(ICommandLineArguments commandLineArguments, ICompilationLevelHelper compilationLevelHelper)
         {
+            Guard.ArgumentNotNull(() => commandLineArguments, commandLineArguments);
+            Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
+
+            this.compilationLevelHelper = compilationLevelHelper;
+
             var isValidJavaScriptFileName = new IsValidJavaScriptFileName(commandLineArguments);
             var isValidCompilationLevelArgument = new IsValidCompilationLevelArgument(commandLineArguments, this.compilationLevelHelper);
             var isValidWarningSuppressionArgument = new IsValidWarningSuppressionArgument(commandLineArguments);

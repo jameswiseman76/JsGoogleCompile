@@ -104,7 +104,7 @@
 
             // Assert
             Assert.IsFalse(cla.AreValid);
-            compilationLevelHelperMock.Verify(m => m.IsValid(It.Is<string>(p => p == expectedCompilationLevel)), Times.Once);
+            compilationLevelHelperMock.Verify(m => m.IsValid(It.Is<string>(p => p == expectedCompilationLevel)), Times.Exactly(3));
         }
 
         [TestMethod]

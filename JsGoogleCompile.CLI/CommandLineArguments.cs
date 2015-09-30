@@ -131,7 +131,7 @@ namespace JsGoogleCompile.CLI
         /// </param>
         private void FromArgs(IList<string> arguments)
         {
-            var argumentRules = new ArgumentRules(this);
+            var argumentRules = new ArgumentRules(this, this.compilationLevelHelper);
             var rules = argumentRules.OneSatisfiedBy(arguments);
 
             if ((arguments.Count == 2) && (arguments[1].Substring(0, 2).ToUpper() == "/C"))
