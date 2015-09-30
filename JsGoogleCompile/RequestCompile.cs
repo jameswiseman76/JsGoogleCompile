@@ -25,6 +25,9 @@
 //     The interface for calling into the compiler API
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System.Linq;
+
 namespace JsGoogleCompile
 {
     using System.Collections.Generic;
@@ -79,9 +82,7 @@ namespace JsGoogleCompile
             IList<string> suppressedWarnings)
         {
             Guard.ArgumentNotNullOrEmpty(() => fileName, fileName);
-            Guard.ArgumentNotNullOrEmpty(() => compilationLevel, compilationLevel);
             Guard.ArgumentNotNullOrEmpty(() => compilerUrl, compilerUrl);
-            Guard.ArgumentNotNull(() => suppressedWarnings, suppressedWarnings);
 
             this.fileName = fileName;
             this.compilationLevel = compilationLevel;

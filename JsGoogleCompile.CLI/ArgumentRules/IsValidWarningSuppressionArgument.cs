@@ -68,15 +68,30 @@ namespace JsGoogleCompile.CLI
         /// <summary>
         /// Determine if the given parameter is a valid warning suppression
         /// </summary>
-        /// <param name="fileName">
+        /// <param name="argument">
         /// The file name.
         /// </param>
         /// <returns>
-        /// True or false if this has a JavaScript file extension <see cref="bool"/>.
+        /// <see cref="bool"/> True or false if the given parameter is a valid warning suppression.
         /// </returns>
-        private bool IsValid(string fileName)
+        private bool IsValid(string argument)
         {
-            return false;
+            argument = argument.ToUpper();
+            if (!argument.StartsWith("/S"))
+            {
+                return false;
+            }
+
+            var attribute = argument.Substring(2, argument.Length - 2);
+            if (string.IsNullOrEmpty(attribute))
+            {
+                return false;
+            }
+
+            var warnings = attribute.Split(',').ToList();
+
+            this.commandLineArguments.SuppressedWarnings = warnings;
+            return true;
         }
     }
 }

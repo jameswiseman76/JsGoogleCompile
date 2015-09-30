@@ -48,7 +48,7 @@
         }
 
         [TestMethod]
-        public void General_Testy()
+        public void FileName_And_WarningSuppression_Argument_Is_Valid()
         {
             // Arrange
             var commandLineArgumentsMock = Mock.Of<ICommandLineArguments>();
@@ -57,7 +57,7 @@
 
             var argumentRules = new ArgumentRules(commandLineArgumentsMock, compilationLevelHelperMock.Object);
 
-            var arguments = new List<string> { "sample.js", "/c" };
+            var arguments = new List<string> { "sample.js", "/sJSC_BAD_TYPE_FOR_BIT_OPERATION" };
 
             // Act
             var anyRuleComboSatified = argumentRules.AnySatisfiedBy(arguments);
@@ -67,13 +67,22 @@
         }
 
         [TestMethod]
-        public void FileName_And_WarningSuppression_Argument_Is_Valid()
-        {
-        }
-
-        [TestMethod]
         public void FileName_And_And_CompilationLevel_WarningSuppression_Argument_Is_Valid()
         {
+            // Arrange
+            var commandLineArgumentsMock = Mock.Of<ICommandLineArguments>();
+            var compilationLevelHelperMock = new Mock<ICompilationLevelHelper>();
+            compilationLevelHelperMock.Setup(m => m.From(It.IsAny<string>())).Returns("ADVANCED_OPTIMIZATIONS");
+
+            var argumentRules = new ArgumentRules(commandLineArgumentsMock, compilationLevelHelperMock.Object);
+
+            var arguments = new List<string> { "sample.js", "/ca", "/sJSC_BAD_TYPE_FOR_BIT_OPERATION,JSC_FUNCTION_MASKS_VARIABLE" };
+
+            // Act
+            var anyRuleComboSatified = argumentRules.AnySatisfiedBy(arguments);
+
+            // Assert
+            Assert.IsTrue(true);
         }
     }
 }

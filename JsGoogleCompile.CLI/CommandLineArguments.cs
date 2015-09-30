@@ -57,6 +57,7 @@ namespace JsGoogleCompile.CLI
 
             this.compilationLevelHelper = compilationLevelHelper;
             this.FromArgs(args);
+            this.CompilationLevel = "A";
         }
 
         /// <summary>
@@ -132,46 +133,12 @@ namespace JsGoogleCompile.CLI
         private void FromArgs(IList<string> arguments)
         {
             var argumentRules = new ArgumentRules(this, this.compilationLevelHelper);
-            var rules = argumentRules.AnySatisfiedBy(arguments);
+            this.AreValid = argumentRules.AnySatisfiedBy(arguments);
 
-            if ((arguments.Count == 2) && (arguments[1].Substring(0, 2).ToUpper() == "/C"))
+            if (!this.AreValid)
             {
-                if (this.IsValidCompilationLevelArgument(arguments[1]))
-                {
-                    this.FileName = arguments[0];
-                    this.CompilationLevel = arguments[1].Substring(2, 1);
-                    this.AreValid = true;
-                    return;
-                }
-
-                this.AreValid = false;
+                EmitUsageInstructions();
             }
-
-            if ((arguments.Count == 1) && (arguments[0] != "/?"))
-            {
-                this.FileName = arguments[0];
-                this.CompilationLevel = "a";
-                this.AreValid = true;
-                return;
-            }
-
-            EmitUsageInstructions();
-            this.AreValid = false;
-        }
-
-        /// <summary>
-        /// Check if this is a is valid compilation level argument.
-        /// </summary>
-        /// <param name="argument">
-        /// The argument.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private bool IsValidCompilationLevelArgument(string argument)
-        {
-            return this.compilationLevelHelper.IsValid(
-                argument.Substring(2, argument.Length - 2));
         }
     }
 }
