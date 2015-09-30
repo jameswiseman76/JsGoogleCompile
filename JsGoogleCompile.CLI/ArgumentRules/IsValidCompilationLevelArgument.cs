@@ -25,8 +25,12 @@
 //     Argument Rule to check if this is a valid compilation level argument
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace JsGoogleCompile.CLI
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     /// <summary>
     /// The is valid compilation level argument.
     /// </summary>
@@ -38,14 +42,26 @@ namespace JsGoogleCompile.CLI
         private readonly ICommandLineArguments commandLineArguments;
 
         /// <summary>
+        /// The compilation level helper.
+        /// </summary>
+        private readonly ICompilationLevelHelper compilationLevelHelper;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IsValidCompilationLevelArgument"/> class.
         /// </summary>
         /// <param name="commandLineArguments">
         /// The command line arguments.
         /// </param>
-        public IsValidCompilationLevelArgument(ICommandLineArguments commandLineArguments)
+        /// <param name="compilationLevelHelper">
+        /// The CompilationLevel helper
+        /// </param>
+        public IsValidCompilationLevelArgument(ICommandLineArguments commandLineArguments, ICompilationLevelHelper compilationLevelHelper)
         {
+            Guard.ArgumentNotNull(() => commandLineArguments, commandLineArguments);
+            Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
+
             this.commandLineArguments = commandLineArguments;
+            this.compilationLevelHelper = compilationLevelHelper;
         }
 
         /// <summary>
@@ -57,9 +73,29 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsSatisfiedBy(string[] arguments)
+        public bool IsSatisfiedBy(IList<string> arguments)
         {
-            throw new System.NotImplementedException();
+            return arguments.Any(this.IsValid);
+       }
+
+        /// <summary>
+        /// The is valid.
+        /// </summary>
+        /// <param name="argument">
+        /// The argument.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool IsValid(string argument)
+        {
+            if (this.compilationLevelHelper.IsValid(argument.Substring(2, argument.Length - 2)))
+            {
+                this.commandLineArguments.CompilationLevel = argument.Substring(2, 1);
+                return true;
+            }
+
+            return false;
         }
     }
 }

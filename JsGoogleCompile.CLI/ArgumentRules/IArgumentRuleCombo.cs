@@ -27,6 +27,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace JsGoogleCompile.CLI
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The argument rule combo interface.
     /// </summary>
@@ -41,6 +43,6 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        bool AllSatisfiedBy(string[] arguments);
+        bool AllSatisfiedBy(IList<string> arguments);
     }
 }

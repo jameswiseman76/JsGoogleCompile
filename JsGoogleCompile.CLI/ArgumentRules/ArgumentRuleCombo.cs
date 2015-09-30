@@ -60,7 +60,7 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool AllSatisfiedBy(string[] arguments)
+        public bool AllSatisfiedBy(IList<string> arguments)
         {
             return this.argumentRules.All(r => r.IsSatisfiedBy(arguments));
         }

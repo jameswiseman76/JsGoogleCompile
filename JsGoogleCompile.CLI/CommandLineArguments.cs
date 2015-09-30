@@ -87,28 +87,59 @@ namespace JsGoogleCompile.CLI
             Console.WriteLine("JsGoogleCompile: Request a compile from the Google Closure Compiler service");
             Console.WriteLine("(http://closure-compiler.appspot.com/compile)");
             Console.WriteLine();
-            Console.WriteLine("Usage:\t\tJsGoogleCompile.exe FileName [/c[attribute]]");
-            Console.WriteLine("FileName:\tThe full filename and path of the file on disk to compress");
-            Console.WriteLine("/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
-            Console.WriteLine("attribute: \t w: Whitespace only");
-            Console.WriteLine("\t\t s: Simple optimisations");
-            Console.WriteLine("\t\t a: Advianced optimisations");
+            Console.WriteLine("Usage:\tJsGoogleCompile.exe FileName [/c[attribute]] [/s[comma seprated list of warnings]]");
+            Console.WriteLine("\tFileName:\tThe full filename and path of the file on disk to compress");
+            Console.WriteLine("\t/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
+            Console.WriteLine("\t\t\t/cw: Whitespace only");
+            Console.WriteLine("\t\t\t/cs: Simple optimisations");
+            Console.WriteLine("\t\t\t/ca: Advanced optimisations");
+            Console.WriteLine("\t/s: \t\tSpecify warnings to be suppressed");
+            Console.WriteLine("\t\t\t/s[warning1, warning2]");
+            Console.WriteLine("\tWarnings:\tJSC_BAD_DELETE_OPERAND");
+            Console.WriteLine("\t\t\tJSC_BAD_TYPE_FOR_BIT_OPERATION");
+            Console.WriteLine("\t\t\tJSC_CONSTRUCTOR_NOT_CALLABLE");
+            Console.WriteLine("\t\t\tJSC_FUNCTION_MASKS_VARIABLE");
+            Console.WriteLine("\t\t\tJSC_INVALID_FUNCTION_DECL");
+            Console.WriteLine("\t\t\tJSC_NAMESPACE_REDEFINED");
+            Console.WriteLine("\t\t\tJSC_NOT_A_CONSTRUCTOR");
+            Console.WriteLine("\t\t\tJSC_NOT_FUNCTION_TYPE");
+            Console.WriteLine("\t\t\tJSC_REDECLARED_VARIABLE");
+            Console.WriteLine("\t\t\tJSC_REFERENCE_BEFORE_DECLARE");
+            Console.WriteLine("\t\t\tJSC_SET_WITHOUT_READ");
+            Console.WriteLine("\t\t\tJSC_SUSPICIOUS_SEMICOLON");
+            Console.WriteLine("\t\t\tJSC_TYPE_MISMATCH");
+            Console.WriteLine("\t\t\tJSC_UNDEFINED_NAME");
+            Console.WriteLine("\t\t\tJSC_UNDEFINED_VARIABLE");
+            Console.WriteLine("\t\t\tJSC_UNSAFE_NAMESPACE");
+            Console.WriteLine("\t\t\tJSC_UNSAFE_THIS");
+            Console.WriteLine("\t\t\tJSC_USED_GLOBAL_THIS");
+            Console.WriteLine("\t\t\tJSC_USELESS_CODE");
+            Console.WriteLine("\t\t\tJSC_VAR_ARGS_MUST_BE_LAST");
+            Console.WriteLine("\t\t\tJSC_WRONG_ARGUMENT_COUNT");
+            Console.WriteLine("Example usages:");
+            Console.WriteLine("\tJsGoogleCompile.exe sample.js");
+            Console.WriteLine("\tJsGoogleCompile.exe sample.js /ca");
+            Console.WriteLine("\tJsGoogleCompile.exe sample.js /sJSC_BAD_TYPE_FOR_BIT_OPERATION");
+            Console.WriteLine("\tJsGoogleCompile.exe sample.js /cw /sJSC_BAD_TYPE_FOR_BIT_OPERATION,JSC_UNSAFE_THIS");
         }
 
         /// <summary>
         /// The check usage instructions.
         /// </summary>
-        /// <param name="args">
+        /// <param name="arguments">
         /// The args.
         /// </param>
-        private void FromArgs(IList<string> args)
+        private void FromArgs(IList<string> arguments)
         {
-            if ((args.Count == 2) && (args[1].Substring(0, 2).ToUpper() == "/C"))
+            var argumentRules = new ArgumentRules(this);
+            var rules = argumentRules.OneSatisfiedBy(arguments);
+
+            if ((arguments.Count == 2) && (arguments[1].Substring(0, 2).ToUpper() == "/C"))
             {
-                if (this.IsValidCompilationLevelArgument(args[1]))
+                if (this.IsValidCompilationLevelArgument(arguments[1]))
                 {
-                    this.FileName = args[0];
-                    this.CompilationLevel = args[1].Substring(2, 1);
+                    this.FileName = arguments[0];
+                    this.CompilationLevel = arguments[1].Substring(2, 1);
                     this.AreValid = true;
                     return;
                 }
@@ -116,9 +147,9 @@ namespace JsGoogleCompile.CLI
                 this.AreValid = false;
             }
 
-            if ((args.Count == 1) && (args[0] != "/?"))
+            if ((arguments.Count == 1) && (arguments[0] != "/?"))
             {
-                this.FileName = args[0];
+                this.FileName = arguments[0];
                 this.CompilationLevel = "a";
                 this.AreValid = true;
                 return;
@@ -128,20 +159,10 @@ namespace JsGoogleCompile.CLI
             this.AreValid = false;
         }
 
-        private bool IsJavascriptFileName(string fileName)
-        {
-            return true;
-        }
-
         private bool IsValidCompilationLevelArgument(string argument)
         {
             return this.compilationLevelHelper.IsValid(
                 argument.Substring(2, argument.Length - 2));
-        }
-
-        private bool IsWarningSuppressionArgument(string argument)
-        {
-            return true;
         }
     }
 }

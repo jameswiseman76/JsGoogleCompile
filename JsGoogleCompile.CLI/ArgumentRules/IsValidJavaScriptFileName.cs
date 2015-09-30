@@ -28,6 +28,7 @@
 
 namespace JsGoogleCompile.CLI
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
@@ -61,7 +62,7 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsSatisfiedBy(string[] arguments)
+        public bool IsSatisfiedBy(IList<string> arguments)
         {
             return arguments.Any(this.IsJsExtension);
         }
@@ -77,7 +78,7 @@ namespace JsGoogleCompile.CLI
         /// </returns>
         private bool IsJsExtension(string fileName)
         {
-            if (Path.GetExtension(fileName).ToUpper() == "JS")
+            if (Path.GetExtension(fileName).ToUpper() == ".JS")
             {
                 this.commandLineArguments.FileName = fileName;
                 return true;

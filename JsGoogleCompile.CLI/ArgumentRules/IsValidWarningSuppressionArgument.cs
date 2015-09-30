@@ -1,5 +1,4 @@
-﻿// IsValidWarningSuppressionArgument
-// <copyright file="IsValidJavaScriptFileName.cs" company="www.jameswiseman.com">
+﻿// <copyright file="IsValidWarningSuppressionArgument.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -27,6 +26,8 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace JsGoogleCompile.CLI
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// The is valid compilation level argument.
     /// </summary>
@@ -57,9 +58,9 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsSatisfiedBy(string[] arguments)
+        public bool IsSatisfiedBy(IList<string> arguments)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
     }
 }

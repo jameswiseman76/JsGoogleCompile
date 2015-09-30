@@ -121,13 +121,41 @@
             expected.AppendFormat("JsGoogleCompile: Request a compile from the Google Closure Compiler service{0}", Environment.NewLine);
             expected.AppendFormat("(http://closure-compiler.appspot.com/compile){0}", Environment.NewLine);
             expected.AppendFormat("{0}", Environment.NewLine);
-            expected.AppendFormat("Usage:\t\tJsGoogleCompile.exe FileName [/c[attribute]]{0}", Environment.NewLine);
-            expected.AppendFormat("FileName:\tThe full filename and path of the file on disk to compress{0}", Environment.NewLine);
-            expected.AppendFormat("/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed){0}", Environment.NewLine);
-            expected.AppendFormat("attribute: \t w: Whitespace only{0}", Environment.NewLine);
-            expected.AppendFormat("\t\t s: Simple optimisations{0}", Environment.NewLine);
-            expected.AppendFormat("\t\t a: Advianced optimisations{0}", Environment.NewLine);
-
+            expected.AppendFormat("Usage:\tJsGoogleCompile.exe FileName [/c[attribute]] [/s[comma seprated list of warnings]]{0}", Environment.NewLine);
+            expected.AppendFormat("\tFileName:\tThe full filename and path of the file on disk to compress{0}", Environment.NewLine);
+            expected.AppendFormat("\t/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed){0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\t/cw: Whitespace only{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\t/cs: Simple optimisations{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\t/ca: Advanced optimisations{0}", Environment.NewLine);
+            expected.AppendFormat("\t/s: \t\tSpecify warnings to be suppressed{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\t/s[warning1, warning2]{0}", Environment.NewLine);
+            expected.AppendFormat("\tWarnings:\tJSC_BAD_DELETE_OPERAND{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_BAD_TYPE_FOR_BIT_OPERATION{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_CONSTRUCTOR_NOT_CALLABLE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_FUNCTION_MASKS_VARIABLE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_INVALID_FUNCTION_DECL{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_NAMESPACE_REDEFINED{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_NOT_A_CONSTRUCTOR{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_NOT_FUNCTION_TYPE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_REDECLARED_VARIABLE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_REFERENCE_BEFORE_DECLARE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_SET_WITHOUT_READ{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_SUSPICIOUS_SEMICOLON{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_TYPE_MISMATCH{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_UNDEFINED_NAME{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_UNDEFINED_VARIABLE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_UNSAFE_NAMESPACE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_UNSAFE_THIS{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_USED_GLOBAL_THIS{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_USELESS_CODE{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_VAR_ARGS_MUST_BE_LAST{0}", Environment.NewLine);
+            expected.AppendFormat("\t\t\tJSC_WRONG_ARGUMENT_COUNT{0}", Environment.NewLine);
+            expected.AppendFormat("Example usages:{0}", Environment.NewLine);
+            expected.AppendFormat("\tJsGoogleCompile.exe sample.js{0}", Environment.NewLine);
+            expected.AppendFormat("\tJsGoogleCompile.exe sample.js /ca{0}", Environment.NewLine);
+            expected.AppendFormat("\tJsGoogleCompile.exe sample.js /sJSC_BAD_TYPE_FOR_BIT_OPERATION{0}", Environment.NewLine);
+            expected.AppendFormat("\tJsGoogleCompile.exe sample.js /cw /sJSC_BAD_TYPE_FOR_BIT_OPERATION,JSC_UNSAFE_THIS{0}", Environment.NewLine); 
+            
             return expected.ToString();
         }
     }
