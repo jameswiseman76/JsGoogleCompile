@@ -132,7 +132,7 @@ namespace JsGoogleCompile.CLI
         private void FromArgs(IList<string> arguments)
         {
             var argumentRules = new ArgumentRules(this, this.compilationLevelHelper);
-            var rules = argumentRules.OneSatisfiedBy(arguments);
+            var rules = argumentRules.AnySatisfiedBy(arguments);
 
             if ((arguments.Count == 2) && (arguments[1].Substring(0, 2).ToUpper() == "/C"))
             {
@@ -159,6 +159,15 @@ namespace JsGoogleCompile.CLI
             this.AreValid = false;
         }
 
+        /// <summary>
+        /// Check if this is a is valid compilation level argument.
+        /// </summary>
+        /// <param name="argument">
+        /// The argument.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         private bool IsValidCompilationLevelArgument(string argument)
         {
             return this.compilationLevelHelper.IsValid(

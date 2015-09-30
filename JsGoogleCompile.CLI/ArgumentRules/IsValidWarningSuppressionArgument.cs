@@ -24,9 +24,11 @@
 //     Argument Rule to check if this is a valid warning suppression argument
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace JsGoogleCompile.CLI
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// The is valid compilation level argument.
@@ -59,6 +61,20 @@ namespace JsGoogleCompile.CLI
         /// The <see cref="bool"/>.
         /// </returns>
         public bool IsSatisfiedBy(IList<string> arguments)
+        {
+            return arguments.Any(this.IsValid);
+        }
+
+        /// <summary>
+        /// Determine if the given parameter is a valid warning suppression
+        /// </summary>
+        /// <param name="fileName">
+        /// The file name.
+        /// </param>
+        /// <returns>
+        /// True or false if this has a JavaScript file extension <see cref="bool"/>.
+        /// </returns>
+        private bool IsValid(string fileName)
         {
             return false;
         }

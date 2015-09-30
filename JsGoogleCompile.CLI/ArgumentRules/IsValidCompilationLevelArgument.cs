@@ -76,7 +76,7 @@ namespace JsGoogleCompile.CLI
         public bool IsSatisfiedBy(IList<string> arguments)
         {
             return arguments.Any(this.IsValid);
-       }
+        }
 
         /// <summary>
         /// The is valid.
@@ -89,13 +89,20 @@ namespace JsGoogleCompile.CLI
         /// </returns>
         private bool IsValid(string argument)
         {
-            if (this.compilationLevelHelper.IsValid(argument.Substring(2, argument.Length - 2)))
+            argument = argument.ToUpper();
+            if (!argument.StartsWith("/C"))
             {
-                this.commandLineArguments.CompilationLevel = argument.Substring(2, 1);
-                return true;
+                return false;
             }
 
-            return false;
+            var attribute = argument.Substring(2, argument.Length - 2);
+            if (!this.compilationLevelHelper.IsValid(attribute))
+            {
+                return false;
+            }
+
+            this.commandLineArguments.CompilationLevel = attribute;
+            return true;
         }
     }
 }

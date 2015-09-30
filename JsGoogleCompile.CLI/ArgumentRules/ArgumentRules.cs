@@ -37,11 +37,6 @@ namespace JsGoogleCompile.CLI
     public class ArgumentRules
     {
         /// <summary>
-        /// The compilation level helper.
-        /// </summary>
-        private readonly ICompilationLevelHelper compilationLevelHelper;
-
-        /// <summary>
         /// The argument rule combo.
         /// </summary>
         private readonly List<IArgumentRuleCombo> argumentRuleCombos = new List<IArgumentRuleCombo>();
@@ -60,12 +55,12 @@ namespace JsGoogleCompile.CLI
             Guard.ArgumentNotNull(() => commandLineArguments, commandLineArguments);
             Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
 
-            this.compilationLevelHelper = compilationLevelHelper;
-
+            // Setup validators
             var isValidJavaScriptFileName = new IsValidJavaScriptFileName(commandLineArguments);
-            var isValidCompilationLevelArgument = new IsValidCompilationLevelArgument(commandLineArguments, this.compilationLevelHelper);
+            var isValidCompilationLevelArgument = new IsValidCompilationLevelArgument(commandLineArguments, compilationLevelHelper);
             var isValidWarningSuppressionArgument = new IsValidWarningSuppressionArgument(commandLineArguments);
 
+            // Setup argument rule combos
             this.argumentRuleCombos.Add(
                 new ArgumentRuleCombo(isValidJavaScriptFileName, isValidCompilationLevelArgument, isValidWarningSuppressionArgument));
 
@@ -87,7 +82,7 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool OneSatisfiedBy(IList<string> arguments)
+        public bool AnySatisfiedBy(IList<string> arguments)
         {
             return this.argumentRuleCombos.Any(argumentRuleCombo => argumentRuleCombo.AllSatisfiedBy(arguments));
         }

@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="JSGoogleCompile.CLI\ArgumentRulesTests.cs" />
     <Compile Include="JSGoogleCompile.CLI\CommandLineArgumentsTest.cs" />
     <Compile Include="JSGoogleCompile\CompilerOptionsTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerResultsTests.cs" />

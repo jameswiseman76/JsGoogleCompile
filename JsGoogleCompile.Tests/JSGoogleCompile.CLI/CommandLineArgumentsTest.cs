@@ -1,4 +1,4 @@
-﻿namespace JsGoogleCompile.Tests
+﻿namespace JsGoogleCompile.Tests.JSGoogleCompile.CLI
 {
     using System;
     using System.IO;

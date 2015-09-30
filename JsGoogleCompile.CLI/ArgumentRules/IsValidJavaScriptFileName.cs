@@ -64,7 +64,7 @@ namespace JsGoogleCompile.CLI
         /// </returns>
         public bool IsSatisfiedBy(IList<string> arguments)
         {
-            return arguments.Any(this.IsJsExtension);
+            return arguments.Any(this.IsValid);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace JsGoogleCompile.CLI
         /// <returns>
         /// True or false if this has a JavaScript file extension <see cref="bool"/>.
         /// </returns>
-        private bool IsJsExtension(string fileName)
+        private bool IsValid(string fileName)
         {
             if (Path.GetExtension(fileName).ToUpper() == ".JS")
             {
