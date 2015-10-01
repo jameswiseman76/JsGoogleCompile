@@ -56,8 +56,12 @@ namespace JsGoogleCompile.CLI
             Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
 
             this.compilationLevelHelper = compilationLevelHelper;
-            this.CompilationLevel = "A";
             this.FromArgs(args);
+
+            if (this.AreValid)
+            {
+                this.CompilationLevel = "A";
+            }
         }
 
         /// <summary>

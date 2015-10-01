@@ -62,7 +62,8 @@ namespace JsGoogleCompile.CLI
         /// </returns>
         public bool AllSatisfiedBy(IList<string> arguments)
         {
-            return this.argumentRules.All(r => r.IsSatisfiedBy(arguments));
+            return this.argumentRules.All(r => r.IsSatisfiedBy(arguments))
+                && arguments.Count == this.argumentRules.Count;
         }
     }
 }

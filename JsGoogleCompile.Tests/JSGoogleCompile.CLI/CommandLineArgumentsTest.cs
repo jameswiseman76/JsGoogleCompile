@@ -92,7 +92,7 @@
         {
             // Arrange
             var expectedFileName = "SomeFile.js";
-            var expectedCompilationLevel = Guid.NewGuid().ToString();
+            var expectedCompilationLevel = Guid.NewGuid().ToString().ToUpper();
             var compilationArgument = string.Format("/C{0}", expectedCompilationLevel);
             var args = new[] { expectedFileName, compilationArgument };
 
@@ -104,7 +104,7 @@
 
             // Assert
             Assert.IsFalse(cla.AreValid);
-            compilationLevelHelperMock.Verify(m => m.IsValid(It.Is<string>(p => p == expectedCompilationLevel)), Times.Once);
+            compilationLevelHelperMock.Verify(m => m.IsValid(It.Is<string>(p => p == expectedCompilationLevel)), Times.Exactly(2));
         }
 
         [TestMethod]
