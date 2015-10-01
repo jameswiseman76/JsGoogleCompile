@@ -109,6 +109,8 @@ namespace JsGoogleCompile
             var deserializer = new ResultsDeserializer(new JavaScriptSerializer());
             var compilerResults = deserializer.DeserializeCompilerResults(responseFromServer);
 
+            compilerResults.SupressWarningsFrom(this.suppressedWarnings);
+
             return compilerResults;
         }
     }

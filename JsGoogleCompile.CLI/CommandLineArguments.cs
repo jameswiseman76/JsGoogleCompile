@@ -56,8 +56,8 @@ namespace JsGoogleCompile.CLI
             Guard.ArgumentNotNull(() => compilationLevelHelper, compilationLevelHelper);
 
             this.compilationLevelHelper = compilationLevelHelper;
-            this.FromArgs(args);
             this.CompilationLevel = "A";
+            this.FromArgs(args);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace JsGoogleCompile.CLI
             Console.WriteLine("JsGoogleCompile: Request a compile from the Google Closure Compiler service");
             Console.WriteLine("(http://closure-compiler.appspot.com/compile)");
             Console.WriteLine();
-            Console.WriteLine("Usage:\tJsGoogleCompile.exe FileName [/c[attribute]] [/s[comma seprated list of warnings]]");
+            Console.WriteLine("Usage:\tJsGoogleCompile.exe FileName [/c[attribute]] [/s[semi-colon separated list of warnings]]");
             Console.WriteLine("\tFileName:\tThe full filename and path of the file on disk to compress");
             Console.WriteLine("\t/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed)");
             Console.WriteLine("\t\t\t/cw: Whitespace only");
@@ -121,7 +121,7 @@ namespace JsGoogleCompile.CLI
             Console.WriteLine("\tJsGoogleCompile.exe sample.js");
             Console.WriteLine("\tJsGoogleCompile.exe sample.js /ca");
             Console.WriteLine("\tJsGoogleCompile.exe sample.js /sJSC_BAD_TYPE_FOR_BIT_OPERATION");
-            Console.WriteLine("\tJsGoogleCompile.exe sample.js /cw /sJSC_BAD_TYPE_FOR_BIT_OPERATION,JSC_UNSAFE_THIS");
+            Console.WriteLine("\tJsGoogleCompile.exe sample.js /cw /sJSC_BAD_TYPE_FOR_BIT_OPERATION;JSC_UNSAFE_THIS");
         }
 
         /// <summary>

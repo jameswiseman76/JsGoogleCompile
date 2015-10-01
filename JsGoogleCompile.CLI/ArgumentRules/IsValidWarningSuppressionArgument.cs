@@ -88,7 +88,7 @@ namespace JsGoogleCompile.CLI
                 return false;
             }
 
-            var warnings = attribute.Split(',').ToList();
+            var warnings = attribute.Split(';').ToList();
 
             this.commandLineArguments.SuppressedWarnings = warnings;
             return true;

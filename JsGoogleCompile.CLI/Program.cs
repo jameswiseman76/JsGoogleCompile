@@ -57,33 +57,31 @@ namespace JsGoogleCompile.CLI
                 Console.WriteLine("Requesting compile from {0}...", CompilerUrl);
                 Console.WriteLine();
 
-                var suppressedWarniings = new List<string>();
-
                 var requestCompile = new RequestCompile(
                     commandLineArguments.FileName,
                     commandLineArguments.CompilationLevel,
                     CompilerUrl,
-                    suppressedWarniings);
+                    commandLineArguments.SuppressedWarnings);
 
                 var compilerResults = requestCompile.Run();
 
                 var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
                 if (errorCount > 0)
                 {
-                    foreach (var ce in compilerResults.Errors)
+                    foreach (var compilerError in compilerResults.Errors)
                     {
-                        Console.WriteLine("{0}({1}): ERROR {2}", commandLineArguments.FileName, ce.Lineno, ce.Error);
-                        Console.WriteLine(ce.Line.TrimStart());
+                        Console.WriteLine("{0}({1}): ERROR ({2}) - {3}", commandLineArguments.FileName, compilerError.Lineno, compilerError.Type, compilerError.Error);
+                        Console.WriteLine(compilerError.Line.TrimStart());
                     }
                 }
 
                 var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
                 if (warningCount > 0)
                 {
-                    foreach (var cw in compilerResults.Warnings)
+                    foreach (var compilerWarning in compilerResults.Warnings)
                     {
-                        Console.WriteLine("{0}({1}): WARNING {2}", commandLineArguments.FileName, cw.Lineno, cw.Warning);
-                        Console.WriteLine(cw.Line.TrimStart());
+                        Console.WriteLine("{0}({1}): WARNING  ({2}) - {3}", commandLineArguments.FileName, compilerWarning.Lineno, compilerWarning.Type, compilerWarning.Warning);
+                        Console.WriteLine(compilerWarning.Line.TrimStart());
                     }
                 }
 

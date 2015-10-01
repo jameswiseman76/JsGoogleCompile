@@ -71,10 +71,10 @@ namespace JsGoogleCompile
         /// </param>
         public void SupressWarningsFrom(IList<string> supressedWarnings)
         {
-            var currentWarnings = this.Warnings.Select(w => w.Warning);
+            var currentWarnings = this.Warnings.Select(w => w.Type);
             var filteredWarnings = currentWarnings.Except(supressedWarnings);
 
-            this.Warnings = this.Warnings.Where(w => filteredWarnings.Any(s => s == w.Warning)).ToList();
+            this.Warnings = this.Warnings.Where(w => filteredWarnings.Any(s => s == w.Type)).ToList();
         }
     }
 }

@@ -11,14 +11,14 @@
         public void Test_That_SupressWarningsFrom_Filters_Out_A_Single_Warning()
         {
             // Arrange
-            var jscBadTypeForBitOperationWarning = new CompilerError { Warning = WarningCode.JscBadTypeForBitOperation };
-            var jscConstructorNotCallableWarning = new CompilerError { Warning = WarningCode.JscConstructorNotCallable };
+            var jscBadTypeForBitOperationWarning = new CompilerError { Type = WarningCode.JscBadTypeForBitOperation };
+            var jscConstructorNotCallableWarning = new CompilerError { Type = WarningCode.JscConstructorNotCallable };
 
             var results = new CompilerResults
             {
                 Warnings = new List<CompilerError>
                 {
-                    new CompilerError { Warning = WarningCode.JscBadDeleteOperand },
+                    new CompilerError { Type = WarningCode.JscBadDeleteOperand },
                     jscBadTypeForBitOperationWarning,
                     jscConstructorNotCallableWarning,
                 }
@@ -42,10 +42,10 @@
         public void Test_That_SupressWarningsFrom_Filters_Out_Multiple_Warnings()
         {
             // Arrange
-            var jscBadTypeForBitOperationWarning = new CompilerError { Warning = WarningCode.JscBadTypeForBitOperation };
-            var jscConstructorNotCallableWarning = new CompilerError { Warning = WarningCode.JscConstructorNotCallable };
-            var jscBadDeleteOperandWarning = new CompilerError { Warning = WarningCode.JscBadDeleteOperand };
-            var jscJscFunctionMasksVariableWarning = new CompilerError { Warning = WarningCode.JscFunctionMasksVariable };
+            var jscBadTypeForBitOperationWarning = new CompilerError { Type = WarningCode.JscBadTypeForBitOperation };
+            var jscConstructorNotCallableWarning = new CompilerError { Type = WarningCode.JscConstructorNotCallable };
+            var jscBadDeleteOperandWarning = new CompilerError { Type = WarningCode.JscBadDeleteOperand };
+            var jscJscFunctionMasksVariableWarning = new CompilerError { Type = WarningCode.JscFunctionMasksVariable };
 
             var results = new CompilerResults
             {
@@ -77,8 +77,8 @@
         public void Test_That_SupressWarningsFrom_Works_When_Specified_Filteres_Do_Not_Exist()
         {
             // Arrange
-            var jscBadTypeForBitOperationWarning = new CompilerError { Warning = WarningCode.JscBadTypeForBitOperation };
-            var jscJscFunctionMasksVariableWarning = new CompilerError { Warning = WarningCode.JscFunctionMasksVariable };
+            var jscBadTypeForBitOperationWarning = new CompilerError { Type = WarningCode.JscBadTypeForBitOperation };
+            var jscJscFunctionMasksVariableWarning = new CompilerError { Type = WarningCode.JscFunctionMasksVariable };
 
             var results = new CompilerResults
             {

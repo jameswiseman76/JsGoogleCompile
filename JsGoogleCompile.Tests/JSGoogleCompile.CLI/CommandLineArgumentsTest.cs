@@ -121,7 +121,7 @@
             expected.AppendFormat("JsGoogleCompile: Request a compile from the Google Closure Compiler service{0}", Environment.NewLine);
             expected.AppendFormat("(http://closure-compiler.appspot.com/compile){0}", Environment.NewLine);
             expected.AppendFormat("{0}", Environment.NewLine);
-            expected.AppendFormat("Usage:\tJsGoogleCompile.exe FileName [/c[attribute]] [/s[comma seprated list of warnings]]{0}", Environment.NewLine);
+            expected.AppendFormat("Usage:\tJsGoogleCompile.exe FileName [/c[attribute]] [/s[semi-colon separated list of warnings]]{0}", Environment.NewLine);
             expected.AppendFormat("\tFileName:\tThe full filename and path of the file on disk to compress{0}", Environment.NewLine);
             expected.AppendFormat("\t/c: \t\tSpecify compilation level. (If omitted 'advanced' is assumed){0}", Environment.NewLine);
             expected.AppendFormat("\t\t\t/cw: Whitespace only{0}", Environment.NewLine);
@@ -154,7 +154,7 @@
             expected.AppendFormat("\tJsGoogleCompile.exe sample.js{0}", Environment.NewLine);
             expected.AppendFormat("\tJsGoogleCompile.exe sample.js /ca{0}", Environment.NewLine);
             expected.AppendFormat("\tJsGoogleCompile.exe sample.js /sJSC_BAD_TYPE_FOR_BIT_OPERATION{0}", Environment.NewLine);
-            expected.AppendFormat("\tJsGoogleCompile.exe sample.js /cw /sJSC_BAD_TYPE_FOR_BIT_OPERATION,JSC_UNSAFE_THIS{0}", Environment.NewLine); 
+            expected.AppendFormat("\tJsGoogleCompile.exe sample.js /cw /sJSC_BAD_TYPE_FOR_BIT_OPERATION;JSC_UNSAFE_THIS{0}", Environment.NewLine); 
             
             return expected.ToString();
         }
