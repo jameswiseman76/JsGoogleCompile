@@ -71,9 +71,16 @@ namespace JsGoogleCompile
         /// </param>
         public void SupressWarningsFrom(IList<string> supressedWarnings)
         {
+            // todo: add unit test around this code
+            if (supressedWarnings == null)
+            {
+                return;
+            }
+
             var currentWarnings = this.Warnings.Select(w => w.Type);
             var filteredWarnings = currentWarnings.Except(supressedWarnings);
 
+            // todo: add unit test around if block
             this.Warnings = this.Warnings.Where(w => filteredWarnings.Any(s => s == w.Type)).ToList();
         }
     }
