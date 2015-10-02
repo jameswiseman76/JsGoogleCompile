@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("JsGoogleCompile.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Royal London Group")]
+[assembly: AssemblyCompany("James Wiseman")]
 [assembly: AssemblyProduct("JsGoogleCompile.Tests")]
-[assembly: AssemblyCopyright("Copyright © Royal London Group 2015")]
+[assembly: AssemblyCopyright("Copyright © James Wiseman 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
