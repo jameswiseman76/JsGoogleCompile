@@ -58,7 +58,7 @@ namespace JsGoogleCompile.CLI
             this.compilationLevelHelper = compilationLevelHelper;
             this.FromArgs(args);
 
-            if (this.AreValid)
+            if (this.AreValid && string.IsNullOrEmpty(this.CompilationLevel))
             {
                 this.CompilationLevel = "A";
             }
