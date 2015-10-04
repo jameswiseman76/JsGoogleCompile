@@ -49,13 +49,16 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="JSGoogleCompile.CLI\ArgumentRulesTests.cs" />
     <Compile Include="JSGoogleCompile.CLI\ArgumentRules\IsValidCompilationLevelArgumentTests.cs" />
+    <Compile Include="JSGoogleCompile.CLI\ArgumentRules\IsValidJavaScriptFileNameTests.cs" />
     <Compile Include="JSGoogleCompile.CLI\CommandLineArgumentsTest.cs" />
     <Compile Include="JSGoogleCompile\CompilerOptionsTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerResultsTests.cs" />
