@@ -60,25 +60,25 @@ namespace JsGoogleCompile
         }
 
         /// <summary>
-        /// Deserialize from input
+        /// Deserialize from compiler response
         /// </summary>
-        /// <param name="input">
-        /// The input to be deserialized
+        /// <param name="compilerResponse">
+        /// The compiler response to be deserialized
         /// </param>
         /// <returns>
         /// Deserialized <see cref="CompilerResults"/>.
         /// </returns>
-        public CompilerResults DeserializeCompilerResults(string input)
+        public CompilerResults DeserializeCompilerResults(string compilerResponse)
         {
             CompilerResults results;
 
             try
             {
-                results = this.serializer.Deserialize<CompilerResults>(input);
+                results = this.serializer.Deserialize<CompilerResults>(compilerResponse);
             }
             catch (ArgumentException exception)
             {
-                results = this.CompilerResultsFromException(exception);
+                results = CompilerResultsFromException(exception);
             }
 
             return results;
@@ -93,7 +93,7 @@ namespace JsGoogleCompile
         /// <returns>
         /// The <see cref="CompilerResults"/>.
         /// </returns>
-        private CompilerResults CompilerResultsFromException(Exception exception)
+        private static CompilerResults CompilerResultsFromException(Exception exception)
         {
             return new CompilerResults
             {

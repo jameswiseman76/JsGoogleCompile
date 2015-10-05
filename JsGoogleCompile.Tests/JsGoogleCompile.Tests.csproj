@@ -40,6 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -63,7 +64,10 @@
     <Compile Include="JSGoogleCompile\CompilerOptionsTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerResultsTests.cs" />
     <Compile Include="JSGoogleCompile\JavaScriptCompilerTests.cs" />
+    <Compile Include="JSGoogleCompile\GuardTests.cs" />
+    <Compile Include="JSGoogleCompile\WarningCodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="JSGoogleCompile\ResultsDeserializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
