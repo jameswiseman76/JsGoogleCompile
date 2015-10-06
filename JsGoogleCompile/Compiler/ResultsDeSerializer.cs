@@ -60,7 +60,7 @@ namespace JsGoogleCompile
         }
 
         /// <summary>
-        /// Deserialize from compiler response
+        /// Deserialize into <see cref="CompilerResults"/> from the compiler response
         /// </summary>
         /// <param name="compilerResponse">
         /// The compiler response to be deserialized
