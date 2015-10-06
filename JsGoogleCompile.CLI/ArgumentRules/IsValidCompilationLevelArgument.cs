@@ -75,6 +75,8 @@ namespace JsGoogleCompile.CLI
         /// </returns>
         public bool IsSatisfiedBy(IList<string> arguments)
         {
+            Guard.ArgumentNotNull(() => arguments, arguments);
+
             return arguments.Any(this.IsValid);
         }
 

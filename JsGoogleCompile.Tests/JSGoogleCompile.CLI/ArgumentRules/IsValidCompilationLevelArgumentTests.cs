@@ -1,5 +1,7 @@
 ﻿namespace JsGoogleCompile.Tests
 {
+    using System;
+
     using JsGoogleCompile.CLI;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -7,6 +9,28 @@
     [TestClass]
     public class IsValidCompilationLevelArgumentTests
     {
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Constructor_Guards_Null_commandLineArguments()
+        {
+            var rule = new IsValidCompilationLevelArgument(null, Mock.Of<ICompilationLevelHelper>());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Constructor_Guards_Null_compilationLevelHelper()
+        {
+            var rule = new IsValidCompilationLevelArgument(Mock.Of<ICommandLineArguments>(), null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void IsSatisfiedBy_Guards_Null_commandLineArguments()
+        {
+            var rule = new IsValidCompilationLevelArgument(Mock.Of<ICommandLineArguments>(), Mock.Of<ICompilationLevelHelper>());
+            rule.IsSatisfiedBy(null);
+        }
+
         [TestMethod]
         public void Valid_Compilation_Switch_Is_Recognised_As_Being_Valid()
         {

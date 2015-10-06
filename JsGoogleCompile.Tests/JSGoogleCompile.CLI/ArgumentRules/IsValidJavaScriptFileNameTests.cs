@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace JsGoogleCompile.Tests
+﻿namespace JsGoogleCompile.Tests
 {
+    using System;
+
     using JsGoogleCompile.CLI;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -20,8 +20,7 @@ namespace JsGoogleCompile.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void IsSatisfiedBy_Guards_Null_commandLineArguments()
         {
-            var commandLineArguments = new Mock<ICommandLineArguments>();
-            var rule = new IsValidJavaScriptFileName(commandLineArguments.Object);
+            var rule = new IsValidJavaScriptFileName(Mock.Of<ICommandLineArguments>());
             rule.IsSatisfiedBy(null);
         }
 
