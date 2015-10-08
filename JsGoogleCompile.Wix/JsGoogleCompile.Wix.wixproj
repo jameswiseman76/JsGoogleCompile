@@ -42,6 +42,14 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PostBuildEvent />
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>copy ..\..\..\JsGoogleCompile.CLI\bin\Release\JsGoogleCompile.CLI.exe ..\..\JsGoogleCompile.CLI.exe
+copy ..\..\..\JsGoogleCompile.CLI\bin\Release\JsGoogleCompile.dll ..\..\JsGoogleCompile.dll
+copy ..\..\..\JsGoogleCompile.CLI\bin\Release\sample.js ..\..\sample.js</PreBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
