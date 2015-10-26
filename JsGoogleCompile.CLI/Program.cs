@@ -29,7 +29,6 @@
 namespace JsGoogleCompile.CLI
 {
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// The command line program entry class
