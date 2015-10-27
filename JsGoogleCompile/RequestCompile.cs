@@ -26,8 +26,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Linq;
-
 namespace JsGoogleCompile
 {
     using System.Collections.Generic;

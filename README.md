@@ -1,6 +1,8 @@
 JsGoogleCompile
 ===============
 
+CI Build: https://ci.appveyor.com/project/jameswiseman76/jsgooglecompile
+
 Compile Your JavaScript with Google Closure Compiler
 
 This tool can be plugged into almost all versions of Visual Studio that support "External Tools". 
