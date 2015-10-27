@@ -46,7 +46,7 @@
     <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>copy ..\..\..\JsGoogleCompile.CLI\bin\Release\JsGoogleCompile.CLI.exe ..\..\JsGoogleCompile.CLI.exe
+    <PreBuildEvent>cd
 copy ..\..\..\JsGoogleCompile.CLI\bin\Release\JsGoogleCompile.dll ..\..\JsGoogleCompile.dll
 copy ..\..\..\JsGoogleCompile.CLI\bin\Release\sample.js ..\..\sample.js</PreBuildEvent>
   </PropertyGroup>
