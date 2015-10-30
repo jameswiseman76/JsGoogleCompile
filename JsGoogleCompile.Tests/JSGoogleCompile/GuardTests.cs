@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace JsGoogleCompile.Tests.JSGoogleCompile
+﻿namespace JsGoogleCompile.Tests.JSGoogleCompile
 {
+    using System;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class GuardTests
     {
