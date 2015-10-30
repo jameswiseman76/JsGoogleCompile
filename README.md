@@ -1,7 +1,7 @@
 JsGoogleCompile
 ===============
 
-CI Build: https://ci.appveyor.com/project/jameswiseman76/jsgooglecompile
+[![Build status](https://ci.appveyor.com/api/projects/status/gg1g21lrsla2vc27?svg=true)](https://ci.appveyor.com/project/jameswiseman76/jsgooglecompile)
 
 Compile Your JavaScript with Google Closure Compiler
 
