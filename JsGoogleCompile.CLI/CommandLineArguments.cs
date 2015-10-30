@@ -82,7 +82,7 @@ namespace JsGoogleCompile.CLI
         /// <summary>
         /// Gets or sets the suppressed warnings.
         /// </summary>
-        public List<string> SuppressedWarnings { get; set; }
+        public IList<string> SuppressedWarnings { get; set; }
 
         /// <summary>
         /// Emit usage instructions.

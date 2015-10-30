@@ -52,6 +52,6 @@ namespace JsGoogleCompile.CLI
         /// <summary>
         /// Gets or sets the suppressed warnings.
         /// </summary>
-        List<string> SuppressedWarnings { get; set; }
+        IList<string> SuppressedWarnings { get; set; }
     }
 }

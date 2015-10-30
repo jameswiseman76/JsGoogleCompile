@@ -30,20 +30,21 @@
         public void Single_Valid_Warning_Argument_Is_Recognised()
         {
             // Arrange
-            var expectedWarningsSuppressed = new[] { "Error" };
-            var expectedSwitch = string.Format("/s{0}", string.Join(";", expectedWarningsSuppressed));
+            var expectedWarningsSuppressed = new[] { "ERROR" };
+            var comamndLineSwitch= string.Format("/s{0}", string.Join(";", expectedWarningsSuppressed));
+
             var commandLineArguments = new Mock<ICommandLineArguments>();
-            var rule = new IsValidWarningSuppressionArgument(Mock.Of<ICommandLineArguments>());
-            commandLineArguments.SetupAllProperties();
+            commandLineArguments.SetupSet(m => m.SuppressedWarnings = It.IsAny<IList<string>>()).Verifiable();
+
+            var rule = new IsValidWarningSuppressionArgument(commandLineArguments.Object);
 
             // Act
-            var isValid = rule.IsSatisfiedBy(new[] { expectedSwitch });
+            var isValid = rule.IsSatisfiedBy(new[] { comamndLineSwitch });
 
             // Assert
             Assert.IsTrue(isValid);
-            // todo: sort these out:
-            // commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.Is<List<string>>(l => l.SequenceEqual(expectedWarningsSuppressed)));
-            // commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.IsAny<List<string>>());
+
+            commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.Is<IList<string>>(l => l.SequenceEqual(expectedWarningsSuppressed)));
         }
     }
 }
