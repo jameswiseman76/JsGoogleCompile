@@ -9,6 +9,7 @@ namespace JsGoogleCompile.vsix
     using System;
     using System.ComponentModel.Design;
     using Microsoft.VisualStudio.Shell;
+    using EnvDTE;
 
     /// <summary>
     /// Command handler
@@ -99,9 +100,13 @@ namespace JsGoogleCompile.vsix
         private void MenuItemCallback(object sender, EventArgs e)
         {
             const string CompilerUrl = @"http://closure-compiler.appspot.com/compile";
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            Document doc = dte.ActiveDocument;
+            
+            TextDocument txt = doc.Object() as TextDocument;
 
             var requestCompile = new RequestCompile(
-                "sample.js",
+                doc.FullName,
                 CompilationLevelHelper.AdvancedOptimizations,
                 CompilerUrl);
 
