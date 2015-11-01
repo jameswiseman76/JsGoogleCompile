@@ -57,10 +57,8 @@ namespace JsGoogleCompile.CLI
                 Console.WriteLine("Requesting compile from {0}...", CompilerUrl);
                 Console.WriteLine();
 
-
-                var fileReader = new StreamReader(commandLineArguments.FileName);
                 var requestCompile = new RequestCompile(
-                    fileReader,
+                    commandLineArguments.FileName,
                     commandLineArguments.CompilationLevel,
                     CompilerUrl,
                     commandLineArguments.SuppressedWarnings);

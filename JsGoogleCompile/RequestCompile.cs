@@ -39,6 +39,11 @@ namespace JsGoogleCompile
     public class RequestCompile
     {
         /// <summary>
+        /// The file name.
+        /// </summary>
+        private readonly string fileName;
+
+        /// <summary>
         /// The compilation level.
         /// </summary>
         private readonly string compilationLevel;
@@ -51,18 +56,13 @@ namespace JsGoogleCompile
         /// <summary>
         /// The suppressed warnings.
         /// </summary>
-        private readonly IList<string> suppressedWarnings;
-
-        /// <summary>
-        /// The input stream reader.
-        /// </summary>
-        private readonly TextReader inputStreamReader;
+        private IList<string> suppressedWarnings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestCompile"/> class.
         /// </summary>
-        /// <param name="inputStreamReader">
-        /// The file name.The input stream reader that points to the input stream
+        /// <param name="fileName">
+        /// The file name.
         /// </param>
         /// <param name="compilationLevel">
         /// The compilation level.
@@ -74,15 +74,44 @@ namespace JsGoogleCompile
         /// The suppressed warnings.
         /// </param>
         public RequestCompile(
-            TextReader inputStreamReader, 
-            string compilationLevel, 
+            string fileName,
+            string compilationLevel,
+            string compilerUrl)
+        {
+            Guard.ArgumentNotNullOrEmpty(() => fileName, fileName);
+            Guard.ArgumentNotNullOrEmpty(() => compilerUrl, compilerUrl);
+
+            this.fileName = fileName;
+            this.compilationLevel = compilationLevel;
+            this.compilerUrl = compilerUrl;
+            this.suppressedWarnings = null;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestCompile"/> class.
+        /// </summary>
+        /// <param name="fileName">
+        /// The file name.
+        /// </param>
+        /// <param name="compilationLevel">
+        /// The compilation level.
+        /// </param>
+        /// <param name="compilerUrl">
+        /// The compiler url.
+        /// </param>
+        /// <param name="suppressedWarnings">
+        /// The suppressed warnings.
+        /// </param>
+        public RequestCompile(
+            string fileName,
+            string compilationLevel,
             string compilerUrl,
             IList<string> suppressedWarnings)
         {
-            Guard.ArgumentNotNull(() => inputStreamReader, inputStreamReader);
+            Guard.ArgumentNotNullOrEmpty(() => fileName, fileName);
             Guard.ArgumentNotNullOrEmpty(() => compilerUrl, compilerUrl);
 
-            this.inputStreamReader = inputStreamReader;
+            this.fileName = fileName;
             this.compilationLevel = compilationLevel;
             this.compilerUrl = compilerUrl;
             this.suppressedWarnings = suppressedWarnings;
@@ -96,8 +125,9 @@ namespace JsGoogleCompile
         /// </returns>
         public CompilerResults Run()
         {
+            var inputStream = new StreamReader(this.fileName);
             var request = WebRequest.Create(this.compilerUrl);
-            var compilerOptions = new CompilerOptions(this.inputStreamReader, request, this.compilationLevel);
+            var compilerOptions = new CompilerOptions(inputStream, request, this.compilationLevel);
             var compilationLevelHelper = new CompilationLevelHelper();
 
             var compiler = new JavaScriptCompiler(compilerOptions, compilationLevelHelper);
