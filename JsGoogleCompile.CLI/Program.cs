@@ -29,13 +29,20 @@
 namespace JsGoogleCompile.CLI
 {
     using System;
-    using System.IO;
+
+    using log4net;
+    using log4net.Config;
 
     /// <summary>
     /// The command line program entry class
     /// </summary>
     public class Program
     {
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
+
         /// <summary>
         /// The command line program entry point.
         /// </summary>
@@ -54,8 +61,10 @@ namespace JsGoogleCompile.CLI
                 }
 
                 const string CompilerUrl = @"http://closure-compiler.appspot.com/compile";
-                Console.WriteLine("Requesting compile from {0}...", CompilerUrl);
-                Console.WriteLine();
+                XmlConfigurator.Configure(new System.IO.FileInfo("log4net.config"));
+
+                Log.Info(string.Format("Requesting compile from {0}...", CompilerUrl));
+                Log.Info(string.Empty);
 
                 var requestCompile = new RequestCompile(
                     commandLineArguments.FileName,
@@ -70,8 +79,8 @@ namespace JsGoogleCompile.CLI
                 {
                     foreach (var compilerError in compilerResults.Errors)
                     {
-                        Console.WriteLine("{0}({1}): ERROR ({2}) - {3}", commandLineArguments.FileName, compilerError.Lineno, compilerError.Type, compilerError.Error);
-                        Console.WriteLine(compilerError.Line.TrimStart());
+                        Log.Info(string.Format("{0}({1}): ERROR ({2}) - {3}", commandLineArguments.FileName, compilerError.Lineno, compilerError.Type, compilerError.Error));
+                        Log.Info(compilerError.Line.TrimStart());
                     }
                 }
 
@@ -80,35 +89,35 @@ namespace JsGoogleCompile.CLI
                 {
                     foreach (var compilerWarning in compilerResults.Warnings)
                     {
-                        Console.WriteLine("{0}({1}): WARNING  ({2}) - {3}", commandLineArguments.FileName, compilerWarning.Lineno, compilerWarning.Type, compilerWarning.Warning);
-                        Console.WriteLine(compilerWarning.Line.TrimStart());
+                        Log.Info(string.Format("{0}({1}): WARNING  ({2}) - {3}", commandLineArguments.FileName, compilerWarning.Lineno, compilerWarning.Type, compilerWarning.Warning));
+                        Log.Info(compilerWarning.Line.TrimStart());
                     }
                 }
 
-                Console.WriteLine("----------------------------");
-                Console.WriteLine("Completed Scan");
+                Log.Info("----------------------------");
+                Log.Info("Completed Scan");
 
                 if (warningCount > 0 || errorCount > 0)
                 {
-                    Console.WriteLine("Found " + errorCount + " Errors, " + warningCount + " Warnings");
+                    Log.Info("Found " + errorCount + " Errors, " + warningCount + " Warnings");
                 }
                 else
                 {
-                    Console.WriteLine("No Errors or Warnings Found!");
+                    Log.Info("No Errors or Warnings Found!");
                 }
 
                 if (errorCount <= 0)
                 {
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine("Code Emitted:");
-                    Console.WriteLine(compilerResults.CompiledCode);
+                    Log.Info("----------------------------");
+                    Log.Info("Code Emitted:");
+                    Log.Info(compilerResults.CompiledCode);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("An Error Occurred Running GoogleCC:");
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
+                Log.Info("An Error Occurred Running GoogleCC:");
+                Log.Info(e.Message);
+                Log.Info(e.StackTrace);
             }
         }
     }
