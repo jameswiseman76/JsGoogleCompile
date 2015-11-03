@@ -8,6 +8,8 @@ namespace JsGoogleCompile.vsix
 {
     using System;
     using System.ComponentModel.Design;
+    using System.Threading.Tasks;
+
     using Microsoft.VisualStudio.Shell;
     using EnvDTE;
 
@@ -99,20 +101,29 @@ namespace JsGoogleCompile.vsix
         /// <param name="e">Event args.</param>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            const string CompilerUrl = @"http://closure-compiler.appspot.com/compile";
-            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-            Document doc = dte.ActiveDocument;
-            
-            TextDocument txt = doc.Object() as TextDocument;
+            errorListHelper.Remove();
 
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+            var doc = dte.ActiveDocument;
+
+            const string CompilerUrl = @"http://closure-compiler.appspot.com/compile";
             var requestCompile = new RequestCompile(
                 doc.FullName,
                 CompilationLevelHelper.AdvancedOptimizations,
                 CompilerUrl);
 
-            errorListHelper.Remove();
+            Action asyncRunner = () =>
+            {
+                var compilerResults = requestCompile.Run();
+                EmitResults(compilerResults);
+            };
 
-            var compilerResults = requestCompile.Run();
+            var task1 = new System.Threading.Tasks.Task(asyncRunner);
+            task1.Start();
+        }
+
+        private void EmitResults(CompilerResults compilerResults)
+        {
             var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
             if (errorCount > 0)
             {
@@ -144,19 +155,6 @@ namespace JsGoogleCompile.vsix
                         compilerWarning.Charno);
                 }
             }
-
-            // Show a message box to prove we were here
-            ////string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            ////string title = "JsGoogleCompile";
-            ////VsShellUtilities.ShowMessageBox(
-            ////    this.ServiceProvider,
-            ////    message,
-            ////    title,
-            ////    OLEMSGICON.OLEMSGICON_INFO,
-            ////    OLEMSGBUTTON.OLEMSGBUTTON_OK,
-            ////    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-
-            ////helper.Remove();
         }
     }
 }
