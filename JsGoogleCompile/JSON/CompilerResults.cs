@@ -83,5 +83,17 @@ namespace JsGoogleCompile
             // todo: add unit test around if block
             this.Warnings = this.Warnings.Where(w => filteredWarnings.Any(s => s == w.Type)).ToList();
         }
+
+        /// <summary>
+        /// Emits warnings and errors using the specified result output items.
+        /// </summary>
+        /// <param name="resultOutputters">The result output items.</param>
+        public void Emit(IList<IResultsOutput> resultOutputters)
+        {
+            foreach (var resultOutputter in resultOutputters)
+            {
+                resultOutputter.Emit();
+            }
+        }
     }
 }
