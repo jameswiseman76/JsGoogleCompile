@@ -56,7 +56,7 @@ namespace JsGoogleCompile
         /// <summary>
         /// The suppressed warnings.
         /// </summary>
-        private IList<string> suppressedWarnings;
+        private readonly IList<string> suppressedWarnings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestCompile"/> class.
@@ -69,9 +69,6 @@ namespace JsGoogleCompile
         /// </param>
         /// <param name="compilerUrl">
         /// The compiler url.
-        /// </param>
-        /// <param name="suppressedWarnings">
-        /// The suppressed warnings.
         /// </param>
         public RequestCompile(
             string fileName,
