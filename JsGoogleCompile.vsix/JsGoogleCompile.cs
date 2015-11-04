@@ -115,7 +115,9 @@ namespace JsGoogleCompile.vsix
             Action asyncRunner = () =>
             {
                 var compilerResults = requestCompile.Run();
-                EmitResults(compilerResults);
+                var resultsWriter = new ResultsWriter(errorListHelper);
+                resultsWriter.EmitErrors(compilerResults);
+                resultsWriter.EmitWarnings(compilerResults);
             };
 
             var task1 = new System.Threading.Tasks.Task(asyncRunner);

@@ -33,8 +33,13 @@ namespace JsGoogleCompile
     public interface IResultsOutput
     {
         /// <summary>
-        /// Emits this instance.
+        /// Emits warnings.
         /// </summary>
-        void Emit();
+        void EmitWarnings(CompilerResults compilerResults);
+
+        /// <summary>
+        /// Emits warnings.
+        /// </summary>
+        void EmitErrors(CompilerResults compilerResults);
     }
 }

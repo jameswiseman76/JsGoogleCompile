@@ -55,6 +55,7 @@
     <Compile Include="JsGoogleCompile.cs" />
     <Compile Include="JsGoogleCompilePackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultsWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
