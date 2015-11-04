@@ -58,6 +58,7 @@
     <Compile Include="Compiler\ResultsDeserializer.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Compiler\JavaScriptCompiler.cs" />
+    <Compile Include="IResultsOutput.cs" />
     <Compile Include="JSON\CompilerError.cs" />
     <Compile Include="JSON\CompilerResults.cs" />
     <Compile Include="JSON\CompilerStatistics.cs" />
