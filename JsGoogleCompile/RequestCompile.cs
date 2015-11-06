@@ -33,11 +33,18 @@ namespace JsGoogleCompile
     using System.Net;
     using System.Web.Script.Serialization;
 
+    using log4net;
+
     /// <summary>
     /// The class for requesting compilation.
     /// </summary>
     public class RequestCompile
     {
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static readonly ILog Log = LogManager.GetLogger(typeof(RequestCompile));
+
         /// <summary>
         /// The file name.
         /// </summary>
@@ -122,6 +129,10 @@ namespace JsGoogleCompile
         /// </returns>
         public CompilerResults Run()
         {
+            Log.Info(string.Format("Requesting compile of {0} from {1}...", this.fileName, this.compilerUrl));
+            Log.Info(string.Empty);
+
+            // Setup compiler dependencies
             var inputStream = new StreamReader(this.fileName);
             var request = WebRequest.Create(this.compilerUrl);
             var compilerOptions = new CompilerOptions(inputStream, request, this.compilationLevel);

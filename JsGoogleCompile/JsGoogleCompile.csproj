@@ -42,6 +42,10 @@
     <AssemblyOriginatorKeyFile>JsGoogleCompile.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net35-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -56,6 +60,7 @@
     <Compile Include="Compiler\CompilerOptions.cs" />
     <Compile Include="Compiler\ICompilationLevelHelper.cs" />
     <Compile Include="Compiler\ResultsDeserializer.cs" />
+    <Compile Include="ConsoleEmitter.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Compiler\JavaScriptCompiler.cs" />
     <Compile Include="IResultsOutput.cs" />
@@ -69,6 +74,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="JsGoogleCompile.snk" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="About\CodeOutput.png" />

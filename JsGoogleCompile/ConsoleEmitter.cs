@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IResultsOutput.cs" company="www.jameswiseman.com">
+// <copyright file="ConsoleEmitter.cs" company="www.jameswiseman.com">
 // This license governs use of the accompanying software. If you use the software, you
 // accept this license. If you do not accept the license, do not use the software.
 //
@@ -22,26 +22,40 @@
 // (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // </copyright>
 // <summary>
-//     Interface for results writing
+//     Implements the results writing for writing to the console.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace JsGoogleCompile
 {
+    using System;
+
+    using log4net;
+
     /// <summary>
-    /// Results Output Interface
+    /// Emit results to the console
     /// </summary>
-    public interface IResultsOutput
+    public class ConsoleEmitter : IResultsOutput
     {
         /// <summary>
-        /// Emits warnings.
+        /// The logger
         /// </summary>
-        /// <param name="compilerResults">The compiler results.</param>
-        void EmitWarnings(CompilerResults compilerResults);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(RequestCompile));
 
         /// <summary>
         /// Emits warnings.
         /// </summary>
         /// <param name="compilerResults">The compiler results.</param>
-        void EmitErrors(CompilerResults compilerResults);
+        public void EmitWarnings(CompilerResults compilerResults)
+        {
+        }
+
+        /// <summary>
+        /// Emits warnings.
+        /// </summary>
+        /// <param name="compilerResults">The compiler results.</param>
+        public void EmitErrors(CompilerResults compilerResults)
+        {
+        }
     }
 }

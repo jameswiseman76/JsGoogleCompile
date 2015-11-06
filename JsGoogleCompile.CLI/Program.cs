@@ -63,9 +63,6 @@ namespace JsGoogleCompile.CLI
                 const string CompilerUrl = @"http://closure-compiler.appspot.com/compile";
                 XmlConfigurator.Configure(new System.IO.FileInfo("log4net.config"));
 
-                Log.Info(string.Format("Requesting compile from {0}...", CompilerUrl));
-                Log.Info(string.Empty);
-
                 var requestCompile = new RequestCompile(
                     commandLineArguments.FileName,
                     commandLineArguments.CompilationLevel,

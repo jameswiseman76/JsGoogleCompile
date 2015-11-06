@@ -74,7 +74,7 @@
         }
 
         [TestMethod]
-        public void Test_That_SupressWarningsFrom_Works_When_Specified_Filteres_Do_Not_Exist()
+        public void Test_That_SupressWarningsFrom_Works_When_Specified_Filters_Do_Not_Exist()
         {
             // Arrange
             var jscBadTypeForBitOperationWarning = new CompilerError { Type = WarningCode.JscBadTypeForBitOperation };
