@@ -1,9 +1,8 @@
 ﻿namespace JsGoogleCompile.Tests
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     using System.Web.Script.Serialization;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class ResultsDeserializerTests

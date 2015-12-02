@@ -1,12 +1,12 @@
 ﻿namespace JsGoogleCompile.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using JsGoogleCompile.CLI;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using System.Collections.Generic;
 
     [TestClass]
     public class IsValidWarningSuppressionArgumentTests
@@ -31,7 +31,7 @@
         {
             // Arrange
             var expectedWarningsSuppressed = new[] { "ERROR" };
-            var comamndLineSwitch= string.Format("/s{0}", string.Join(";", expectedWarningsSuppressed));
+            var comamndLineSwitch = string.Format("/s{0}", string.Join(";", expectedWarningsSuppressed));
 
             var commandLineArguments = new Mock<ICommandLineArguments>();
             commandLineArguments.SetupSet(m => m.SuppressedWarnings = It.IsAny<IList<string>>()).Verifiable();

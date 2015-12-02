@@ -92,7 +92,7 @@ namespace JsGoogleCompile
         {
             foreach (var resultOutputter in resultOutputters)
             {
-                //resultOutputter.Emit();
+                // resultOutputter.Emit();
             }
         }
     }
