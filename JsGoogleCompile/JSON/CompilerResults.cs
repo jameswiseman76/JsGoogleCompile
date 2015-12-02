@@ -36,7 +36,7 @@ namespace JsGoogleCompile
     /// The compiler results.
     /// </summary>
     [Serializable]
-    public class CompilerResults
+    public class CompilerResults : ICompilerResults
     {
         /// <summary>
         /// Gets or sets the compiled code.
@@ -87,12 +87,15 @@ namespace JsGoogleCompile
         /// <summary>
         /// Emits warnings and errors using the specified result output items.
         /// </summary>
-        /// <param name="resultOutputters">The result output items.</param>
-        public void Emit(IList<IResultsOutput> resultOutputters)
+        /// <param name="resultsEmitters">The result output emitters.</param>
+        public void Emit(IList<IResultsOutput> resultsEmitters)
         {
-            foreach (var resultOutputter in resultOutputters)
+            // todo: test this. Make sure we test with more than one
+            foreach (var resultEmitter in resultsEmitters)
             {
-                // resultOutputter.Emit();
+                resultEmitter.EmitWarnings(this);
+                resultEmitter.EmitErrors(this);
+                resultEmitter.EmitSummary(this);
             }
         }
     }

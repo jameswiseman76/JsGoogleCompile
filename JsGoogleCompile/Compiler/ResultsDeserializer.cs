@@ -30,7 +30,6 @@ namespace JsGoogleCompile
 {
     using System;
     using System.Collections.Generic;
-
     using System.Web.Script.Serialization;
 
     /// <summary>
@@ -60,17 +59,16 @@ namespace JsGoogleCompile
         }
 
         /// <summary>
-        /// Deserialize into <see cref="CompilerResults"/> from the compiler response
+        /// Deserialize into <see cref="CompilerResults" /> from the compiler response
         /// </summary>
-        /// <param name="compilerResponse">
-        /// The compiler response to be deserialized
-        /// </param>
+        /// <param name="compilerResponse">The compiler response to be deserialized</param>
+        /// <param name="fileName">Name of the file.</param>
         /// <returns>
-        /// Deserialized <see cref="CompilerResults"/>.
+        /// Deserialized <see cref="ICompilerResults" />.
         /// </returns>
-        public CompilerResults DeserializeCompilerResults(string compilerResponse)
+        public ICompilerResults DeserializeCompilerResults(string compilerResponse, string fileName)
         {
-            CompilerResults results;
+            ICompilerResults results;
 
             try
             {
@@ -81,19 +79,18 @@ namespace JsGoogleCompile
                 results = CompilerResultsFromException(exception);
             }
 
+            results.OutputFilePath = fileName;
             return results;
         }
 
         /// <summary>
         /// Return compiler results from an exception.
         /// </summary>
-        /// <param name="exception">
-        /// The exception.
-        /// </param>
+        /// <param name="exception">The exception.</param>
         /// <returns>
-        /// The <see cref="CompilerResults"/>.
+        /// The <see cref="CompilerResults" />.
         /// </returns>
-        private static CompilerResults CompilerResultsFromException(Exception exception)
+        private static ICompilerResults CompilerResultsFromException(Exception exception)
         {
             return new CompilerResults
             {

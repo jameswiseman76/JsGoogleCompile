@@ -36,12 +36,18 @@ namespace JsGoogleCompile
         /// Emits warnings.
         /// </summary>
         /// <param name="compilerResults">The compiler results.</param>
-        void EmitWarnings(CompilerResults compilerResults);
+        void EmitWarnings(ICompilerResults compilerResults);
 
         /// <summary>
         /// Emits warnings.
         /// </summary>
         /// <param name="compilerResults">The compiler results.</param>
-        void EmitErrors(CompilerResults compilerResults);
+        void EmitErrors(ICompilerResults compilerResults);
+
+        /// <summary>
+        /// Emits a summary of the results.
+        /// </summary>
+        /// <param name="compilerResults">The compiler results.</param>
+        void EmitSummary(ICompilerResults compilerResults);
     }
 }

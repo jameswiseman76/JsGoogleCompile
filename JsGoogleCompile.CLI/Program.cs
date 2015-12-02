@@ -69,46 +69,7 @@ namespace JsGoogleCompile.CLI
                     CompilerUrl,
                     commandLineArguments.SuppressedWarnings);
 
-                var compilerResults = requestCompile.Run();
-
-                var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
-                if (errorCount > 0)
-                {
-                    foreach (var compilerError in compilerResults.Errors)
-                    {
-                        Log.Info(string.Format("{0}({1}): ERROR ({2}) - {3}", commandLineArguments.FileName, compilerError.Lineno, compilerError.Type, compilerError.Error));
-                        Log.Info(compilerError.Line.TrimStart());
-                    }
-                }
-
-                var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
-                if (warningCount > 0)
-                {
-                    foreach (var compilerWarning in compilerResults.Warnings)
-                    {
-                        Log.Info(string.Format("{0}({1}): WARNING  ({2}) - {3}", commandLineArguments.FileName, compilerWarning.Lineno, compilerWarning.Type, compilerWarning.Warning));
-                        Log.Info(compilerWarning.Line.TrimStart());
-                    }
-                }
-
-                Log.Info("----------------------------");
-                Log.Info("Completed Scan");
-
-                if (warningCount > 0 || errorCount > 0)
-                {
-                    Log.Info("Found " + errorCount + " Errors, " + warningCount + " Warnings");
-                }
-                else
-                {
-                    Log.Info("No Errors or Warnings Found!");
-                }
-
-                if (errorCount <= 0)
-                {
-                    Log.Info("----------------------------");
-                    Log.Info("Code Emitted:");
-                    Log.Info(compilerResults.CompiledCode);
-                }
+                requestCompile.Run();
             }
             catch (Exception e)
             {

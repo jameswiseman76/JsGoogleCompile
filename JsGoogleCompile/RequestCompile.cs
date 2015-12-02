@@ -66,51 +66,24 @@ namespace JsGoogleCompile
         private readonly IList<string> suppressedWarnings;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestCompile"/> class.
+        /// The results output emitters
         /// </summary>
-        /// <param name="fileName">
-        /// The file name.
-        /// </param>
-        /// <param name="compilationLevel">
-        /// The compilation level.
-        /// </param>
-        /// <param name="compilerUrl">
-        /// The compiler url.
-        /// </param>
-        public RequestCompile(
-            string fileName,
-            string compilationLevel,
-            string compilerUrl)
-        {
-            Guard.ArgumentNotNullOrEmpty(() => fileName, fileName);
-            Guard.ArgumentNotNullOrEmpty(() => compilerUrl, compilerUrl);
-
-            this.fileName = fileName;
-            this.compilationLevel = compilationLevel;
-            this.compilerUrl = compilerUrl;
-            this.suppressedWarnings = null;
-        }
+        private readonly IList<IResultsOutput> resultsEmitters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestCompile"/> class.
+        /// Initializes a new instance of the <see cref="RequestCompile" /> class.
         /// </summary>
-        /// <param name="fileName">
-        /// The file name.
-        /// </param>
-        /// <param name="compilationLevel">
-        /// The compilation level.
-        /// </param>
-        /// <param name="compilerUrl">
-        /// The compiler url.
-        /// </param>
-        /// <param name="suppressedWarnings">
-        /// The suppressed warnings.
-        /// </param>
+        /// <param name="fileName">The file name.</param>
+        /// <param name="compilationLevel">The compilation level.</param>
+        /// <param name="compilerUrl">The compiler url.</param>
+        /// <param name="suppressedWarnings">The suppressed warnings.</param>
+        /// <param name="resultsEmitters">The results output emitters.</param>
         public RequestCompile(
             string fileName,
             string compilationLevel,
             string compilerUrl,
-            IList<string> suppressedWarnings)
+            IList<string> suppressedWarnings = null,
+            IList<IResultsOutput> resultsEmitters = null)
         {
             Guard.ArgumentNotNullOrEmpty(() => fileName, fileName);
             Guard.ArgumentNotNullOrEmpty(() => compilerUrl, compilerUrl);
@@ -119,15 +92,16 @@ namespace JsGoogleCompile
             this.compilationLevel = compilationLevel;
             this.compilerUrl = compilerUrl;
             this.suppressedWarnings = suppressedWarnings;
+            this.resultsEmitters = this.SetupLocalDefaultEmitterIfNull(resultsEmitters);
         }
 
         /// <summary>
         /// Run the compilation
         /// </summary>
         /// <returns>
-        /// The <see cref="CompilerResults"/>.
+        /// The <see cref="CompilerResults" />.
         /// </returns>
-        public CompilerResults Run()
+        public ICompilerResults Run()
         {
             Log.Info(string.Format("Requesting compile of {0} from {1}...", this.fileName, this.compilerUrl));
             Log.Info(string.Empty);
@@ -142,11 +116,23 @@ namespace JsGoogleCompile
             var responseFromServer = compiler.Compile();
 
             var deserializer = new ResultsDeserializer(new JavaScriptSerializer());
-            var compilerResults = deserializer.DeserializeCompilerResults(responseFromServer);
+            var compilerResults = deserializer.DeserializeCompilerResults(responseFromServer, this.fileName);
 
             compilerResults.SupressWarningsFrom(this.suppressedWarnings);
+            compilerResults.Emit(this.resultsEmitters);
 
             return compilerResults;
+        }
+
+        /// <summary>
+        /// Setups the local default emitter if the given emitter is null.
+        /// </summary>
+        /// <param name="resultsEmitters">The results emitters.</param>
+        /// <returns>Non null list of emitters</returns>
+        private IList<IResultsOutput> SetupLocalDefaultEmitterIfNull(IList<IResultsOutput> resultsEmitters)
+        {
+            // todo: unit test this
+            return resultsEmitters ?? new List<IResultsOutput> { new ConsoleEmitter() };
         }
     }
 }

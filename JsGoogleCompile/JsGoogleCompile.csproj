@@ -67,6 +67,7 @@
     <Compile Include="JSON\CompilerError.cs" />
     <Compile Include="JSON\CompilerResults.cs" />
     <Compile Include="JSON\CompilerStatistics.cs" />
+    <Compile Include="JSON\ICompilerResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compiler\WarningCode.cs" />
     <Compile Include="RequestCompile.cs" />

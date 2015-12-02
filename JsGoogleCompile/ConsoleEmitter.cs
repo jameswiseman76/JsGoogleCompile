@@ -28,8 +28,6 @@
 
 namespace JsGoogleCompile
 {
-    using System;
-
     using log4net;
 
     /// <summary>
@@ -40,22 +38,92 @@ namespace JsGoogleCompile
         /// <summary>
         /// The logger
         /// </summary>
-        private static readonly ILog Log = LogManager.GetLogger(typeof(RequestCompile));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ConsoleEmitter));
 
         /// <summary>
         /// Emits warnings.
         /// </summary>
         /// <param name="compilerResults">The compiler results.</param>
-        public void EmitWarnings(CompilerResults compilerResults)
+        public void EmitWarnings(ICompilerResults compilerResults)
         {
+            // todo: test guards
+            Guard.ArgumentNotNull(() => compilerResults, compilerResults);
+
+            var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
+
+            if (warningCount <= 0)
+            {
+                return;
+            }
+
+            foreach (var compilerWarning in compilerResults.Warnings)
+            {
+                Log.Info(
+                    string.Format(
+                        "{0}({1}): WARNING  ({2}) - {3}",
+                        compilerResults.OutputFilePath,
+                        compilerWarning.Lineno,
+                        compilerWarning.Type,
+                        compilerWarning.Warning));
+                Log.Info(compilerWarning.Line.TrimStart());
+            }
         }
 
         /// <summary>
-        /// Emits warnings.
+        /// Emits errors.
         /// </summary>
         /// <param name="compilerResults">The compiler results.</param>
-        public void EmitErrors(CompilerResults compilerResults)
+        public void EmitErrors(ICompilerResults compilerResults)
         {
+            // todo: test guards
+            Guard.ArgumentNotNull(() => compilerResults, compilerResults);
+
+            var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
+
+            if (errorCount <= 0)
+            {
+                return;
+            }
+
+            foreach (var compilerError in compilerResults.Errors)
+            {
+                Log.Info(
+                    string.Format(
+                        "{0}({1}): ERROR ({2}) - {3}", 
+                        compilerResults.OutputFilePath, 
+                        compilerError.Lineno, 
+                        compilerError.Type, 
+                        compilerError.Error));
+                Log.Info(compilerError.Line.TrimStart());
+            }
+        }
+
+        /// <summary>
+        /// Emits a summary of the results.
+        /// </summary>
+        /// <param name="compilerResults">The compiler results.</param>
+        public void EmitSummary(ICompilerResults compilerResults)
+        {
+            Log.Info("----------------------------");
+
+            var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
+            var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
+
+            if (warningCount > 0 || errorCount > 0)
+            {
+                Log.Info("Found " + errorCount + " Errors, " + warningCount + " Warnings");
+            }
+            else
+            {
+                Log.Info("No Errors or Warnings Found!");
+            }
+
+            if (errorCount <= 0)
+            {
+                Log.Info("----------------------------");
+                Log.Info("Code Emitted:");
+                Log.Info(compilerResults.CompiledCode);
+            }
         }
     }
 }

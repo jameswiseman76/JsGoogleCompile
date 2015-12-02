@@ -22,11 +22,12 @@
 
             var deserializer = new ResultsDeserializer(serializer);
 
-            var mockCompilerResponse =
-                "{\"compiledCode\":\"\",\"statistics\":{\"originalSize\":42,\"originalGzipSize\":49,\"compressedSize\":0,\"compressedGzipSize\":20,\"compileTime\":0}}";
+            const string MockCompilerResponse = "{\"compiledCode\":\"\",\"statistics\":{\"originalSize\":42,\"originalGzipSize\":49,\"compressedSize\":0,\"compressedGzipSize\":20,\"compileTime\":0}}";
+
+            const string ExpectedFileName = "jsfile.js";
 
             // Act
-            var deserializedResults = deserializer.DeserializeCompilerResults(mockCompilerResponse);
+            var deserializedResults = deserializer.DeserializeCompilerResults(MockCompilerResponse, ExpectedFileName);
 
             // Assert
             Assert.AreEqual(0, deserializedResults.Statistics.CompileTime);
@@ -34,6 +35,7 @@
             Assert.AreEqual(0, deserializedResults.Statistics.CompressedSize);
             Assert.AreEqual(49, deserializedResults.Statistics.OriginalGzipSize);
             Assert.AreEqual(42, deserializedResults.Statistics.OriginalSize);
+            Assert.AreEqual(ExpectedFileName, deserializedResults.OutputFilePath);
         }
 
         [TestMethod]
@@ -42,16 +44,19 @@
             // Arrange
             var serializer = new JavaScriptSerializer();
             var deserializer = new ResultsDeserializer(serializer);
-            var mockCompilerResponse = "This is invalid";
-            var expectedError = "Error reading compiler results : Invalid JSON primitive: This.";
-            
+            const string MockCompilerResponse = "This is invalid";
+            const string ExpectedError = "Error reading compiler results : Invalid JSON primitive: This.";
+
+            const string ExpectedFileName = "jsfile2.js";
+
             // Act
-            var deserializedResults = deserializer.DeserializeCompilerResults(mockCompilerResponse);
+            var deserializedResults = deserializer.DeserializeCompilerResults(MockCompilerResponse, ExpectedFileName);
 
             // Assert
             Assert.AreEqual(1, deserializedResults.Errors.Count);
-            Assert.AreEqual(expectedError, deserializedResults.Errors[0].Error);
+            Assert.AreEqual(ExpectedError, deserializedResults.Errors[0].Error);
             Assert.AreEqual(string.Empty, deserializedResults.Errors[0].Line);
+            Assert.AreEqual(ExpectedFileName, deserializedResults.OutputFilePath);
         }
     }
 }
