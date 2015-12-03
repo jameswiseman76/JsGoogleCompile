@@ -38,7 +38,16 @@ namespace JsGoogleCompile
         /// <summary>
         /// The logger
         /// </summary>
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ConsoleEmitter));
+        private static ILog log = LogManager.GetLogger(typeof(ConsoleEmitter));
+
+        /// <summary>
+        /// Sets the logger.
+        /// </summary>
+        /// <param name="logger">The log.</param>
+        public static void SetLogger(ILog logger)
+        {
+            log = logger;
+        }
 
         /// <summary>
         /// Emits warnings.
@@ -46,7 +55,6 @@ namespace JsGoogleCompile
         /// <param name="compilerResults">The compiler results.</param>
         public void EmitWarnings(ICompilerResults compilerResults)
         {
-            // todo: test guards
             Guard.ArgumentNotNull(() => compilerResults, compilerResults);
 
             var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
@@ -58,14 +66,14 @@ namespace JsGoogleCompile
 
             foreach (var compilerWarning in compilerResults.Warnings)
             {
-                Log.Info(
+                log.Info(
                     string.Format(
                         "{0}({1}): WARNING  ({2}) - {3}",
                         compilerResults.OutputFilePath,
                         compilerWarning.Lineno,
                         compilerWarning.Type,
                         compilerWarning.Warning));
-                Log.Info(compilerWarning.Line.TrimStart());
+                log.Info(compilerWarning.Line.TrimStart());
             }
         }
 
@@ -75,7 +83,6 @@ namespace JsGoogleCompile
         /// <param name="compilerResults">The compiler results.</param>
         public void EmitErrors(ICompilerResults compilerResults)
         {
-            // todo: test guards
             Guard.ArgumentNotNull(() => compilerResults, compilerResults);
 
             var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
@@ -87,14 +94,14 @@ namespace JsGoogleCompile
 
             foreach (var compilerError in compilerResults.Errors)
             {
-                Log.Info(
+                log.Info(
                     string.Format(
                         "{0}({1}): ERROR ({2}) - {3}", 
                         compilerResults.OutputFilePath, 
                         compilerError.Lineno, 
                         compilerError.Type, 
                         compilerError.Error));
-                Log.Info(compilerError.Line.TrimStart());
+                log.Info(compilerError.Line.TrimStart());
             }
         }
 
@@ -104,25 +111,27 @@ namespace JsGoogleCompile
         /// <param name="compilerResults">The compiler results.</param>
         public void EmitSummary(ICompilerResults compilerResults)
         {
-            Log.Info("----------------------------");
+            Guard.ArgumentNotNull(() => compilerResults, compilerResults);
+
+            log.Info("----------------------------");
 
             var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
             var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
 
             if (warningCount > 0 || errorCount > 0)
             {
-                Log.Info("Found " + errorCount + " Errors, " + warningCount + " Warnings");
+                log.Info("Found " + errorCount + " Errors, " + warningCount + " Warnings");
             }
             else
             {
-                Log.Info("No Errors or Warnings Found!");
+                log.Info("No Errors or Warnings Found!");
             }
 
             if (errorCount <= 0)
             {
-                Log.Info("----------------------------");
-                Log.Info("Code Emitted:");
-                Log.Info(compilerResults.CompiledCode);
+                log.Info("----------------------------");
+                log.Info("Code Emitted:");
+                log.Info(compilerResults.CompiledCode);
             }
         }
     }

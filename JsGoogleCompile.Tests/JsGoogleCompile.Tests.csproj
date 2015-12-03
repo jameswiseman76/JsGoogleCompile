@@ -35,8 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\slp\dev\AtRetPhase2\Build\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\slp\dev\AtRetPhase2\Build\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,6 +68,7 @@
     <Compile Include="JSGoogleCompile.CLI\CommandLineArgumentsTest.cs" />
     <Compile Include="JSGoogleCompile\CompilerOptionsTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerResultsTests.cs" />
+    <Compile Include="JSGoogleCompile\ConsoleEmitterTests.cs" />
     <Compile Include="JSGoogleCompile\JavaScriptCompilerTests.cs" />
     <Compile Include="JSGoogleCompile\GuardTests.cs" />
     <Compile Include="JSGoogleCompile\WarningCodeTests.cs" />
@@ -71,7 +76,9 @@
     <Compile Include="JSGoogleCompile\ResultsDeserializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsGoogleCompile.CLI\JsGoogleCompile.CLI.csproj">

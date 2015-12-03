@@ -1,4 +1,4 @@
-﻿namespace JsGoogleCompile.Tests.JSGoogleCompile
+﻿namespace JsGoogleCompile.Tests
 {
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
