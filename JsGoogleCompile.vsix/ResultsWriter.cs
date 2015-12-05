@@ -5,7 +5,7 @@
     public class ResultsWriter : IResultsOutput
     {
         private readonly ErrorListHelper errorListHelper;
- 
+
         public ResultsWriter(ErrorListHelper errorListHelper)
         {
             Guard.ArgumentNotNull(() => errorListHelper, errorListHelper);
@@ -13,7 +13,7 @@
             this.errorListHelper = errorListHelper;
         }
 
-        public void EmitWarnings(CompilerResults compilerResults)
+        public void EmitWarnings(ICompilerResults compilerResults)
         {
             var warningCount = compilerResults.Warnings == null ? 0 : compilerResults.Warnings.Count;
             if (warningCount > 0)
@@ -32,7 +32,7 @@
             }
         }
 
-        public void EmitErrors(CompilerResults compilerResults)
+        public void EmitErrors(ICompilerResults compilerResults)
         {
             var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
             if (errorCount > 0)
@@ -49,6 +49,12 @@
                         compilerError.Charno);
                 }
             }
+
+        }
+
+        public void EmitSummary(ICompilerResults compilerResults)
+        {
+            // do nothing
         }
     }
 }

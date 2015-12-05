@@ -39,8 +39,8 @@
       <HintPath>..\..\..\..\slp\dev\AtRetPhase2\Build\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\slp\dev\AtRetPhase2\Build\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -76,11 +76,6 @@
     <Compile Include="JSGoogleCompile\ResultsDeserializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\JsGoogleCompile.CLI\JsGoogleCompile.CLI.csproj">
       <Project>{fd7f479d-5b40-446e-90a8-13f9657f3693}</Project>
       <Name>JsGoogleCompile.CLI</Name>
@@ -89,6 +84,9 @@
       <Project>{fcb57783-b6a3-4a81-bf05-c10928f7e7ee}</Project>
       <Name>JsGoogleCompile</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
