@@ -19,20 +19,32 @@
             (new ConsoleEmitter()).EmitWarnings(null);
         }
 
-        ////[TestMethod]
-        ////public void EmitWarnings_Logs_Message()
-        ////{
-        ////    var loggerMock = new Mock<ILog>();
-        ////    ConsoleEmitter.SetLogger(loggerMock.Object);
+        [TestMethod]
+        public void EmitWarnings_Logs_Message()
+        {
+            var loggerMock = new Mock<ILog>();
+            ConsoleEmitter.SetLogger(loggerMock.Object);
 
-        ////    var compilerResults = new CompilerResults
-        ////                              {
-        ////                                  Warnings = new List<CompilerError> { new CompilerError() },
-        ////                              };
-        ////    var emitter = new ConsoleEmitter();
+            var compilerResults = new CompilerResults
+            {
+                OutputFilePath = string.Empty,
+                Warnings = new List<CompilerError>
+                {
+                    new CompilerError
+                    {
+                       Lineno = 0,
+                       Type = string.Empty,
+                       Error = string.Empty,
+                       Line = string.Empty
+                    }
+                },
+            };
+            var emitter = new ConsoleEmitter();
 
-        ////    emitter.EmitWarnings(compilerResults);
-        ////}
+            emitter.EmitWarnings(compilerResults);
+
+            loggerMock.Verify(m => m.Info(It.IsAny<string>()), Times.Exactly(2));
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

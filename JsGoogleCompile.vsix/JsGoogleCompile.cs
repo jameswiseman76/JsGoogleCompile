@@ -124,7 +124,7 @@ namespace JsGoogleCompile.vsix
             task1.Start();
         }
 
-        private void EmitResults(CompilerResults compilerResults)
+        private void EmitResults(ICompilerResults compilerResults)
         {
             var errorCount = compilerResults.Errors == null ? 0 : compilerResults.Errors.Count;
             if (errorCount > 0)
