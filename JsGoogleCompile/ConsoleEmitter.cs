@@ -64,6 +64,7 @@ namespace JsGoogleCompile
                 return;
             }
 
+            // ReSharper disable once PossibleNullReferenceException
             foreach (var compilerWarning in compilerResults.Warnings)
             {
                 log.Info(
@@ -92,6 +93,7 @@ namespace JsGoogleCompile
                 return;
             }
 
+            // ReSharper disable once PossibleNullReferenceException
             foreach (var compilerError in compilerResults.Errors)
             {
                 log.Info(

@@ -4,13 +4,12 @@
     using System.Collections.Generic;
 
     using log4net;
-    using log4net.Repository.Hierarchy;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
     [TestClass]
-    public class ConsoleEmitterTests
+    public class ConsoleEmitterWarningsTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -49,6 +48,47 @@
             // Assert
             loggerMock.Verify(m => m.Info(It.IsAny<string>()), Times.Exactly(2));
             loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedLineText)), Times.Once);
+        }
+
+        [TestMethod]
+        public void EmitWarnings_Logs_Message_Four_Times_With_Two_Warnings()
+        {
+            // Arrange
+            var loggerMock = new Mock<ILog>();
+            ConsoleEmitter.SetLogger(loggerMock.Object);
+
+            var expectedFirstLineText = "expectedLineText" + Guid.NewGuid();
+            var expectedSecondLineText = "expectedLineText" + Guid.NewGuid();
+            var compilerResults = new CompilerResults
+            {
+                OutputFilePath = string.Empty,
+                Warnings = new List<CompilerError>
+                {
+                    new CompilerError
+                    {
+                       Lineno = 0,
+                       Type = string.Empty,
+                       Error = string.Empty,
+                       Line = expectedFirstLineText
+                    },
+                    new CompilerError
+                    {
+                       Lineno = 0,
+                       Type = string.Empty,
+                       Error = string.Empty,
+                       Line = expectedSecondLineText
+                    }
+                },
+            };
+            var emitter = new ConsoleEmitter();
+
+            // Act
+            emitter.EmitWarnings(compilerResults);
+
+            // Assert
+            loggerMock.Verify(m => m.Info(It.IsAny<string>()), Times.Exactly(4));
+            loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedFirstLineText)), Times.Once);
+            loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedSecondLineText)), Times.Once);
         }
 
         [TestMethod]
@@ -91,20 +131,6 @@
 
             // Assert
             loggerMock.Verify(m => m.Info(It.IsAny<string>()), Times.Never);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void EmitErrors_Guards_Null_Compiler_Results()
-        {
-            (new ConsoleEmitter()).EmitErrors(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void EmitSummary_Guards_Null_Compiler_Results()
-        {
-            (new ConsoleEmitter()).EmitSummary(null);
         }
     }
 }

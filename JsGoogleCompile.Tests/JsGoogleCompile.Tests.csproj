@@ -68,7 +68,9 @@
     <Compile Include="JSGoogleCompile.CLI\CommandLineArgumentsTest.cs" />
     <Compile Include="JSGoogleCompile\CompilerOptionsTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerResultsTests.cs" />
-    <Compile Include="JSGoogleCompile\ConsoleEmitterTests.cs" />
+    <Compile Include="JSGoogleCompile\ConsoleEmitterErrorsTests.cs" />
+    <Compile Include="JSGoogleCompile\ConsoleEmitterSummaryTests.cs" />
+    <Compile Include="JSGoogleCompile\ConsoleEmitterWarningsTests.cs" />
     <Compile Include="JSGoogleCompile\JavaScriptCompilerTests.cs" />
     <Compile Include="JSGoogleCompile\GuardTests.cs" />
     <Compile Include="JSGoogleCompile\WarningCodeTests.cs" />
