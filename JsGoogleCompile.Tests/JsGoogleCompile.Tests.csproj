@@ -66,6 +66,7 @@
     <Compile Include="JSGoogleCompile.CLI\ArgumentRules\IsValidJavaScriptFileNameTests.cs" />
     <Compile Include="JSGoogleCompile.CLI\ArgumentRules\IsValidWarningSuppressionArgumentTests.cs" />
     <Compile Include="JSGoogleCompile.CLI\CommandLineArgumentsTest.cs" />
+    <Compile Include="JSGoogleCompile\CompilationLevelHelperTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerOptionsTests.cs" />
     <Compile Include="JSGoogleCompile\CompilerResultsTests.cs" />
     <Compile Include="JSGoogleCompile\ConsoleEmitterErrorsTests.cs" />

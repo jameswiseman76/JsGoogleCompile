@@ -70,7 +70,7 @@ namespace JsGoogleCompile
         /// </returns>
         public string From(string shortCode)
         {
-            shortCode = shortCode.ToUpper();
+            shortCode = shortCode == null ? string.Empty : shortCode.ToUpper();
             return this.IsValid(shortCode) ? this.mapping[shortCode] : AdvancedOptimizations;
         }
 
@@ -85,6 +85,7 @@ namespace JsGoogleCompile
         /// </returns>
         public bool IsValid(string shortCode)
         {
+            shortCode = shortCode ?? string.Empty;
             return this.mapping.ContainsKey(shortCode.ToUpper());
         }
     }

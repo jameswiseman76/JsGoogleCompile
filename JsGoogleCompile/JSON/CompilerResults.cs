@@ -71,7 +71,6 @@ namespace JsGoogleCompile
         /// </param>
         public void SupressWarningsFrom(IList<string> supressedWarnings)
         {
-            // todo: add unit test around this code
             if (supressedWarnings == null)
             {
                 return;
@@ -80,7 +79,6 @@ namespace JsGoogleCompile
             var currentWarnings = this.Warnings.Select(w => w.Type);
             var filteredWarnings = currentWarnings.Except(supressedWarnings);
 
-            // todo: add unit test around if block
             this.Warnings = this.Warnings.Where(w => filteredWarnings.Any(s => s == w.Type)).ToList();
         }
 
@@ -90,7 +88,6 @@ namespace JsGoogleCompile
         /// <param name="resultsEmitters">The result output emitters.</param>
         public void Emit(IList<IResultsOutput> resultsEmitters)
         {
-            // todo: test this. Make sure we test with more than one
             foreach (var resultEmitter in resultsEmitters)
             {
                 resultEmitter.EmitWarnings(this);
