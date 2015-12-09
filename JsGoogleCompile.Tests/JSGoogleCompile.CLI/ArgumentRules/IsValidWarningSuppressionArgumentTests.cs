@@ -31,6 +31,27 @@
         {
             // Arrange
             var expectedWarningsSuppressed = new[] { "ERROR" };
+            var comamndLineSwitch = string.Format("/S{0}", string.Join(";", expectedWarningsSuppressed));
+
+            var commandLineArguments = new Mock<ICommandLineArguments>();
+            commandLineArguments.SetupSet(m => m.SuppressedWarnings = It.IsAny<IList<string>>()).Verifiable();
+
+            var rule = new IsValidWarningSuppressionArgument(commandLineArguments.Object);
+
+            // Act
+            var isValid = rule.IsSatisfiedBy(new[] { comamndLineSwitch });
+
+            // Assert
+            Assert.IsTrue(isValid);
+
+            commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.Is<IList<string>>(l => l.SequenceEqual(expectedWarningsSuppressed)));
+        }
+
+        [TestMethod]
+        public void Single_Valid_Warning_Argument_Is_Recognised_Case_Insensitive()
+        {
+            // Arrange
+            var expectedWarningsSuppressed = new[] { "ERROR" };
             var comamndLineSwitch = string.Format("/s{0}", string.Join(";", expectedWarningsSuppressed));
 
             var commandLineArguments = new Mock<ICommandLineArguments>();
@@ -45,6 +66,46 @@
             Assert.IsTrue(isValid);
 
             commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.Is<IList<string>>(l => l.SequenceEqual(expectedWarningsSuppressed)));
+        }
+
+        [TestMethod]
+        public void Valid_Switch_With_Empty_Argument_Is_Invalid()
+        {
+            // Arrange
+            const string ComamndLineSwitch = "/S";
+
+            var commandLineArguments = new Mock<ICommandLineArguments>();
+            commandLineArguments.SetupSet(m => m.SuppressedWarnings = It.IsAny<IList<string>>()).Verifiable();
+
+            var rule = new IsValidWarningSuppressionArgument(commandLineArguments.Object);
+
+            // Act
+            var isValid = rule.IsSatisfiedBy(new[] { ComamndLineSwitch });
+
+            // Assert
+            Assert.IsFalse(isValid);
+
+            commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.IsAny<IList<string>>(), Times.Never);
+        }
+
+        [TestMethod]
+        public void Invalid_Switch_Is_Invalid()
+        {
+            // Arrange
+            var invalidComamndLineSwitch = string.Format("/XXX");
+
+            var commandLineArguments = new Mock<ICommandLineArguments>();
+            commandLineArguments.SetupSet(m => m.SuppressedWarnings = It.IsAny<IList<string>>()).Verifiable();
+
+            var rule = new IsValidWarningSuppressionArgument(commandLineArguments.Object);
+
+            // Act
+            var isValid = rule.IsSatisfiedBy(new[] { invalidComamndLineSwitch });
+
+            // Assert
+            Assert.IsFalse(isValid);
+
+            commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.IsAny<IList<string>>(), Times.Never);
         }
     }
 }

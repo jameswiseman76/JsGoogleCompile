@@ -101,12 +101,27 @@
         }
 
         [TestMethod]
-        public void Rule_Is_Not_Satisfied_When_InValid_Js_File_Name_Is_Passed()
+        public void Rule_Is_Not_Satisfied_When_Invalid_Js_File_Name_Is_Passed()
         {
             // Arrange
             var commandLineArguments = new Mock<ICommandLineArguments>();
             var rule = new IsValidJavaScriptFileName(commandLineArguments.Object);
             var args = new[] { "JsFile.ps" };
+
+            // Act
+            var isSatisfiedBy = rule.IsSatisfiedBy(args);
+
+            // Assert
+            Assert.IsFalse(isSatisfiedBy);
+        }
+
+        [TestMethod]
+        public void Rule_Is_Not_Satisfied_sWhen_Empty_Js_File_Name_Is_Passed()
+        {
+            // Arrange
+            var commandLineArguments = new Mock<ICommandLineArguments>();
+            var rule = new IsValidJavaScriptFileName(commandLineArguments.Object);
+            var args = new[] { string.Empty };
 
             // Act
             var isSatisfiedBy = rule.IsSatisfiedBy(args);

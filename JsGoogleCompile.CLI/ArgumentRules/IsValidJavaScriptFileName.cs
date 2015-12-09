@@ -82,7 +82,6 @@ namespace JsGoogleCompile.CLI
         /// </returns>
         private bool IsValid(string fileName)
         {
-            // todo: unit test this
             if (string.IsNullOrEmpty(fileName))
             {
                 return false;

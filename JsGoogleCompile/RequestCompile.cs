@@ -131,7 +131,6 @@ namespace JsGoogleCompile
         /// <returns>Non null list of emitters</returns>
         private IList<IResultsOutput> SetupLocalDefaultEmitterIfNull(IList<IResultsOutput> resultsEmitters)
         {
-            // todo: unit test this
             return resultsEmitters ?? new List<IResultsOutput> { new ConsoleEmitter() };
         }
     }
