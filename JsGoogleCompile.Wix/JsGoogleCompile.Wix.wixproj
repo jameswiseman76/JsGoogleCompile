@@ -48,6 +48,9 @@
   <PropertyGroup>
     <PreBuildEvent>copy ..\..\..\JsGoogleCompile.CLI\bin\Release\JsGoogleCompile.CLI.exe ..\..\JsGoogleCompile.CLI.exe /Y
 copy ..\..\..\JsGoogleCompile.CLI\bin\Release\JsGoogleCompile.dll ..\..\JsGoogleCompile.dll /Y
+copy ..\..\..\JsGoogleCompile.CLI\bin\Release\log4net.config ..\..\log4net.config /Y
+copy ..\..\..\JsGoogleCompile.CLI\bin\Release\log4net.dll ..\..\log4net.dll /Y
+copy ..\..\..\JsGoogleCompile.CLI\bin\Release\log4net.xml ..\..\log4net.xml /Y
 copy ..\..\..\JsGoogleCompile.CLI\bin\Release\sample.js ..\..\sample.js /Y</PreBuildEvent>
   </PropertyGroup>
   <!--

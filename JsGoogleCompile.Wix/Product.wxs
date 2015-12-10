@@ -19,6 +19,15 @@
             <Component Id="JsGoogleCompile.dll" Guid="45E16065-C689-497D-A5F5-7A45580C49BA">
                 <File Id="JsGoogleCompile.dll" Source="JsGoogleCompile.dll" KeyPath="yes" Checksum="yes"/>
             </Component>
+            <Component Id="log4net.config" Guid="ab2c0e3e-194b-4631-b142-2d767f5d3f7e">
+                <File Id="log4net.config" Source="log4net.config" KeyPath="yes" Checksum="yes"/>
+            </Component>
+            <Component Id="log4net.dll" Guid="3a576ad1-01fe-464f-83a1-c38abc4134ba">
+                <File Id="log4net.dll" Source="log4net.dll" KeyPath="yes" Checksum="yes"/>
+            </Component>
+            <Component Id="log4net.xml" Guid="d7eb2544-f3a6-4fa7-aaa8-8b1f3f4dbcde">
+                <File Id="log4net.xml" Source="log4net.xml" KeyPath="yes" Checksum="yes"/>
+            </Component>
             <Component Id="sample.js" Guid="C60817DA-DC9A-4A8D-827B-56AB0DD0A36E">
                 <File Id="sample.js" Source="sample.js" KeyPath="yes" Checksum="yes"/>
             </Component>
@@ -28,6 +37,9 @@
         <Feature Id="MainApplication" Title="Main Application" Level="1">
             <ComponentRef Id="JsGoogleCompile.CLI.exe" />
             <ComponentRef Id="JsGoogleCompile.dll" />
+            <ComponentRef Id="log4net.config" />
+            <ComponentRef Id="log4net.dll" />
+            <ComponentRef Id="log4net.xml" />
             <ComponentRef Id="sample.js" />
         </Feature>
 	</Product>
