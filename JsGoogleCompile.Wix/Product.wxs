@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="JsGoogleCompile" Language="1033" Version="1.0.0.0" Manufacturer="James Wiseman" UpgradeCode="ee753074-9d56-40ad-851e-f82e54ce3269">
+    <Product Id="*" Name="JsGoogleCompile" Language="1033" Version="1.0.0.0" Manufacturer="James Wiseman" UpgradeCode="ee753074-9d56-40ad-851e-f82e54ce3269">
         <Package InstallerVersion="300" Compressed="yes"/>
         <Media Id="1" Cabinet="myapplication.cab" EmbedCab="yes" />
 
@@ -42,5 +42,5 @@
             <ComponentRef Id="log4net.xml" />
             <ComponentRef Id="sample.js" />
         </Feature>
-	</Product>
+    </Product>
 </Wix>
