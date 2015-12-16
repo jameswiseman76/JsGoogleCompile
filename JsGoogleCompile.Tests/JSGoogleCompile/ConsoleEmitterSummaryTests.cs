@@ -5,20 +5,19 @@
 
     using log4net;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class ConsoleEmitterSummaryTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void EmitSummary_Guards_Null_Compiler_Results()
         {
-            (new ConsoleEmitter()).EmitSummary(null);
+            Assert.Throws<ArgumentNullException>(() => (new ConsoleEmitter()).EmitSummary(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitSummary_Logs_Expected_Messages_With_Valid_Results_That_Has_Empty_Errors_And_Warnings()
         {
             // Arrange
@@ -45,7 +44,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(s => s == expectedCompiledCode)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitSummary_Logs_Expected_Messages_With_Valid_Results_That_Has_Empty_Errors_And_Null_Warnings()
         {
             // Arrange
@@ -72,7 +71,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(s => s == expectedCompiledCode)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitSummary_Logs_Expected_Messages_With_Valid_Results_That_Has_Null_Errors_And_Empty_Warnings()
         {
             // Arrange
@@ -99,7 +98,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(s => s == expectedCompiledCode)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitSummary_Logs_Expected_Messages_With_Valid_Results_That_Has_A_Warning_But_No_Errors()
         {
             // Arrange
@@ -135,7 +134,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(s => s.Contains("1 Warnings"))), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitSummary_Logs_Expected_Messages_With_Valid_Results_That_Has_No_Warnings_And_One_Error()
         {
             // Arrange

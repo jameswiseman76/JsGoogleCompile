@@ -5,28 +5,26 @@
     using System.Linq;
 
     using JsGoogleCompile.CLI;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class IsValidWarningSuppressionArgumentTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Constructor_Guards_Null_commandLineArguments()
         {
-            var rule = new IsValidWarningSuppressionArgument(null);
+            Assert.Throws<ArgumentNullException>(() => new IsValidWarningSuppressionArgument(null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void IsSatisfiedBy_Guards_Null_commandLineArguments()
         {
             var rule = new IsValidWarningSuppressionArgument(Mock.Of<ICommandLineArguments>());
-            rule.IsSatisfiedBy(null);
+            Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Single_Valid_Warning_Argument_Is_Recognised()
         {
             // Arrange
@@ -42,12 +40,12 @@
             var isValid = rule.IsSatisfiedBy(new[] { comamndLineSwitch });
 
             // Assert
-            Assert.IsTrue(isValid);
+            Assert.True(isValid);
 
             commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.Is<IList<string>>(l => l.SequenceEqual(expectedWarningsSuppressed)));
         }
 
-        [TestMethod]
+        [Fact]
         public void Single_Valid_Warning_Argument_Is_Recognised_Case_Insensitive()
         {
             // Arrange
@@ -63,12 +61,12 @@
             var isValid = rule.IsSatisfiedBy(new[] { comamndLineSwitch });
 
             // Assert
-            Assert.IsTrue(isValid);
+            Assert.True(isValid);
 
             commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.Is<IList<string>>(l => l.SequenceEqual(expectedWarningsSuppressed)));
         }
 
-        [TestMethod]
+        [Fact]
         public void Valid_Switch_With_Empty_Argument_Is_Invalid()
         {
             // Arrange
@@ -83,12 +81,12 @@
             var isValid = rule.IsSatisfiedBy(new[] { ComamndLineSwitch });
 
             // Assert
-            Assert.IsFalse(isValid);
+            Assert.False(isValid);
 
             commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.IsAny<IList<string>>(), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalid_Switch_Is_Invalid()
         {
             // Arrange
@@ -103,7 +101,7 @@
             var isValid = rule.IsSatisfiedBy(new[] { invalidComamndLineSwitch });
 
             // Assert
-            Assert.IsFalse(isValid);
+            Assert.False(isValid);
 
             commandLineArguments.VerifySet(m => m.SuppressedWarnings = It.IsAny<IList<string>>(), Times.Never);
         }

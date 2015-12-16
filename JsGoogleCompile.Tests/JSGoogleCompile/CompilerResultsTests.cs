@@ -1,15 +1,15 @@
 ﻿namespace JsGoogleCompile.Tests
 {
     using System.Collections.Generic;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Linq;
 
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class CompilerResultsTests
     {
-        [TestMethod]
+        [Fact]
         public void Test_That_SupressWarningsFrom_Filters_Out_A_Single_Warning()
         {
             // Arrange
@@ -35,12 +35,12 @@
             results.SupressWarningsFrom(supressWarnings);
 
             // Assert
-            Assert.AreEqual(2, results.Warnings.Count);
-            CollectionAssert.Contains(results.Warnings, jscBadTypeForBitOperationWarning);
-            CollectionAssert.Contains(results.Warnings, jscConstructorNotCallableWarning);
+            Assert.Equal(2, results.Warnings.Count);
+            Assert.True(results.Warnings.Any(w => w == jscBadTypeForBitOperationWarning));
+            Assert.True(results.Warnings.Any(w => w == jscConstructorNotCallableWarning));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_That_SupressWarningsFrom_Filters_Out_Multiple_Warnings()
         {
             // Arrange
@@ -70,12 +70,12 @@
             results.SupressWarningsFrom(supressWarnings);
 
             // Assert
-            Assert.AreEqual(2, results.Warnings.Count);
-            CollectionAssert.Contains(results.Warnings, jscBadTypeForBitOperationWarning);
-            CollectionAssert.Contains(results.Warnings, jscJscFunctionMasksVariableWarning);
+            Assert.Equal(2, results.Warnings.Count);
+            Assert.True(results.Warnings.Any(w => w == jscBadTypeForBitOperationWarning));
+            Assert.True(results.Warnings.Any(w => w == jscJscFunctionMasksVariableWarning));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_That_SupressWarningsFrom_Works_When_Specified_Filters_Do_Not_Exist()
         {
             // Arrange
@@ -101,12 +101,12 @@
             results.SupressWarningsFrom(supressWarnings);
 
             // Assert
-            Assert.AreEqual(2, results.Warnings.Count);
-            CollectionAssert.Contains(results.Warnings, jscBadTypeForBitOperationWarning);
-            CollectionAssert.Contains(results.Warnings, jscJscFunctionMasksVariableWarning);
+            Assert.Equal(2, results.Warnings.Count);
+            Assert.True(results.Warnings.Any(w => w == jscBadTypeForBitOperationWarning));
+            Assert.True(results.Warnings.Any(w => w == jscJscFunctionMasksVariableWarning));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_That_SupressWarningsFrom_Doesnt_Suppress_Any_Warnings_When_Passed_A_Null_Suppression_List()
         {
             // Arrange
@@ -126,12 +126,12 @@
             results.SupressWarningsFrom(null);
 
             // Assert
-            Assert.AreEqual(2, results.Warnings.Count);
-            CollectionAssert.Contains(results.Warnings, jscBadTypeForBitOperationWarning);
-            CollectionAssert.Contains(results.Warnings, jscJscFunctionMasksVariableWarning);
+            Assert.Equal(2, results.Warnings.Count);
+            Assert.True(results.Warnings.Any(w => w == jscBadTypeForBitOperationWarning));
+            Assert.True(results.Warnings.Any(w => w == jscJscFunctionMasksVariableWarning));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_That_Emit_Function_Emits_Warnings_Errors_And_Summary_Once_With_A_Single_Emitter()
         {
             // Arrange
@@ -148,7 +148,7 @@
             emitterMock.Verify(m => m.EmitSummary(It.Is<CompilerResults>(cr => cr.Equals(results))), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_That_Emit_Function_Emits_Warnings_Errors_And_Summary_Twice_With_Two_Emitters()
         {
             // Arrange

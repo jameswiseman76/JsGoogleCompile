@@ -5,23 +5,23 @@
     using System.Text;
 
     using JsGoogleCompile.CLI;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class CommandLineArgumentsTest
     {
-        [TestMethod]
+        [Fact]
         public void Command_Line_Arguments_Are_Invalid_When_Empty()
         {
             // Act
             var cla = new CommandLineArguments(new string[0], new CompilationLevelHelper());
 
             // Assert
-            Assert.IsFalse(cla.AreValid);
+            Assert.False(cla.AreValid);
         }
 
-        [TestMethod]
+        [Fact]
         public void Usage_Instructions_Are_Emitted_As_Expected()
         {
             using (var sw = new StringWriter())
@@ -34,11 +34,13 @@
                 var cla = new CommandLineArguments(new string[0], new CompilationLevelHelper());
 
                 // Assert
-                Assert.AreEqual(expected, sw.ToString());
+                Assert.Equal(expected, sw.ToString());
             }
+
+            this.ResetStdOut();
         }
 
-        [TestMethod]
+        [Fact]
         public void Request_For_Usage_Instructions_Emits_Usage_Instructions()
         {
             using (var sw = new StringWriter())
@@ -51,50 +53,52 @@
                 var cla = new CommandLineArguments(new[] { "/?" }, new CompilationLevelHelper());
 
                 // Assert
-                Assert.AreEqual(expected, sw.ToString());
+                Assert.Equal(expected, sw.ToString());
             }
+
+            this.ResetStdOut();
         }
 
-        [TestMethod]
+        [Fact]
         public void File_Name_Passed_As_Single_Argument_Is_Recognised()
         {
             // Arrange
-            var expectedFileName = "SomeFile.js";
+            const string ExpectedFileName = "SomeFile.js";
 
             // Act
-            var cu = new CommandLineArguments(new[] { expectedFileName }, new CompilationLevelHelper());
+            var cu = new CommandLineArguments(new[] { ExpectedFileName }, new CompilationLevelHelper());
 
             // Assert
-            Assert.AreEqual(expectedFileName, cu.FileName);
-            Assert.IsTrue(cu.AreValid);
+            Assert.Equal(ExpectedFileName, cu.FileName);
+            Assert.True(cu.AreValid);
         }
 
-        [TestMethod]
+        [Fact]
         public void File_Name_And_CompilationLevel_Passed_As_Arguments_Are_Recognised()
         {
             // Arrange
-            var expectedFileName = "SomeFile.js";
-            var expectedCompilationLevel = "W";
-            var compilationArgument = string.Format("/C{0}", expectedCompilationLevel);
-            var args = new[] { expectedFileName, compilationArgument };
+            const string ExpectedFileName = "SomeFile.js";
+            const string ExpectedCompilationLevel = "W";
+            var compilationArgument = string.Format("/C{0}", ExpectedCompilationLevel);
+            var args = new[] { ExpectedFileName, compilationArgument };
 
             // Act
             var cu = new CommandLineArguments(args, new CompilationLevelHelper());
 
             // Assert
-            Assert.AreEqual(args[0], cu.FileName);
-            Assert.AreEqual(expectedCompilationLevel, cu.CompilationLevel);
-            Assert.IsTrue(cu.AreValid);
+            Assert.Equal(args[0], cu.FileName);
+            Assert.Equal(ExpectedCompilationLevel, cu.CompilationLevel);
+            Assert.True(cu.AreValid);
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalid_CompilationLevel_Passed_As_Arguments_Is_Caught()
         {
             // Arrange
-            var expectedFileName = "SomeFile.js";
+            const string ExpectedFileName = "SomeFile.js";
             var expectedCompilationLevel = Guid.NewGuid().ToString().ToUpper();
             var compilationArgument = string.Format("/C{0}", expectedCompilationLevel);
-            var args = new[] { expectedFileName, compilationArgument };
+            var args = new[] { ExpectedFileName, compilationArgument };
 
             var compilationLevelHelperMock = new Mock<ICompilationLevelHelper>();
             compilationLevelHelperMock.Setup(m => m.IsValid(It.IsAny<string>())).Returns(false);
@@ -103,16 +107,14 @@
             var cla = new CommandLineArguments(args, compilationLevelHelperMock.Object);
 
             // Assert
-            Assert.IsFalse(cla.AreValid);
+            Assert.False(cla.AreValid);
             compilationLevelHelperMock.Verify(m => m.IsValid(It.Is<string>(p => p == expectedCompilationLevel)), Times.Exactly(2));
         }
 
-        [TestMethod]
-        public void Expected_Js_File_Extension()
+        private void ResetStdOut()
         {
-            var ex = Path.GetExtension("test.hs");
-            var ex3 = Path.GetExtension("test.");
-            var ex2 = Path.GetExtension("test");
+            var standardOutput = new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true };
+            Console.SetOut(standardOutput);
         }
 
         private static string GetExpectedUseageInstructions()

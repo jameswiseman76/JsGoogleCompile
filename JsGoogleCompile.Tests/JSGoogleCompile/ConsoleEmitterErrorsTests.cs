@@ -5,20 +5,19 @@
 
     using log4net;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class ConsoleEmitterErrorsTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void EmitErrors_Guards_Null_Compiler_Results()
         {
-            (new ConsoleEmitter()).EmitErrors(null);
+            Assert.Throws<ArgumentNullException>(() => (new ConsoleEmitter()).EmitErrors(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitErrors_Logs_Message_Twice_With_Single_Error()
         {
             // Arrange
@@ -50,7 +49,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedLineText)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitErrors_Logs_Message_Four_Times_With_Two_Errors()
         {
             // Arrange
@@ -91,7 +90,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedSecondLineText)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitErrors_Logs_Message_Once_With_Valid_Results_That_Has_Empty_Errors_Collection()
         {
             // Arrange
@@ -112,7 +111,7 @@
             loggerMock.Verify(m => m.Info(It.IsAny<string>()), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitErrors_Logs_Message_Once_With_Valid_Results_That_Has_Null_Errors_Collection()
         {
             // Arrange

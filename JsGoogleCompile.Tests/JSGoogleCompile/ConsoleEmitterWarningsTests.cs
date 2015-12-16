@@ -4,21 +4,19 @@
     using System.Collections.Generic;
 
     using log4net;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class ConsoleEmitterWarningsTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void EmitWarnings_Guards_Null_Compiler_Results()
         {
-            (new ConsoleEmitter()).EmitWarnings(null);
+            Assert.Throws<ArgumentNullException>(() => (new ConsoleEmitter()).EmitWarnings(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitWarnings_Logs_Message_Twice_With_Single_Warning()
         {
             // Arrange
@@ -36,7 +34,7 @@
                        Lineno = 0,
                        Type = string.Empty,
                        Error = string.Empty,
-                       Line = expectedLineText
+                       Line = expectedLineText,
                     }
                 },
             };
@@ -50,7 +48,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedLineText)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitWarnings_Logs_Message_Four_Times_With_Two_Warnings()
         {
             // Arrange
@@ -69,14 +67,14 @@
                        Lineno = 0,
                        Type = string.Empty,
                        Error = string.Empty,
-                       Line = expectedFirstLineText
+                       Line = expectedFirstLineText,
                     },
                     new CompilerError
                     {
                        Lineno = 0,
                        Type = string.Empty,
                        Error = string.Empty,
-                       Line = expectedSecondLineText
+                       Line = expectedSecondLineText,
                     }
                 },
             };
@@ -91,7 +89,7 @@
             loggerMock.Verify(m => m.Info(It.Is<string>(p => p == expectedSecondLineText)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitWarnings_Logs_Message_Once_With_Valid_Results_That_Has_Empty_Warnings_Collection()
         {
             // Arrange
@@ -101,7 +99,7 @@
             var compilerResults = new CompilerResults
             {
                 OutputFilePath = string.Empty,
-                Warnings = new List<CompilerError>()    // our empty warnings collection
+                Warnings = new List<CompilerError>(),    // our empty warnings collection
             };
             var emitter = new ConsoleEmitter();
 
@@ -112,7 +110,7 @@
             loggerMock.Verify(m => m.Info(It.IsAny<string>()), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void EmitWarnings_Logs_Message_Once_With_Valid_Results_That_Has_Null_Warnings_Collection()
         {
             // Arrange
@@ -122,7 +120,7 @@
             var compilerResults = new CompilerResults
             {
                 OutputFilePath = string.Empty,
-                Warnings = null     // our null warnings collection
+                Warnings = null,    // our null warnings collection
             };
             var emitter = new ConsoleEmitter();
 

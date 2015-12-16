@@ -3,12 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class WarningCodeTests
     {
-        [TestMethod]
+        [Fact]
         public void Ensure_List_Of_All_Warnings_Codes_Is_As_Expected()
         {
             var allCodes = new List<string>
@@ -36,7 +35,7 @@
                 WarningCode.JscWrongArgumentCount,
             };
 
-            CollectionAssert.AreEqual(allCodes, WarningCode.AllWarningCodes.ToList());
+            Assert.Equal(allCodes, WarningCode.AllWarningCodes.ToList());
         }
     }
 }

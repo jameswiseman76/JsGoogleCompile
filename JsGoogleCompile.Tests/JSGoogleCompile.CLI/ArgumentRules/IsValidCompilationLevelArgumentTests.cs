@@ -3,61 +3,58 @@
     using System;
 
     using JsGoogleCompile.CLI;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class IsValidCompilationLevelArgumentTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Constructor_Guards_Null_commandLineArguments()
         {
-            var rule = new IsValidCompilationLevelArgument(null, Mock.Of<ICompilationLevelHelper>());
+            Assert.Throws<ArgumentNullException>(() => new IsValidCompilationLevelArgument(null, Mock.Of<ICompilationLevelHelper>()));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Constructor_Guards_Null_compilationLevelHelper()
         {
-            var rule = new IsValidCompilationLevelArgument(Mock.Of<ICommandLineArguments>(), null);
+            Assert.Throws<ArgumentNullException>(() => new IsValidCompilationLevelArgument(Mock.Of<ICommandLineArguments>(), null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void IsSatisfiedBy_Guards_Null_commandLineArguments()
         {
             var rule = new IsValidCompilationLevelArgument(Mock.Of<ICommandLineArguments>(), Mock.Of<ICompilationLevelHelper>());
-            rule.IsSatisfiedBy(null);
+            Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Valid_Compilation_Switch_Is_Recognised_As_Being_Valid()
         {
             // Arrange
-            var validCompilationSwitchAttribute = "A";
+            const string ValidCompilationSwitchAttribute = "A";
             var commandLineArguments = new Mock<ICommandLineArguments>();
             commandLineArguments.SetupSet(m => m.CompilationLevel = It.IsAny<string>()).Verifiable();
 
             var compilationLevelHelper = new Mock<ICompilationLevelHelper>();
-            compilationLevelHelper.Setup(m => m.IsValid(It.Is<string>(r => r == validCompilationSwitchAttribute))).Returns(true);
+            compilationLevelHelper.Setup(m => m.IsValid(It.Is<string>(r => r == ValidCompilationSwitchAttribute))).Returns(true);
 
             var rule = new IsValidCompilationLevelArgument(
                 commandLineArguments.Object,
                 compilationLevelHelper.Object);
 
-            var args = new[] { string.Format("/C{0}", validCompilationSwitchAttribute) };
+            var args = new[] { string.Format("/C{0}", ValidCompilationSwitchAttribute) };
 
             // Act
             var isValid = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsTrue(isValid);
-            commandLineArguments.VerifySet(m => m.CompilationLevel = validCompilationSwitchAttribute);
-            compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == validCompilationSwitchAttribute)), Times.Once);
+            Assert.True(isValid);
+            commandLineArguments.VerifySet(m => m.CompilationLevel = ValidCompilationSwitchAttribute);
+            compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == ValidCompilationSwitchAttribute)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalid_Compilation_Switch_Directive_Is_Recognised_As_Being_Invalid()
         {
             // Arrange
@@ -69,8 +66,8 @@
                 commandLineArguments.Object,
                 compilationLevelHelper.Object);
 
-            var invalidCompilationSwitchDirective = "/R";
-            var invalidCommandLineArgument = string.Format("{0}A", invalidCompilationSwitchDirective);
+            const string InvalidCompilationSwitchDirective = "/R";
+            var invalidCommandLineArgument = string.Format("{0}A", InvalidCompilationSwitchDirective);
 
             var args = new[] { invalidCommandLineArgument };
 
@@ -78,11 +75,11 @@
             var isValid = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsFalse(isValid);
+            Assert.False(isValid);
             compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == "A")), Times.Never);
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalid_Compilation_Switch_Attribute_Is_Recognised_As_Being_Invalid()
         {
             // Arrange
@@ -94,8 +91,8 @@
                 commandLineArguments.Object,
                 compilationLevelHelper.Object);
 
-            var invalidCompilationSwitchAttribute = "Z";
-            var invalidCommandLineArgument = string.Format("/C{0}", invalidCompilationSwitchAttribute);
+            const string InvalidCompilationSwitchAttribute = "Z";
+            var invalidCommandLineArgument = string.Format("/C{0}", InvalidCompilationSwitchAttribute);
 
             var args = new[] { invalidCommandLineArgument };
 
@@ -103,11 +100,11 @@
             var isValid = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsFalse(isValid);
-            compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == invalidCompilationSwitchAttribute)), Times.Once);
+            Assert.False(isValid);
+            compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == InvalidCompilationSwitchAttribute)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalid_Compilation_Switch_Multi_Char_Attribute_Is_Recognised_As_Being_Invalid()
         {
             // Arrange
@@ -119,8 +116,8 @@
                 commandLineArguments.Object,
                 compilationLevelHelper.Object);
 
-            var invalidCompilationSwitchMultiCharAttribute = "AB";
-            var invalidCommandLineArgument = string.Format("/C{0}", invalidCompilationSwitchMultiCharAttribute);
+            const string InvalidCompilationSwitchMultiCharAttribute = "AB";
+            var invalidCommandLineArgument = string.Format("/C{0}", InvalidCompilationSwitchMultiCharAttribute);
 
             var args = new[] { invalidCommandLineArgument };
 
@@ -128,11 +125,11 @@
             var isValid = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsFalse(isValid);
-            compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == invalidCompilationSwitchMultiCharAttribute)), Times.Once);
+            Assert.False(isValid);
+            compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => r == InvalidCompilationSwitchMultiCharAttribute)), Times.Once);
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalid_Compilation_Switch_No_Char_Attribute_Is_Recognised_As_Being_Invalid()
         {
             // Arrange
@@ -152,7 +149,7 @@
             var isValid = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsFalse(isValid);
+            Assert.False(isValid);
             compilationLevelHelper.Verify(m => m.IsValid(It.Is<string>(r => string.IsNullOrEmpty(r))), Times.Once);
         }
     }

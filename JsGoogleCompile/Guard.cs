@@ -84,7 +84,7 @@ namespace JsGoogleCompile
         /// The variable value to check.
         /// </param>
         /// <typeparam name="T">The type of variable we are checking </typeparam>
-        /// <exception cref="ArgumentNullException">Exception thrown in the event of parameter being null</exception>
+        /// <exception cref="NullReferenceException">Exception thrown in the event of parameter being null</exception>
         public static void ValueNotNull<T>(Expression<Func<T>> variableNameExpression, T value) where T : class
         {
             if (value == null)
@@ -103,7 +103,7 @@ namespace JsGoogleCompile
         /// <param name="value">
         /// The variable value to check.
         /// </param>
-        /// <exception cref="ArgumentNullException">Exception thrown in the event of string parameter being null or empty</exception>
+        /// <exception cref="NullReferenceException">Exception thrown in the event of string parameter being null or empty</exception>
         public static void ValueNotNullOrEmpty(Expression<Func<string>> variableNameExpression, string value)
         {
             if (string.IsNullOrEmpty(value))

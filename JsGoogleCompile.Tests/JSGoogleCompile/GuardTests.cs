@@ -1,42 +1,34 @@
 ﻿namespace JsGoogleCompile.Tests
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    [TestClass]
+    using Xunit;
+
     public class GuardTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ArgumentNotNull_Throws_Null_When_Given_Argument_Is_Null()
         {
             string argument = null;
-            Guard.ArgumentNotNull(() => argument, argument);
+            Assert.Throws<ArgumentNullException>(() => Guard.ArgumentNotNull(() => argument, argument));
         }
 
-        [TestMethod]
+        [Fact]
         public void ArgumentNotNull_Includes_Null_Argument_Name_In_Exception_When_Given_Argument_Is_Null()
         {
             string argument = null;
-            try
-            {
-                Guard.ArgumentNotNull(() => argument, argument);
-            }
-            catch (ArgumentNullException exception)
-            {
-                Assert.AreEqual("argument", exception.ParamName);
-            }
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.ArgumentNotNull(() => argument, argument));
+            Assert.Equal("argument", exception.ParamName);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ArgumentNotNullOrEmpty_Throws_Null_When_Given_Argument_Is_Null()
         {
             string argument = null;
-            Guard.ArgumentNotNullOrEmpty(() => argument, argument);
+            Assert.Throws<ArgumentNullException>(() => Guard.ArgumentNotNullOrEmpty(() => argument, argument));
         }
 
-        [TestMethod]
+        [Fact]
         public void ArgumentNotNullOrEmpty_Includes_Null_Argument_Name_In_Exception_When_Given_Argument_Is_Null()
         {
             var argument = string.Empty;
@@ -46,96 +38,68 @@
             }
             catch (ArgumentNullException exception)
             {
-                Assert.AreEqual("argument", exception.ParamName);
+                Assert.Equal("argument", exception.ParamName);
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void ArgumentNotNullOrEmpty_Throws_Null_When_Given_Argument_Is_Empty()
         {
             string argument = null;
-            Guard.ArgumentNotNullOrEmpty(() => argument, argument);
+            Assert.Throws<ArgumentNullException>(() => Guard.ArgumentNotNullOrEmpty(() => argument, argument));
         }
 
-        [TestMethod]
+        [Fact]
         public void ArgumentNotNullOrEmpty_Includes_Null_Argument_Name_In_Exception_When_Given_Argument_Is_Empty()
         {
             var argument = string.Empty;
-            try
-            {
-                Guard.ArgumentNotNullOrEmpty(() => argument, argument);
-            }
-            catch (ArgumentNullException exception)
-            {
-                Assert.AreEqual("argument", exception.ParamName);
-            }
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.ArgumentNotNullOrEmpty(() => argument, argument));
+            Assert.Equal("argument", exception.ParamName);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [Fact]
         public void ValueNotNull_Throws_Null_When_Given_Argument_Is_Null()
         {
             string argument = null;
-            Guard.ValueNotNull(() => argument, argument);
+            Assert.Throws<NullReferenceException>(() => Guard.ValueNotNull(() => argument, argument));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValueNotNull_Includes_Null_Argument_Name_In_Exception_When_Given_Argument_Is_Null()
         {
             string argument = null;
-            try
-            {
-                Guard.ValueNotNull(() => argument, argument);
-            }
-            catch (NullReferenceException exception)
-            {
-                 Assert.AreEqual("argument", exception.Message);
-            }
+            var exception = Assert.Throws<NullReferenceException>(() => Guard.ValueNotNull(() => argument, argument));
+            Assert.Equal("argument", exception.Message);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [Fact]
         public void ValueNotNullOrEmpty_Throws_Null_When_Given_Argument_Is_Null()
         {
             string argument = null;
-            Guard.ValueNotNullOrEmpty(() => argument, argument);
+            Assert.Throws<NullReferenceException>(() => Guard.ValueNotNullOrEmpty(() => argument, argument));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValueNotNullOrEmpty_Includes_Null_Argument_Name_In_Exception_When_Given_Argument_Is_Null()
         {
             var argument = string.Empty;
-            try
-            {
-                Guard.ValueNotNullOrEmpty(() => argument, argument);
-            }
-            catch (NullReferenceException exception)
-            {
-                Assert.AreEqual("argument", exception.Message);
-            }
+            var exception = Assert.Throws<NullReferenceException>(() => Guard.ValueNotNullOrEmpty(() => argument, argument));
+            Assert.Equal("argument", exception.Message);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [Fact]
         public void ValueNotNullOrEmpty_Throws_Null_When_Given_Argument_Is_Empty()
         {
             string argument = null;
-            Guard.ValueNotNullOrEmpty(() => argument, argument);
+            Assert.Throws<NullReferenceException>(() => Guard.ValueNotNullOrEmpty(() => argument, argument));
         }
 
-        [TestMethod]
+        [Fact]
         public void ValueNotNullOrEmpty_Includes_Null_Argument_Name_In_Exception_When_Given_Argument_Is_Empty()
         {
             var argument = string.Empty;
-            try
-            {
-                Guard.ValueNotNullOrEmpty(() => argument, argument);
-            }
-            catch (NullReferenceException exception)
-            {
-                Assert.AreEqual("argument", exception.Message);
-            }
+            var exception = Assert.Throws<NullReferenceException>(() => Guard.ValueNotNullOrEmpty(() => argument, argument));
+            Assert.Equal("argument", exception.Message);
         }
     }
 }

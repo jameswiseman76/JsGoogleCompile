@@ -2,13 +2,13 @@
 {
     using System.Collections.Generic;
     using JsGoogleCompile.CLI;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class ArgumentRulesTests
     {
-        [TestMethod]
+        [Fact]
         public void Single_FileName_Argument_Is_Valid()
         {
             // Arrange
@@ -24,10 +24,10 @@
             var anyRulesSatified = argumentRules.AnySatisfiedBy(arguments);
 
             // Assert
-            Assert.IsTrue(anyRulesSatified);
+            Assert.True(anyRulesSatified);
         }
 
-        [TestMethod]
+        [Fact]
         public void FileName_And_CompilationLevel_Argument_Is_Valid()
         {
             // Arrange
@@ -44,10 +44,10 @@
             var anyRuleComboSatified = argumentRules.AnySatisfiedBy(arguments);
 
             // Assert
-            Assert.IsTrue(anyRuleComboSatified);
+            Assert.True(anyRuleComboSatified);
         }
 
-        [TestMethod]
+        [Fact]
         public void FileName_And_WarningSuppression_Argument_Is_Valid()
         {
             // Arrange
@@ -63,10 +63,10 @@
             var anyRuleComboSatified = argumentRules.AnySatisfiedBy(arguments);
 
             // Assert
-            Assert.IsTrue(true);
+            Assert.True(true);
         }
 
-        [TestMethod]
+        [Fact]
         public void FileName_And_And_CompilationLevel_WarningSuppression_Argument_Is_Valid()
         {
             // Arrange
@@ -82,7 +82,7 @@
             var anyRuleComboSatified = argumentRules.AnySatisfiedBy(arguments);
 
             // Assert
-            Assert.IsTrue(true);
+            Assert.True(true);
         }
     }
 }

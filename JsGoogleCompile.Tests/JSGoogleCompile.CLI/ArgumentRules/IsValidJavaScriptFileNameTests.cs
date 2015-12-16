@@ -3,28 +3,26 @@
     using System;
 
     using JsGoogleCompile.CLI;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    [TestClass]
+    using Xunit;
+
     public class IsValidJavaScriptFileNameTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void Constructor_Guards_Null_commandLineArguments()
         {
-            var rule = new IsValidJavaScriptFileName(null);
+           Assert.Throws<ArgumentNullException>(() => new IsValidJavaScriptFileName(null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void IsSatisfiedBy_Guards_Null_commandLineArguments()
         {
             var rule = new IsValidJavaScriptFileName(Mock.Of<ICommandLineArguments>());
-            rule.IsSatisfiedBy(null);
+            Assert.Throws<ArgumentNullException>(() => rule.IsSatisfiedBy(null));
         }
 
-        [TestMethod]
+        [Fact]
         public void Rule_Is_Satisfied_By_Valid_Js_File_Name()
         {
             // Arrange
@@ -36,10 +34,10 @@
             var isSatisfiedBy = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsTrue(isSatisfiedBy);
+            Assert.True(isSatisfiedBy);
         }
 
-        [TestMethod]
+        [Fact]
         public void Rule_Is_Satisfied_By_Valid_Js_File_Name_As_One_Of_Many_Arguments()
         {
             // Arrange
@@ -51,10 +49,10 @@
             var isSatisfiedBy = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsTrue(isSatisfiedBy);
+            Assert.True(isSatisfiedBy);
         }
 
-        [TestMethod]
+        [Fact]
         public void Rule_Is_Satisfied_By_Valid_Js_File_Name_As_One_Of_Many_Arguments_Regardless_Of_Position()
         {
             // Arrange
@@ -66,10 +64,10 @@
             var isSatisfiedBy = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsTrue(isSatisfiedBy);
+            Assert.True(isSatisfiedBy);
         }
 
-        [TestMethod]
+        [Fact]
         public void Rule_Is_Satisfied_By_Valid_Js_File_Name_Regardless_Of_Captial_Casing()
         {
             // Arrange
@@ -81,10 +79,10 @@
             var isSatisfiedBy = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsTrue(isSatisfiedBy);
+            Assert.True(isSatisfiedBy);
         }
 
-        [TestMethod]
+        [Fact]
         public void Command_Line_Arguments_FileName_Is_Set()
         {
             // Arrange
@@ -100,7 +98,7 @@
             commandLineArguments.VerifySet(m => m.FileName = expectedFileName);
         }
 
-        [TestMethod]
+        [Fact]
         public void Rule_Is_Not_Satisfied_When_Invalid_Js_File_Name_Is_Passed()
         {
             // Arrange
@@ -112,10 +110,10 @@
             var isSatisfiedBy = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsFalse(isSatisfiedBy);
+            Assert.False(isSatisfiedBy);
         }
 
-        [TestMethod]
+        [Fact]
         public void Rule_Is_Not_Satisfied_sWhen_Empty_Js_File_Name_Is_Passed()
         {
             // Arrange
@@ -127,7 +125,7 @@
             var isSatisfiedBy = rule.IsSatisfiedBy(args);
 
             // Assert
-            Assert.IsFalse(isSatisfiedBy);
+            Assert.False(isSatisfiedBy);
         }
     }
 }
