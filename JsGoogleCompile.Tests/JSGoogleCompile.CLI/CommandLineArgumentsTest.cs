@@ -37,7 +37,7 @@
                 Assert.Equal(expected, sw.ToString());
             }
 
-            this.ResetStdOut();
+            ResetStdOut();
         }
 
         [Fact]
@@ -56,7 +56,7 @@
                 Assert.Equal(expected, sw.ToString());
             }
 
-            this.ResetStdOut();
+            ResetStdOut();
         }
 
         [Fact]
@@ -111,7 +111,7 @@
             compilationLevelHelperMock.Verify(m => m.IsValid(It.Is<string>(p => p == expectedCompilationLevel)), Times.Exactly(2));
         }
 
-        private void ResetStdOut()
+        private static void ResetStdOut()
         {
             var standardOutput = new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true };
             Console.SetOut(standardOutput);
