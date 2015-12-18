@@ -2,3 +2,14 @@ before_build:
   - nuget restore
 configuration:
   - Release
+deploy:
+  description: 'JsGoogleCompile Release Installer'
+  provider: GitHub
+  auth_token:
+    secure: dgDt+ohXwD23mqCF+5lTLO3hxaoksKCXLDJFix4VfS9yUpdY22wpQRRRI9AQm3CO
+  artifact: JsGoogleCompile.Wix\bin\Release\JsGoogleCompile.msi
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
