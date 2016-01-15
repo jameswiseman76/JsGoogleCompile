@@ -37,6 +37,9 @@
          must be a menu. -->
     <Groups>
       <Group guid="guidJsGoogleCompilePackageCmdSet" id="MyMenuGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+      </Group>
+      <Group guid="guidJsGoogleCompilePackageCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
     </Groups>
@@ -55,8 +58,10 @@
       <Button guid="guidJsGoogleCompilePackageCmdSet" id="JsGoogleCompileId" priority="0x0100" type="Button">
         <Parent guid="guidJsGoogleCompilePackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
+        <!-- <CommandFlag>DefaultInvisible</CommandFlag> -->
+        <!-- <CommandFlag>DynamicVisibility</CommandFlag> -->
         <Strings>
-          <ButtonText>Invoke JsGoogleCompile</ButtonText>
+          <ButtonText>Compile with Google Closure Compiler</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -80,6 +85,7 @@
     <GuidSymbol name="guidJsGoogleCompilePackageCmdSet" value="{8b2c61b8-73ec-406f-82b5-8dae60b0b39b}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="JsGoogleCompileId" value="0x0100" />
+      <IDSymbol name="ProjectFileContextMenuCommandId" value="0x0101" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{22ffd973-5c02-4047-b0b1-f5667f788aa0}" >

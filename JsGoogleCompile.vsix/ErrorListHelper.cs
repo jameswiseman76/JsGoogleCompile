@@ -27,7 +27,7 @@
 
         public ErrorListProvider GetErrorListProvider()
         {
-            ErrorListProvider provider = new ErrorListProvider(this);//this implementing IServiceProvider
+            ErrorListProvider provider = new ErrorListProvider(this); //this implementing IServiceProvider
             provider.ProviderName = "JS Google Closure Compiler";
             provider.ProviderGuid = Guid.Parse("DD9ACCF5-3445-452F-92A1-0649774B6E32");
             return provider;
@@ -45,12 +45,13 @@
             ErrorTask task = new ErrorTask();
             task.Text = text;
             task.ErrorCategory = errorCategory;
+
             //The task list does +1 before showing this numbers
             task.Line = line - 1;
             task.Column = column - 1;
             task.Document = document;
             task.Category = category;
-
+            
             if (!string.IsNullOrEmpty(document))
             {
                 //attach to the navigate event
@@ -59,6 +60,8 @@
 
             //add it to the errorlistprovider
             errorListProvider.Tasks.Add(task);
+
+            errorListProvider.BringToFront();
         }
 
         public void Remove()
@@ -66,8 +69,7 @@
             errorListProvider.Tasks.Clear();
         }
 
-        public static void OpenDocumentAndNavigateTo(
-                                            string path, int line, int column)
+        public static void OpenDocumentAndNavigateTo(string path, int line, int column)
         {
             IVsUIShellOpenDocument openDoc = Package.GetGlobalService(typeof(IVsUIShellOpenDocument)) as IVsUIShellOpenDocument;
 
@@ -109,6 +111,7 @@
                     }
                 }
             }
+
             // Finally, perform the navigation.  
             IVsTextManager mgr = Package.GetGlobalService(typeof(VsTextManagerClass))
                  as IVsTextManager;
