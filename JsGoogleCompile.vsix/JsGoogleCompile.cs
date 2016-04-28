@@ -15,16 +15,18 @@ namespace JsGoogleCompile.vsix
     using System.IO;
     using Microsoft.VisualStudio;
     using System.Runtime.InteropServices;
-    using Microsoft.VisualStudio.Shell.Interop;/// <summary>
-                                               /// Command handler
-                                               /// </summary>
+    using Microsoft.VisualStudio.Shell.Interop;
+
     internal sealed class JsGoogleCompile
     {
         /// <summary>
-        /// Command ID.
+        /// Ide Window Context Menu Command ID.
         /// </summary>
         public const int IdeActiveDocContextMenuCommandId = 0x0100;
 
+        /// <summary>
+        /// Project File Context Menu Command ID.
+        /// </summary>
         public const int ProjectFileContextMenuCommandId = 0x0101;
 
         /// <summary>
@@ -46,10 +48,7 @@ namespace JsGoogleCompile.vsix
         /// <param name="package">Owner package, not null.</param>
         private JsGoogleCompile(Package package)
         {
-            if (package == null)
-            {
-                throw new ArgumentNullException("package");
-            }
+            Guard.ArgumentNotNull(() => package, package);
 
             if (errorListHelper == null)
             {
@@ -58,16 +57,22 @@ namespace JsGoogleCompile.vsix
 
             this.package = package;
 
-            OleMenuCommandService commandService = this.ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            OleMenuCommandService commandService = this.ServiceProvider.GetService(
+                typeof(IMenuCommandService)) as OleMenuCommandService;
+
             if (commandService != null)
             {
-                var menuCommandID = new CommandID(CommandSet, IdeActiveDocContextMenuCommandId);
-
-                var menuItem = new OleMenuCommand(MenuItemCallback, menuCommandID);
-                menuItem.BeforeQueryStatus += menuCommand_BeforeQueryStatus;
-
-                commandService.AddCommand(menuItem);
+                AddCommandMenuItem(commandService, IdeActiveDocContextMenuCommandId);
+                AddCommandMenuItem(commandService, ProjectFileContextMenuCommandId);
             }
+        }
+
+        private void AddCommandMenuItem(OleMenuCommandService commandService, int menuCommandId)
+        {
+            var commandId = new CommandID(CommandSet, menuCommandId);
+            var menuCommand = new OleMenuCommand(MenuItemCallback, commandId);
+            menuCommand.BeforeQueryStatus += menuCommand_BeforeQueryStatus;
+            commandService.AddCommand(menuCommand);
         }
 
         private void menuCommand_BeforeQueryStatus(object sender, EventArgs e)
@@ -80,14 +85,14 @@ namespace JsGoogleCompile.vsix
                 menuCommand.Enabled = false;
 
                 var dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-                var doc = dte.ActiveDocument;
+                var activeDocument = dte.ActiveDocument;
 
-                if (doc == null)
+                if (activeDocument == null)
                 {
                     return;
                 }
 
-                if (Path.GetExtension(doc.FullName).ToUpper() != ".JS")
+                if (Path.GetExtension(activeDocument.FullName).ToUpper() != ".JS")
                 {
                     return;
                 }
